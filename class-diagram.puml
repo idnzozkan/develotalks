@@ -1,0 +1,262 @@
+@startuml "Class Diagram"
+
+class User <<Entity>> {
+    + name: String
+    + username: String
+    + profilePhoto: String
+    + userBio: String
+    + socialLinks: [String]
+    + field: [Fields]
+    + spokenLangs: [SpokenLanguage]
+    + friends: [User]
+    + messages: [Message]
+    + clapsCount: Number
+    + isOnline: Boolean
+    + isInARoom: Boolean
+
+    + createRoom()
+    + joinRoom()
+    + filterRooms()
+    + reportUser()
+    + giveClapToUser()
+    + sendFriendRequest()
+    + acceptFriendRequest()
+    + rejectFriendRequest()
+    + sendMessage()
+
+    ' Participant methods
+    + muteParticipant()
+    + useMic()
+    + useWebcam()
+    + useChatBox()
+    + shareScreen()
+    + leaveFromRoom()
+
+    ' Owner methods
+    + kickOutParticipant()
+    + changeRoomSettings() 
+    + takeUserIntoRoom()
+}
+
+class CreatingARoom <<ValueObject>> {
+    + title: String
+    + owner: User
+
+    + setTitle()
+    + setRoomLanguage()
+    + setMaxParticipants()
+    + setCanUseMic()
+    + setCanUseWebcam()
+    + setCanShareScreen()
+    + setCanTypeToChatBox()
+    + setWaitingRoom()
+    + setRoomTags()
+}
+
+class JoiningARoom <<ValueObject>> {
+    + isRoomFull: Boolean
+    + isUserKickedOutBefore: Boolean
+    + isWaitingRoomActive: Boolean
+
+    + giveSuccessMessageToUser()
+}
+
+class Room <<Entity>> {
+    + shareableLink: String
+    + title: String
+    + owner: User
+    + participants: [User]
+    + isRoomFull: Boolean
+    + roomLanguage: SpokenLanguage
+    + maxParticipants: Number
+    + canUseMic: Boolean
+    + canUseWebcam: Boolean
+    + canShareScreen: Boolean
+    + canTypeToChatBox: Boolean
+    + isWaitingRoomActive: Boolean
+    + roomTags: [Fields]
+}
+
+class Clap <<ValueObject>> {
+    + senderUser: User
+    + receiverUser: User
+
+    + notifySender()
+    + notifyReceiver()
+    + increaseReceiversClaps()
+}
+
+class FriendRequest <<ValueObject>> {
+    + senderUser: User
+    + receiverUser: User
+    + isApproved: Boolean
+
+    + notifySender()
+    + notifyReceiver()
+    + addToFriendsArray()
+}
+
+class Message <<ValueObject>> {
+    + senderUser: User
+    + receiverUser: User
+    + message: String
+
+    + notifySender()
+    + notifyReceiver()
+}
+
+class SpokenLanguage <<ValueObject>> {
+    language: Languages
+    flagImage: String
+}
+
+enum Fields {
+    FRONTEND
+    BACKEND
+    DEVOPS
+    CYBER_SECURITY
+    WEB_DEVELOPMENT
+    GAME_DEVELOPMENT
+    MOBILE_DEVELOPMENT
+    ARTIFICAL_INTELLIGENCE
+    DATA_SCIENCE
+    MACHINE_LEARNING
+    ROBOTICS
+    IOT
+}
+
+enum Languages {
+    AFRIKAANS
+    ALBANIAN
+    AMHARIC
+    ARABIC
+    ARMENIAN
+    AZERBAIJANI
+    BASQUE
+    BELARUSIAN
+    BENGALI
+    BOSNIAN
+    BULGARIAN
+    CATALAN
+    CEBUANO
+    CHICHEWA
+    CHINESE
+    CORSICAN
+    CROATIAN
+    CZECH
+    DANISH
+    DUTCH
+    HISTORY
+    ENGLISH
+    ESPERANTO
+    ESTONIAN
+    FILIPINO
+    FINNISH
+    FRENCH
+    FRISIAN
+    GALICIAN
+    GEORGIAN
+    GERMAN
+    GREEK
+    GUJARATI
+    HAITIAN
+    CREOLE
+    HAUSA
+    HAWAIIAN
+    HEBREW
+    HINDI
+    HMONG
+    HUNGARIAN
+    ICELANDIC
+    IGBO
+    INDONESIAN
+    IRISH
+    ITALIAN
+    JAPANESE
+    JAVANESE
+    KANNADA
+    KAZAKH
+    KHMER
+    KINYARWANDA
+    KOREAN
+    KURDISH
+    KYRGYZ
+    LAO
+    LATIN
+    LATVIAN
+    LITHUANIAN
+    LUXEMBOURGISH
+    MACEDONIAN
+    MALAGASY
+    MALAY
+    MALAYALAM
+    MALTESE
+    MAORI
+    MARATHI
+    MONGOLIAN
+    MYANMAR
+    NEPALI
+    NORWEGIAN
+    ODIA
+    PASHTO
+    PERSIAN
+    POLISH
+    PORTUGUESE
+    PUNJABI
+    ROMANIAN
+    RUSSIAN
+    SAMOAN
+    SCOTS
+    GAELIC
+    SERBIAN
+    SESOTHO
+    SHONA
+    SINDHI
+    SINHALA
+    SLOVAK
+    SLOVENIAN
+    SOMALI
+    SPANISH
+    SUNDANESE
+    SWAHILI
+    SWEDISH
+    TAJIK
+    TAMIL
+    TATAR
+    TELUGU
+    THAI
+    CHECK
+    TURKISH
+    TURKMEN
+    UKRAINIAN
+    URDU
+    UYGHUR
+    UZBEK
+    VIETNAMESE
+    WELSH
+    XHOSA
+    YIDDISH
+    YORUBA
+    ZULU
+}
+
+User --> Room
+(User, Room) . CreatingARoom
+
+User --> Room
+(User, Room) . JoiningARoom
+
+
+User --> SpokenLanguage
+User -- Fields
+
+Room --> SpokenLanguage
+Room -- Fields
+
+SpokenLanguage -- Languages
+
+
+User -> Clap
+User -> Message
+User -> FriendRequest
+@enduml
