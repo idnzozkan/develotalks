@@ -13,6 +13,7 @@ class User <<Entity>> {
     + clapsCount: Number
     + isOnline: Boolean
     + isInARoom: Boolean
+    + onlineAtRoom: Room
 
     + createRoom()
     + joinRoom()
