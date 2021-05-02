@@ -6,23 +6,22 @@ class User <<Entity>> {
     + profilePhoto: String
     + userBio: String
     + socialLinks: [String]
-    + field: [Fields]
+    + interests: [Fields]
     + spokenLangs: [SpokenLanguage]
     + friends: [User]
+    + followers: [User]
+    + following: [User]
     + messages: [Message]
-    + clapsCount: Number
+    + starCount: Number
+    + starredUsers: [User]
     + isOnline: Boolean
     + isInARoom: Boolean
     + onlineAtRoom: Room
 
     + createRoom()
     + joinRoom()
-    + filterRooms()
     + reportUser()
-    + giveClapToUser()
-    + sendFriendRequest()
-    + acceptFriendRequest()
-    + rejectFriendRequest()
+    + giveStarToUser()
     + sendMessage()
 
     ' Participant methods
@@ -31,42 +30,49 @@ class User <<Entity>> {
     + useWebcam()
     + useChatBox()
     + shareScreen()
-    + leaveFromRoom()
+    + stopSession()
 
     ' Owner methods
     + kickOutParticipant()
+    + unBanParticipant()
     + changeRoomSettings() 
-    + takeUserIntoRoom()
+    + takeWaitingUserIntoRoom()
+    + takeAllWaitingUsersIntoRoom()
 }
 
-class CreatingARoom <<ValueObject>> {
-    + title: String
-    + owner: User
+' class CreatingARoom <<ValueObject>> {
+'     + title: String
+'     + owner: User
 
-    + setTitle()
-    + setRoomLanguage()
-    + setMaxParticipants()
-    + setCanUseMic()
-    + setCanUseWebcam()
-    + setCanShareScreen()
-    + setCanTypeToChatBox()
-    + setWaitingRoom()
-    + setRoomTags()
-}
+'     + setTitle()
+'     + setDescription()
+'     + setRoomLanguage()
+'     + setMaxParticipants()
+'     + setCanUseMic()
+'     + setCanUseWebcam()
+'     + setCanShareScreen()
+'     + setCanTypeToChatBox()
+'     + setPrivacy()
+'     + setRoomTags()
+' }
 
-class JoiningARoom <<ValueObject>> {
-    + isRoomFull: Boolean
-    + isUserKickedOutBefore: Boolean
-    + isWaitingRoomActive: Boolean
+' class JoiningARoom <<ValueObject>> {
+'     + isRoomFull: Boolean
+'     + isUserKickedOutBefore: Boolean
+'     + isRoomPrivate: Boolean
 
-    + giveSuccessMessageToUser()
-}
+'     + giveSuccessMessageToUser()
+' }
 
 class Room <<Entity>> {
     + shareableLink: String
     + title: String
+    + description: String
     + owner: User
     + participants: [User]
+    + kickedPeople: [User]
+    + waitingUsers: [User]
+    + isPrivate: Boolean
     + isRoomFull: Boolean
     + roomLanguage: SpokenLanguage
     + maxParticipants: Number
@@ -74,27 +80,16 @@ class Room <<Entity>> {
     + canUseWebcam: Boolean
     + canShareScreen: Boolean
     + canTypeToChatBox: Boolean
-    + isWaitingRoomActive: Boolean
     + roomTags: [Fields]
 }
 
-class Clap <<ValueObject>> {
+class Star <<ValueObject>> {
     + senderUser: User
     + receiverUser: User
 
     + notifySender()
     + notifyReceiver()
-    + increaseReceiversClaps()
-}
-
-class FriendRequest <<ValueObject>> {
-    + senderUser: User
-    + receiverUser: User
-    + isApproved: Boolean
-
-    + notifySender()
-    + notifyReceiver()
-    + addToFriendsArray()
+    + increaseReceiversStars()
 }
 
 class Message <<ValueObject>> {
@@ -106,12 +101,22 @@ class Message <<ValueObject>> {
     + notifyReceiver()
 }
 
-class SpokenLanguage <<ValueObject>> {
-    language: Languages
-    flagImage: String
+enum Fields {
+    FRONTEND
+    BACKEND
+    DEVOPS
+    CYBER_SECURITY
+    WEB_DEVELOPMENT
+    GAME_DEVELOPMENT
+    MOBILE_DEVELOPMENT
+    ARTIFICAL_INTELLIGENCE
+    DATA_SCIENCE
+    MACHINE_LEARNING
+    ROBOTICS
+    IOT
 }
 
-enum Fields {
+enum Tags {
     FRONTEND
     BACKEND
     DEVOPS
@@ -242,22 +247,21 @@ enum Languages {
 }
 
 User --> Room
-(User, Room) . CreatingARoom
+' (User, Room) . CreatingARoom
 
-User --> Room
-(User, Room) . JoiningARoom
+' User --> Room
+' (User, Room) . JoiningARoom
 
 
-User --> SpokenLanguage
+User --> Languages
 User -- Fields
 
-Room --> SpokenLanguage
+Room --> Languages
 Room -- Fields
 
-SpokenLanguage -- Languages
+' SpokenLanguage -- Languages
 
 
-User -> Clap
+User -> Star
 User -> Message
-User -> FriendRequest
 @enduml
