@@ -1,0 +1,27 @@
+{
+  "name": "develotalks",
+  "version": "1.0.0",
+  "description": "Developer meeting center",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idnzozkan/develotalks.git"
+  },
+  "author": "Deniz Ozkan <ibrahimdenizozkan@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/idnzozkan/develotalks/issues"
+  },
+  "homepage": "https://github.com/idnzozkan/develotalks#readme",
+  "dependencies": {
+    "colors": "^1.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
