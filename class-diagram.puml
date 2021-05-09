@@ -14,7 +14,6 @@ class User <<Entity>> {
     + messages: [Message]
     + starCount: Number
     + starredUsers: [User]
-    + isOnline: Boolean
     + isInARoom: Boolean
     + onlineAtRoom: Room
 
@@ -39,30 +38,6 @@ class User <<Entity>> {
     + takeWaitingUserIntoRoom()
     + takeAllWaitingUsersIntoRoom()
 }
-
-' class CreatingARoom <<ValueObject>> {
-'     + title: String
-'     + owner: User
-
-'     + setTitle()
-'     + setDescription()
-'     + setRoomLanguage()
-'     + setMaxParticipants()
-'     + setCanUseMic()
-'     + setCanUseWebcam()
-'     + setCanShareScreen()
-'     + setCanTypeToChatBox()
-'     + setPrivacy()
-'     + setRoomTags()
-' }
-
-' class JoiningARoom <<ValueObject>> {
-'     + isRoomFull: Boolean
-'     + isUserKickedOutBefore: Boolean
-'     + isRoomPrivate: Boolean
-
-'     + giveSuccessMessageToUser()
-' }
 
 class Room <<Entity>> {
     + shareableLink: String
@@ -247,20 +222,11 @@ enum Languages {
 }
 
 User --> Room
-' (User, Room) . CreatingARoom
-
-' User --> Room
-' (User, Room) . JoiningARoom
-
-
 User --> Languages
 User -- Fields
 
 Room --> Languages
 Room -- Fields
-
-' SpokenLanguage -- Languages
-
 
 User -> Star
 User -> Message
