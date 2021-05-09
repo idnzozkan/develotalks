@@ -26,7 +26,6 @@ class User {
     this.messages = [];
     this.starCount = 0;
     this.starredUsers = [];
-    this.isOnline = true;
     this.isInAWaitingRoom = false;
     this.onlineAtRoom = null;
     this.createdRoom = null;
