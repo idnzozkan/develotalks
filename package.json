@@ -8,6 +8,11 @@
     "watch": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "*.json"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/idnzozkan/develotalks.git"
@@ -19,7 +24,8 @@
   },
   "homepage": "https://github.com/idnzozkan/develotalks#readme",
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "flatted": "^3.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
