@@ -1,5 +1,5 @@
 const BaseDatabase = require("./base-database");
-const Room = require("./room");
+const Room = require("../room");
 
 class CreatedRoomsDatabase extends BaseDatabase {
   findByOwner(ownerName) {

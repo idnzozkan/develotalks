@@ -2,8 +2,7 @@ const User = require("./user");
 const Tags = require("./enums/Tags");
 const Interests = require("./enums/Interests");
 const Languages = require("./enums/Languages");
-const usersDatabase = require("./users-database");
-const createdRoomsDatabase = require("./createdRooms-database");
+const { usersDatabase, createdRoomsDatabase } = require("./database");
 const colors = require("colors");
 
 const dennis = new User(

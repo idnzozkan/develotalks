@@ -1,5 +1,5 @@
 const BaseDatabase = require("./base-database");
-const User = require("./user");
+const User = require("../user");
 
 class UsersDatabase extends BaseDatabase {
   findByName(name) {
