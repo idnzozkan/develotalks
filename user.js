@@ -1,9 +1,9 @@
 const Room = require("./room");
 const colors = require("colors");
+const { v4: uuidv4 } = require("uuid");
 
 class User {
   constructor(
-    id,
     name,
     username,
     profilePhoto,
@@ -12,7 +12,7 @@ class User {
     interests,
     spokenLangs
   ) {
-    this.id = id;
+    this.id = uuidv4();
     this.name = name;
     this.username = username;
     this.profilePhoto = profilePhoto;
@@ -43,6 +43,8 @@ class User {
     isPrivate,
     roomTags
   ) {
+    if (this.onlineAtRoom) this.stopSession();
+
     const room = new Room(
       this,
       title,
@@ -91,7 +93,9 @@ class User {
       this.onlineAtRoom = room;
       room.participants.push(this);
 
-      console.log(colors.green(`${this.name} joined`));
+      console.log(
+        colors.green(`${this.name} joined ${room.owner.name}'s room`)
+      );
     }
   }
 
@@ -142,12 +146,18 @@ class User {
       user.isInAWaitingRoom = false;
       this.createdRoom.participants.push(user);
       user.onlineAtRoom = this.createdRoom;
-      console.log(colors.cyan(`${user.name} joined`));
+      console.log(
+        colors.cyan(`${this.name} accepted ${user.name}'s joining request`)
+      );
     }
     // all users
     else {
       this.createdRoom.waitingPeople.map((waitingUser) => {
-        console.log(colors.cyan(`${waitingUser.name} joined`));
+        console.log(
+          colors.cyan(
+            `${this.name} accepted ${waitingUser.name}'s joining request`
+          )
+        );
         return (waitingUser.isInAWaitingRoom = false);
       });
       this.createdRoom.waitingPeople.map(
@@ -161,6 +171,49 @@ class User {
 
       this.createdRoom.waitingPeople = [];
     }
+  }
+
+  static create({
+    id,
+    name,
+    username,
+    profilePhoto,
+    userBio,
+    socialLinks,
+    interests,
+    spokenLangs,
+    friends,
+    followings,
+    followers,
+    messages,
+    starCount,
+    starredUsers,
+    isInAWaitingRoom,
+    onlineAtRoom,
+    createdRoom
+  }) {
+    const newUser = new User(
+      name,
+      username,
+      profilePhoto,
+      userBio,
+      socialLinks,
+      interests,
+      spokenLangs
+    );
+
+    newUser.id = id;
+    newUser.friends = friends;
+    newUser.followings = followings;
+    newUser.followers = followers;
+    newUser.messages = messages;
+    newUser.starCount = starCount;
+    newUser.starredUsers = starredUsers;
+    newUser.isInAWaitingRoom = isInAWaitingRoom;
+    newUser.onlineAtRoom = onlineAtRoom;
+    newUser.createdRoom = createdRoom;
+
+    return newUser;
   }
 }
 
