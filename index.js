@@ -2,13 +2,11 @@ const User = require("./user");
 const Tags = require("./enums/Tags");
 const Interests = require("./enums/Interests");
 const Languages = require("./enums/Languages");
-
+const usersDatabase = require("./users-database");
+const createdRoomsDatabase = require("./createdRooms-database");
 const colors = require("colors");
 
-const db = require("./database");
-
 const dennis = new User(
-  1,
   "Deniz",
   "dennis",
   "imgURL",
@@ -19,7 +17,6 @@ const dennis = new User(
 );
 
 const john = new User(
-  2,
   "John Doe",
   "john.doe",
   "https://johndoe.com/image.jpg",
@@ -30,7 +27,6 @@ const john = new User(
 );
 
 const kristina = new User(
-  3,
   "Kristina",
   "iamkristina",
   "/img/kristina.jpg",
@@ -38,6 +34,16 @@ const kristina = new User(
   [],
   [Interests.FRONTEND, Interests.WEB_DEVELOPMENT],
   [Languages.RUSSIAN, Languages.ENGLISH]
+);
+
+const mikasa = new User(
+  "Mikasa",
+  "mikasa0123",
+  "https://example.com/image.jpg",
+  "こんにちは、日本の三笠です",
+  ["https://www.github.com/", "https://www.mikasa.dev"],
+  [Interests.FRONTEND],
+  [Languages.JAPANESE, Languages.ENGLISH]
 );
 
 const dennisRoom = dennis.createRoom(
@@ -53,34 +59,98 @@ const dennisRoom = dennis.createRoom(
   [Tags.JAVASCRIPT, Tags.PAIR_PROGRAMMING, Tags.WEB_DEVELOPMENT]
 );
 
-john.joinRoom(dennisRoom);
-dennis.acceptWaitingUser();
+const kristinaRoom = kristina.createRoom(
+  "Let's talk about computer science",
+  "Welcome to my room! Feel free to introduce yourself!",
+  Languages.ENGLISH,
+  4,
+  true,
+  false,
+  false,
+  true,
+  false,
+  [Tags.COMPUTER_SCIENCE, Tags.CAREER]
+);
 
-// db.save("createdRooms", [dennisRoom]);
-// db.save("users", [dennis, john]);
-// db.insert("users", kristina);
-// db.remove("users", 2);
-const foundUser = db.findByName("users", "John Doe");
+const mikasaRoom = mikasa.createRoom(
+  "ソフトウェア開発への熱意",
+  "How to become like Eren at software development?",
+  Languages.JAPANESE,
+  10,
+  true,
+  true,
+  true,
+  false,
+  false,
+  [Tags.CAREER, Tags.JAVASCRIPT]
+);
 
-const createdRooms = db.load("createdRooms");
-const users = db.load("users");
+usersDatabase.save([dennis, john, kristina, mikasa]);
+createdRoomsDatabase.save([dennisRoom, kristinaRoom, mikasaRoom]);
 
-if (foundUser.onlineAtRoom) {
-  console.log(
-    colors.blue(`${foundUser.name}`),
-    "online in a room with room ID",
-    colors.bgRed.white(`${foundUser.onlineAtRoom.shareableLink}`)
-  );
-} else {
-  console.log(
-    colors.red(`${colors.bgRed.white(`${foundUser.name}`)} is not in a room`)
-  );
+const users = usersDatabase.load();
+printOnlineUserStats();
+
+const createdRooms = createdRoomsDatabase.load();
+fetchRooms("English");
+
+function fetchRooms(lang, tag) {
+  if (lang && !tag) {
+    console.log(`Fetching ${lang} rooms...`);
+    let filteredByLangRooms = createdRoomsDatabase.filterByLang(lang);
+    filteredByLangRooms.forEach((room) => printRoomStats(room));
+  } else if (tag && !lang) {
+    console.log(`Fetching ${tag} rooms...`);
+    let filteredByTagRooms = createdRoomsDatabase.filterByTag(tag);
+    filteredByTagRooms.forEach((room) => printRoomStats(room));
+  } else if (lang && tag) {
+    console.log(`Fetching ${lang} and ${tag} rooms...`);
+    let filteredByLangAndTagRooms = createdRoomsDatabase.filterByLangAndTag(
+      lang,
+      tag
+    );
+    filteredByLangAndTagRooms.forEach((room) => printRoomStats(room));
+  } else {
+    console.log(`Fetching all rooms...`);
+    createdRooms.forEach((room) => {
+      printRoomStats(room);
+    });
+  }
 }
 
-// createdRooms.forEach((room) => {
-//   console.log("Room:", room.title);
-// });
+function printRoomStats(room) {
+  console.log(`
+  ${colors.bold(`Room ID:`)} ${room.id}
+  ${colors.bold(`Title:`)} ${room.title} ${
+    room.isPrivate ? `${colors.yellow(`[PRIVATE]`)}` : ``
+  }
+  ${colors.bold(`Language:`)} ${room.roomLanguage}
+  ${colors.bold(`Tags:`)}  ${room.roomTags.toString()}
+  ${colors.bold(`Capacity:`)} ${room.participants.length} / ${
+    room.maxParticipants
+  }
 
-// users.forEach((user) => {
-//   console.log("User:", user.name);
-// });
+  ${colors.italic(
+    `Createad by ${room.owner.name} ${Date.now() - room.createdAt} ms ago`
+  )}
+
+  ${colors.rainbow("* * * ")}
+  `);
+}
+
+function printOnlineUserStats() {
+  users.forEach((u) => {
+    if (u.onlineAtRoom) {
+      console.log(
+        colors.green.bold(`${u.name}`),
+        "online in a room with room ID",
+        colors.bgGreen.black(`${u.onlineAtRoom.id}`)
+      );
+    } else {
+      console.log(
+        colors.red(`${colors.red.bold(`${u.name}`)} is not in a room`)
+      );
+    }
+    console.log("---------------------");
+  });
+}
