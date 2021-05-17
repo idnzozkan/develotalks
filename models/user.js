@@ -112,9 +112,9 @@ class User {
 
   // Owner methods
   kickOutParticipant(user) {
-    if (this !== this.onlineAtRoom?.owner) {
+    if (this.id !== this.onlineAtRoom?.owner.id) {
       console.log(colors.red("You do not have permission to do this"));
-    } else if (this === this.onlineAtRoom.owner && user === this) {
+    } else if (this.id === this.onlineAtRoom.owner.id && user.id === this.id) {
       console.log(colors.red("You cannot kick yourself. Try to disconnect."));
     } else {
       user.onlineAtRoom = null;
