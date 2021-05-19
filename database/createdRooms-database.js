@@ -1,24 +1,22 @@
-const BaseDatabase = require("./base-database");
-const Room = require("../models/room");
+const BaseDatabase = require("./base-database")
+const Room = require("../models/room")
 
 class CreatedRoomsDatabase extends BaseDatabase {
-  findByOwner(ownerName) {
-    return this.load().find((o) => o.owner.name == ownerName);
+  async findByOwner(ownerName) {
+    return (await this.load()).find(o => o.owner.name == ownerName)
   }
 
-  filterByLang(lang) {
-    return this.load().filter((o) => o.roomLanguage == lang);
+  async filterByLang(lang) {
+    return (await this.load()).filter(o => o.roomLanguage == lang)
   }
 
-  filterByTag(tag) {
-    return this.load().filter((o) => o.roomTags.includes(tag));
+  async filterByTag(tag) {
+    return (await this.load()).filter(o => o.roomTags.includes(tag))
   }
 
-  filterByLangAndTag(lang, tag) {
-    return this.load().filter(
-      (o) => o.roomLanguage == lang && o.roomTags.includes(tag)
-    );
+  async filterByLangAndTag(lang, tag) {
+    return (await this.load()).filter(o => o.roomLanguage == lang && o.roomTags.includes(tag))
   }
 }
 
-module.exports = new CreatedRoomsDatabase(Room);
+module.exports = new CreatedRoomsDatabase(Room)

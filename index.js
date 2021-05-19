@@ -1,16 +1,21 @@
-const { usersDatabase, createdRoomsDatabase } = require("./database");
-const { printOnlineUserStats, printRoomStats } = require("./lib");
+const { usersDatabase, createdRoomsDatabase } = require("./database")
+const { printOnlineUserStats, printRoomStats } = require("./lib")
 
-const john = usersDatabase.findByName("John Doe");
-const kristina = usersDatabase.findByName("Kristina");
+async function main() {
+  const john = await usersDatabase.findByName("John Doe")
+  const kristina = await usersDatabase.findByName("Kristina")
+  const kristinasRoom = await createdRoomsDatabase.findByOwner("Kristina")
 
-john.joinRoom(kristina.createdRoom);
-usersDatabase.update(john);
-createdRoomsDatabase.update(kristina.createdRoom);
+  john.joinRoom(kristinasRoom)
+  await usersDatabase.update(john)
+  await createdRoomsDatabase.update(kristinasRoom)
 
-kristina.kickOutParticipant(john);
-usersDatabase.update(john);
-createdRoomsDatabase.update(kristina.createdRoom);
+  kristina.kickOutParticipant(john)
+  await usersDatabase.update(john)
+  await createdRoomsDatabase.update(kristinasRoom)
 
-printOnlineUserStats([john]);
-printRoomStats(kristina.createdRoom);
+  printOnlineUserStats([john])
+  printRoomStats(kristinasRoom)
+}
+
+main()

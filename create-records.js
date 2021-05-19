@@ -1,9 +1,9 @@
-const User = require("./models/user");
-const Tags = require("./enums/Tags");
-const Interests = require("./enums/Interests");
-const Languages = require("./enums/Languages");
-const { usersDatabase, createdRoomsDatabase } = require("./database");
-const { printOnlineUserStats, printRoomStats } = require("./lib");
+const User = require("./models/user")
+const Tags = require("./enums/Tags")
+const Interests = require("./enums/Interests")
+const Languages = require("./enums/Languages")
+const { usersDatabase, createdRoomsDatabase } = require("./database")
+const { printOnlineUserStats, printRoomStats } = require("./lib")
 
 const dennis = new User(
   "Deniz",
@@ -13,17 +13,7 @@ const dennis = new User(
   ["twitter.com/account", "github.com/account", "linkedin.com/in/account"],
   [Interests.FRONTEND, Interests.BACKEND, Interests.DEVOPS],
   [Languages.ENGLISH, Languages.TURKISH]
-);
-
-const john = new User(
-  "John Doe",
-  "john.doe",
-  "https://johndoe.com/image.jpg",
-  "Hey, I am John Doe.",
-  ["https://www.instagram.com/johndoe"],
-  [Interests.BACKEND],
-  [Languages.ENGLISH]
-);
+)
 
 const kristina = new User(
   "Kristina",
@@ -33,7 +23,7 @@ const kristina = new User(
   [],
   [Interests.FRONTEND, Interests.WEB_DEVELOPMENT],
   [Languages.RUSSIAN, Languages.ENGLISH]
-);
+)
 
 const mikasa = new User(
   "Mikasa",
@@ -43,7 +33,7 @@ const mikasa = new User(
   ["https://www.github.com/", "https://www.mikasa.dev"],
   [Interests.FRONTEND],
   [Languages.JAPANESE, Languages.ENGLISH]
-);
+)
 
 const dennisRoom = dennis.createRoom(
   "Cool room",
@@ -56,7 +46,7 @@ const dennisRoom = dennis.createRoom(
   true,
   true,
   [Tags.JAVASCRIPT, Tags.PAIR_PROGRAMMING, Tags.WEB_DEVELOPMENT]
-);
+)
 
 const kristinaRoom = kristina.createRoom(
   "Let's talk about computer science",
@@ -69,7 +59,7 @@ const kristinaRoom = kristina.createRoom(
   true,
   false,
   [Tags.COMPUTER_SCIENCE, Tags.CAREER]
-);
+)
 
 const mikasaRoom = mikasa.createRoom(
   "ソフトウェア開発への熱意",
@@ -82,13 +72,36 @@ const mikasaRoom = mikasa.createRoom(
   false,
   false,
   [Tags.CAREER, Tags.JAVASCRIPT]
-);
+)
 
-usersDatabase.save([dennis, john, kristina, mikasa]);
-createdRoomsDatabase.save([dennisRoom, kristinaRoom, mikasaRoom]);
+async function main() {
+  console.log("start")
 
-const users = usersDatabase.load();
-printOnlineUserStats(users);
+  await usersDatabase.save([dennis, kristina, mikasa])
+  console.log("wrote users")
 
-const createdRooms = createdRoomsDatabase.load();
-createdRooms.forEach(printRoomStats);
+  await createdRoomsDatabase.save([dennisRoom, kristinaRoom, mikasaRoom])
+  console.log("wrote rooms")
+
+  console.log("done")
+
+  const john = new User(
+    "John Doe",
+    "john.doe",
+    "https://johndoe.com/image.jpg",
+    "Hey, I am John Doe.",
+    ["https://www.instagram.com/johndoe"],
+    [Interests.BACKEND],
+    [Languages.ENGLISH]
+  )
+
+  await usersDatabase.insert(john)
+
+  const users = await usersDatabase.load()
+  printOnlineUserStats(users)
+
+  const rooms = await createdRoomsDatabase.load()
+  rooms.forEach(printRoomStats)
+}
+
+main()
