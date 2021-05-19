@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require("uuid");
+const { v4: uuidv4 } = require("uuid")
 class Room {
   constructor(
     owner,
@@ -13,22 +13,22 @@ class Room {
     isPrivate,
     roomTags
   ) {
-    this.id = uuidv4();
-    this.owner = owner;
-    this.participants = [owner];
-    this.title = title;
-    this.description = description;
-    this.roomLanguage = roomLanguage;
-    this.kickedPeople = [];
-    this.waitingPeople = [];
-    this.maxParticipants = maxParticipants;
-    this.canUseMic = canUseMic;
-    this.canUseWebcam = canUseWebcam;
-    this.canShareScreen = canShareScreen;
-    this.canTypeToChatBox = canTypeToChatBox;
-    this.isPrivate = isPrivate;
-    this.roomTags = roomTags;
-    this.createdAt = Date.now();
+    this.id = uuidv4()
+    this.owner = owner
+    this.participants = [owner]
+    this.title = title
+    this.description = description
+    this.roomLanguage = roomLanguage
+    this.kickedPeople = []
+    this.waitingPeople = []
+    this.maxParticipants = maxParticipants
+    this.canUseMic = canUseMic
+    this.canUseWebcam = canUseWebcam
+    this.canShareScreen = canShareScreen
+    this.canTypeToChatBox = canTypeToChatBox
+    this.isPrivate = isPrivate
+    this.roomTags = roomTags
+    this.createdAt = Date.now()
   }
 
   static create({
@@ -61,16 +61,16 @@ class Room {
       canTypeToChatBox,
       isPrivate,
       roomTags
-    );
+    )
 
-    newRoom.id = id;
-    newRoom.participants = participants;
-    newRoom.kickedPeople = kickedPeople;
-    newRoom.waitingPeople = waitingPeople;
-    newRoom.createdAt = createdAt;
+    newRoom.id = id
+    newRoom.participants = participants
+    newRoom.kickedPeople = kickedPeople
+    newRoom.waitingPeople = waitingPeople
+    newRoom.createdAt = createdAt
 
-    return newRoom;
+    return newRoom
   }
 }
 
-module.exports = Room;
+module.exports = Room
