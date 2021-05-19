@@ -1,49 +1,52 @@
-const fs = require("fs");
-const { stringify, parse } = require("flatted");
+const fs = require("fs")
+const { stringify, parse } = require("flatted")
 
 class BaseDatabase {
   constructor(model) {
-    this.model = model;
-    this.filename = model.name.toLowerCase();
+    this.model = model
+    this.filename = model.name.toLowerCase()
   }
 
   save(objects) {
-    fs.writeFileSync(
-      `./database/${this.filename}.json`,
-      stringify(objects, null, 2)
-    );
+    return new Promise((resolve, reject) => {
+      fs.writeFile(`./database/${this.filename}.json`, stringify(objects, null, 2), err => {
+        if (err) return reject(err)
+        resolve()
+      })
+    })
   }
 
   load() {
-    const file = fs.readFileSync(`./database/${this.filename}.json`, "utf8");
-    const objects = parse(file);
-    return objects.map(this.model.create);
+    return new Promise((resolve, reject) => {
+      fs.readFile(`./database/${this.filename}.json`, "utf8", (err, file) => {
+        if (err) return reject(err)
+        const objects = parse(file)
+        resolve(objects.map(this.model.create))
+      })
+    })
   }
 
-  insert(object) {
-    const objects = this.load(this.filename);
-    this.save(this.filename, objects.concat(object));
+  async insert(object) {
+    const objects = await this.load()
+    return this.save(objects.concat(object))
   }
 
-  update(object) {
-    const objects = this.load(this.filename);
+  async update(object) {
+    const objects = await this.load()
 
-    const index = objects.findIndex((o) => o.id == object.id);
+    const index = objects.findIndex(o => o.id == object.id)
 
-    if (index == -1)
-      throw new Error(
-        `Cannot find ${this.model.name} instance with id ${object.id}`
-      );
+    if (index == -1) throw new Error(`Cannot find ${this.model.name} instance with id ${object.id}`)
 
-    objects.splice(index, 1, object);
-    this.save(objects);
+    objects.splice(index, 1, object)
+    return this.save(objects)
   }
 
-  remove(index) {
-    const objects = this.load(this.filename);
-    objects.splice(index, 1);
-    this.save(this.filename, objects);
+  async remove(index) {
+    const objects = await this.load()
+    objects.splice(index, 1)
+    return this.save(objects)
   }
 }
 
-module.exports = BaseDatabase;
+module.exports = BaseDatabase
