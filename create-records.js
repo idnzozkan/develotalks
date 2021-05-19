@@ -75,33 +75,30 @@ const mikasaRoom = mikasa.createRoom(
 )
 
 async function main() {
-  console.log("start")
+  try {
+    await usersDatabase.save([dennis, kristina, mikasa])
+    await createdRoomsDatabase.save([dennisRoom, kristinaRoom, mikasaRoom])
 
-  await usersDatabase.save([dennis, kristina, mikasa])
-  console.log("wrote users")
+    const john = new User(
+      "John Doe",
+      "john.doe",
+      "https://johndoe.com/image.jpg",
+      "Hey, I am John Doe.",
+      ["https://www.instagram.com/johndoe"],
+      [Interests.BACKEND],
+      [Languages.ENGLISH]
+    )
 
-  await createdRoomsDatabase.save([dennisRoom, kristinaRoom, mikasaRoom])
-  console.log("wrote rooms")
+    await usersDatabase.insert(john)
 
-  console.log("done")
+    const users = await usersDatabase.load()
+    printOnlineUserStats(users)
 
-  const john = new User(
-    "John Doe",
-    "john.doe",
-    "https://johndoe.com/image.jpg",
-    "Hey, I am John Doe.",
-    ["https://www.instagram.com/johndoe"],
-    [Interests.BACKEND],
-    [Languages.ENGLISH]
-  )
-
-  await usersDatabase.insert(john)
-
-  const users = await usersDatabase.load()
-  printOnlineUserStats(users)
-
-  const rooms = await createdRoomsDatabase.load()
-  rooms.forEach(printRoomStats)
+    const rooms = await createdRoomsDatabase.load()
+    rooms.forEach(printRoomStats)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 main()
