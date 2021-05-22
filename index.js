@@ -1,24 +1,29 @@
-const { usersDatabase, createdRoomsDatabase } = require("./database")
-const { printOnlineUserStats, printRoomStats } = require("./lib")
+const express = require("express")
+const { stringify } = require("flatted")
+const { createdRoomsDatabase, usersDatabase } = require("./database")
+const app = express()
 
-async function main() {
-  try {
-    const john = await usersDatabase.findByName("John Doe")
-    const kristina = await usersDatabase.findByName("Kristina")
+app.set("view engine", "pug")
 
-    john.joinRoom(kristina.createdRoom)
-    await usersDatabase.update(john)
-    await createdRoomsDatabase.update(kristina.createdRoom)
+app.get("/u/:id", async (req, res) => {
+  const user = await usersDatabase.find(req.params.id)
+  if (!user) return res.status(404).send("404 - Cannot find user")
 
-    kristina.kickOutParticipant(john)
-    await usersDatabase.update(john)
-    await createdRoomsDatabase.update(kristina.createdRoom)
+  res.render("user", { user })
+})
 
-    printOnlineUserStats([john])
-    printRoomStats(kristina.createdRoom)
-  } catch (error) {
-    console.log(error)
-  }
-}
+app.get("/r/:id", async (req, res) => {
+  const room = await createdRoomsDatabase.find(req.params.id)
+  if (!room) return res.status(404).send("404 - Cannot find room")
 
-main()
+  res.render("room", { room })
+})
+
+app.get("/", async (req, res) => {
+  const rooms = await createdRoomsDatabase.load()
+  res.render("index", { rooms })
+})
+
+app.listen(3000, () => {
+  console.log("started listening")
+})
