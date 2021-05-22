@@ -47,6 +47,11 @@ class BaseDatabase {
     objects.splice(index, 1)
     return this.save(objects)
   }
+
+  async find(id) {
+    const objects = await this.load()
+    return objects.find(o => o.id == id)
+  }
 }
 
 module.exports = BaseDatabase
