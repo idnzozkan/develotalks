@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/idnzozkan/develotalks#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "colors": "^1.4.0",
     "express": "^4.17.1",
     "flatted": "^3.1.1",
