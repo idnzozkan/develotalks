@@ -3,8 +3,26 @@ const colors = require("colors")
 const { v4: uuidv4 } = require("uuid")
 
 class User {
-  constructor(name, username, profilePhoto, userBio, socialLinks, interests, spokenLangs) {
-    this.id = uuidv4()
+  constructor(
+    id = uuidv4(),
+    name,
+    username,
+    profilePhoto,
+    userBio,
+    socialLinks,
+    interests,
+    spokenLangs,
+    friends = [],
+    following = [],
+    followers = [],
+    messages = [],
+    starCount = 0,
+    starredUsers = [],
+    isInAWaitingRoom = false,
+    onlineAtRoom = null,
+    createdRoom = null
+  ) {
+    this.id = id
     this.name = name
     this.username = username
     this.profilePhoto = profilePhoto
@@ -12,15 +30,15 @@ class User {
     this.socialLinks = socialLinks
     this.interests = interests
     this.spokenLangs = spokenLangs
-    this.friends = []
-    this.followings = []
-    this.followers = []
-    this.messages = []
-    this.starCount = 0
-    this.starredUsers = []
-    this.isInAWaitingRoom = false
-    this.onlineAtRoom = null
-    this.createdRoom = null
+    this.friends = friends
+    this.following = following
+    this.followers = followers
+    this.messages = messages
+    this.starCount = starCount
+    this.starredUsers = starredUsers
+    this.isInAWaitingRoom = isInAWaitingRoom
+    this.onlineAtRoom = onlineAtRoom
+    this.createdRoom = createdRoom
   }
 
   createRoom(
@@ -37,8 +55,8 @@ class User {
   ) {
     if (this.onlineAtRoom) this.stopSession()
 
-    const room = new Room(
-      this,
+    const room = Room.create({
+      owner: this,
       title,
       description,
       roomLanguage,
@@ -49,7 +67,7 @@ class User {
       canTypeToChatBox,
       isPrivate,
       roomTags
-    )
+    })
     this.createdRoom = room
     this.onlineAtRoom = room
 
@@ -169,7 +187,7 @@ class User {
     interests,
     spokenLangs,
     friends,
-    followings,
+    following,
     followers,
     messages,
     starCount,
@@ -178,28 +196,25 @@ class User {
     onlineAtRoom,
     createdRoom
   }) {
-    const newUser = new User(
+    return new User(
+      id,
       name,
       username,
       profilePhoto,
       userBio,
       socialLinks,
       interests,
-      spokenLangs
+      spokenLangs,
+      friends,
+      following,
+      followers,
+      messages,
+      starCount,
+      starredUsers,
+      isInAWaitingRoom,
+      onlineAtRoom,
+      createdRoom
     )
-
-    newUser.id = id
-    newUser.friends = friends
-    newUser.followings = followings
-    newUser.followers = followers
-    newUser.messages = messages
-    newUser.starCount = starCount
-    newUser.starredUsers = starredUsers
-    newUser.isInAWaitingRoom = isInAWaitingRoom
-    newUser.onlineAtRoom = onlineAtRoom
-    newUser.createdRoom = createdRoom
-
-    return newUser
   }
 }
 
