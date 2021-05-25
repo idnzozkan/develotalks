@@ -5,35 +5,35 @@ const Languages = require("./enums/Languages")
 const { usersDatabase, createdRoomsDatabase } = require("./database")
 const { printOnlineUserStats, printRoomStats } = require("./lib")
 
-const dennis = new User(
-  "Deniz",
-  "dennis",
-  "imgURL",
-  "lorem ipsum dolor sit amet",
-  ["twitter.com/account", "github.com/account", "linkedin.com/in/account"],
-  [Interests.FRONTEND, Interests.BACKEND, Interests.DEVOPS],
-  [Languages.ENGLISH, Languages.TURKISH]
-)
+const dennis = User.create({
+  name: "Deniz",
+  username: "dennis",
+  profilePhoto: "imgURL",
+  userBio: "Lorem ipsum dolor sit amet",
+  socialLinks: ["twitter.com/account", "github.com/account", "linkedin.com/in/account"],
+  interests: [Interests.FRONTEND, Interests.BACKEND, Interests.DEVOPS],
+  spokenLangs: [Languages.ENGLISH, Languages.TURKISH]
+})
 
-const kristina = new User(
-  "Kristina",
-  "iamkristina",
-  "/img/kristina.jpg",
-  "Hi, this is Kristina, a web developer.",
-  [],
-  [Interests.FRONTEND, Interests.WEB_DEVELOPMENT],
-  [Languages.RUSSIAN, Languages.ENGLISH]
-)
+const kristina = User.create({
+  name: "Kristina",
+  username: "iamkristina",
+  profilePhoto: "/img/kristina.jpg",
+  userBio: "Hi, this is Kristina, a web developer.",
+  socialLinks: [],
+  interests: [Interests.FRONTEND, Interests.WEB_DEVELOPMENT],
+  spokenLangs: [Languages.RUSSIAN, Languages.ENGLISH]
+})
 
-const mikasa = new User(
-  "Mikasa",
-  "mikasa0123",
-  "https://example.com/image.jpg",
-  "こんにちは、日本の三笠です",
-  ["https://www.github.com/", "https://www.mikasa.dev"],
-  [Interests.FRONTEND],
-  [Languages.JAPANESE, Languages.ENGLISH]
-)
+const mikasa = User.create({
+  name: "Mikasa",
+  username: "mikasa0123",
+  profilePhoto: "https://example.com/image.jpg",
+  userBio: "こんにちは、日本の三笠です",
+  socialLinks: ["https://www.github.com/", "https://www.mikasa.dev"],
+  interests: [Interests.FRONTEND],
+  spokenLangs: [Languages.JAPANESE, Languages.ENGLISH]
+})
 
 const dennisRoom = dennis.createRoom(
   "Cool room",
@@ -79,15 +79,15 @@ async function main() {
     await usersDatabase.save([dennis, kristina, mikasa])
     await createdRoomsDatabase.save([dennisRoom, kristinaRoom, mikasaRoom])
 
-    const john = new User(
-      "John Doe",
-      "john.doe",
-      "https://johndoe.com/image.jpg",
-      "Hey, I am John Doe.",
-      ["https://www.instagram.com/johndoe"],
-      [Interests.BACKEND],
-      [Languages.ENGLISH]
-    )
+    const john = User.create({
+      name: "John Doe",
+      username: "john.doe",
+      profilePhoto: "https://johndoe.com/image.jpg",
+      userBio: "Hey, I am John Doe.",
+      socialLinks: ["https://www.instagram.com/johndoe"],
+      interests: [Interests.BACKEND],
+      spokenLangs: [Languages.ENGLISH]
+    })
 
     await usersDatabase.insert(john)
 
