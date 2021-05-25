@@ -13,7 +13,7 @@
   "interests": "11",
   "spokenLangs": "12",
   "friends": "13",
-  "followings": "14",
+  "following": "14",
   "followers": "15",
   "messages": "16",
   "starCount": 0,
@@ -31,133 +31,167 @@
   "interests": "25",
   "spokenLangs": "26",
   "friends": "27",
-  "followings": "28",
+  "following": "28",
   "followers": "29",
   "messages": "30",
   "starCount": 0,
   "starredUsers": "31",
   "isInAWaitingRoom": false,
   "onlineAtRoom": "32",
-  "createdRoom": "32"
+  "createdRoom": "33"
 },{
-  "id": "33",
-  "name": "34",
-  "username": "35",
-  "profilePhoto": "36",
-  "userBio": "37",
-  "socialLinks": "38",
-  "interests": "39",
-  "spokenLangs": "40",
-  "friends": "41",
-  "followings": "42",
-  "followers": "43",
-  "messages": "44",
+  "id": "34",
+  "name": "35",
+  "username": "36",
+  "profilePhoto": "37",
+  "userBio": "38",
+  "socialLinks": "39",
+  "interests": "40",
+  "spokenLangs": "41",
+  "friends": "42",
+  "following": "43",
+  "followers": "44",
+  "messages": "45",
   "starCount": 0,
-  "starredUsers": "45",
+  "starredUsers": "46",
   "isInAWaitingRoom": false,
-  "onlineAtRoom": "46",
-  "createdRoom": "46"
+  "onlineAtRoom": "47",
+  "createdRoom": "47"
 },{
-  "id": "47",
-  "name": "48",
-  "username": "49",
-  "profilePhoto": "50",
-  "userBio": "51",
-  "socialLinks": "52",
-  "interests": "53",
-  "spokenLangs": "54",
-  "friends": "55",
-  "followings": "56",
-  "followers": "57",
-  "messages": "58",
+  "id": "48",
+  "name": "49",
+  "username": "50",
+  "profilePhoto": "51",
+  "userBio": "52",
+  "socialLinks": "53",
+  "interests": "54",
+  "spokenLangs": "55",
+  "friends": "56",
+  "following": "57",
+  "followers": "58",
+  "messages": "59",
   "starCount": 0,
-  "starredUsers": "59",
+  "starredUsers": "60",
   "isInAWaitingRoom": false,
-  "onlineAtRoom": null,
+  "onlineAtRoom": "61",
   "createdRoom": null
-},"da2c4fd6-13b2-41f9-9574-5795e2073fb0","Deniz","dennis","imgURL","lorem ipsum dolor sit amet",[
-  "60",
-  "61",
-  "62"
-],[
+},"1b2e7d2b-be5d-47f2-9d95-d63d0f1e6500","Deniz","dennis","imgURL","Lorem ipsum dolor sit amet",[
+  "62",
   "63",
-  "64",
-  "65"
+  "64"
 ],[
+  "65",
   "66",
   "67"
+],[
+  "68",
+  "69"
 ],[],[],[],[],[],{
-  "id": "68",
-  "owner": "69",
-  "participants": "70",
-  "title": "71",
-  "description": "72",
-  "roomLanguage": "66",
-  "kickedPeople": "73",
-  "waitingPeople": "74",
+  "id": "70",
+  "owner": "71",
+  "participants": "72",
+  "title": "73",
+  "description": "74",
+  "roomLanguage": "68",
+  "kickedPeople": "75",
+  "waitingPeople": "76",
   "maxParticipants": 2,
   "canUseMic": true,
   "canUseWebcam": true,
   "canShareScreen": true,
   "canTypeToChatBox": true,
   "isPrivate": true,
-  "roomTags": "75",
-  "createdAt": 1621710801427
-},"a192b75a-a686-4505-b396-886a60c6b513","Kristina","iamkristina","/img/kristina.jpg","Hi, this is Kristina, a web developer.",[],[
-  "63",
-  "76"
+  "roomTags": "77",
+  "createdAt": 1621902839510
+},"ab04a07d-9dff-4d3b-9bae-719250bef969","Kristina","iamkristina","/img/kristina.jpg","Hi, this is Kristina, a web developer.",[],[
+  "65",
+  "78"
 ],[
-  "77",
-  "66"
+  "79",
+  "68"
 ],[],[],[],[],[],{
-  "id": "78",
-  "owner": "79",
-  "participants": "80",
-  "title": "81",
-  "description": "82",
-  "roomLanguage": "66",
-  "kickedPeople": "83",
-  "waitingPeople": "84",
+  "id": "80",
+  "owner": "81",
+  "participants": "82",
+  "title": "83",
+  "description": "84",
+  "roomLanguage": "68",
+  "kickedPeople": "85",
+  "waitingPeople": "86",
   "maxParticipants": 4,
   "canUseMic": true,
   "canUseWebcam": false,
   "canShareScreen": false,
   "canTypeToChatBox": true,
   "isPrivate": false,
-  "roomTags": "85",
-  "createdAt": 1621710801427
-},"cde671e6-029e-4e69-8807-0abee9aa802f","Mikasa","mikasa0123","https://example.com/image.jpg","こんにちは、日本の三笠です",[
-  "86",
-  "87"
+  "roomTags": "87",
+  "createdAt": 1621902839510
+},{
+  "id": "80",
+  "owner": "88",
+  "participants": "89",
+  "title": "83",
+  "description": "84",
+  "roomLanguage": "68",
+  "kickedPeople": "90",
+  "waitingPeople": "91",
+  "maxParticipants": 4,
+  "canUseMic": true,
+  "canUseWebcam": false,
+  "canShareScreen": false,
+  "canTypeToChatBox": true,
+  "isPrivate": false,
+  "roomTags": "92",
+  "createdAt": 1621902839510
+},"8045ce09-6e3d-4f98-a710-c2ec34c13772","Mikasa","mikasa0123","https://example.com/image.jpg","こんにちは、日本の三笠です",[
+  "93",
+  "94"
 ],[
-  "63"
+  "65"
 ],[
-  "88",
-  "66"
+  "95",
+  "68"
 ],[],[],[],[],[],{
-  "id": "89",
-  "owner": "90",
-  "participants": "91",
-  "title": "92",
-  "description": "93",
-  "roomLanguage": "88",
-  "kickedPeople": "94",
-  "waitingPeople": "95",
+  "id": "96",
+  "owner": "97",
+  "participants": "98",
+  "title": "99",
+  "description": "100",
+  "roomLanguage": "95",
+  "kickedPeople": "101",
+  "waitingPeople": "102",
   "maxParticipants": 10,
   "canUseMic": true,
   "canUseWebcam": true,
   "canShareScreen": true,
   "canTypeToChatBox": false,
   "isPrivate": false,
-  "roomTags": "96",
-  "createdAt": 1621710801427
-},"302ab22e-9214-453b-bc4c-c4a54eabfbfc","John Doe","john.doe","https://johndoe.com/image.jpg","Hey, I am John Doe.",[
-  "97"
-],[
-  "64"
+  "roomTags": "103",
+  "createdAt": 1621902839510
+},"6ebe11d5-761e-4e66-9521-14fba9e0d7d6","John Doe","john.doe","https://johndoe.com/image.jpg","Hey, I am John Doe.",[
+  "104"
 ],[
   "66"
-],[],[],[],[],[],"twitter.com/account","github.com/account","linkedin.com/in/account","Frontend","Backend","Devops","English","Turkish","6ff36376-3129-413e-b29b-94df8ce61adb",{
+],[
+  "68"
+],[],[],[],[],[],{
+  "id": "96",
+  "owner": "105",
+  "participants": "106",
+  "title": "99",
+  "description": "100",
+  "roomLanguage": "95",
+  "kickedPeople": "107",
+  "waitingPeople": "108",
+  "maxParticipants": 10,
+  "canUseMic": true,
+  "canUseWebcam": true,
+  "canShareScreen": true,
+  "canTypeToChatBox": false,
+  "isPrivate": false,
+  "roomTags": "109",
+  "createdAt": 1621902839510
+},"twitter.com/account","github.com/account","linkedin.com/in/account","Frontend","Backend","Devops","English","Turkish","1c382e98-b06a-417d-850f-77b7f8f171d8",{
   "id": "5",
   "name": "6",
   "username": "7",
@@ -167,7 +201,7 @@
   "interests": "11",
   "spokenLangs": "12",
   "friends": "13",
-  "followings": "14",
+  "following": "14",
   "followers": "15",
   "messages": "16",
   "starCount": 0,
@@ -176,12 +210,35 @@
   "onlineAtRoom": "18",
   "createdRoom": "18"
 },[
-  "69"
+  "71"
 ],"Cool room","This is the description of our cool room",[],[],[
-  "98",
-  "99",
-  "100"
-],"Web Development","Russian","318a8436-84ca-488b-ae40-cfd8083c0bbd",{
+  "110",
+  "111",
+  "112"
+],"Web Development","Russian","1d5b296c-2494-455e-9b66-7bcb6fd72189",{
+  "id": "19",
+  "name": "20",
+  "username": "21",
+  "profilePhoto": "22",
+  "userBio": "23",
+  "socialLinks": "113",
+  "interests": "114",
+  "spokenLangs": "115",
+  "friends": "116",
+  "following": "117",
+  "followers": "118",
+  "messages": "119",
+  "starCount": 0,
+  "starredUsers": "120",
+  "isInAWaitingRoom": false,
+  "onlineAtRoom": "121",
+  "createdRoom": "121"
+},[
+  "122"
+],"Let's talk about computer science","Welcome to my room! Feel free to introduce yourself!",[],[],[
+  "123",
+  "124"
+],{
   "id": "19",
   "name": "20",
   "username": "21",
@@ -191,40 +248,210 @@
   "interests": "25",
   "spokenLangs": "26",
   "friends": "27",
-  "followings": "28",
+  "following": "28",
+  "followers": "29",
+  "messages": "30",
+  "starCount": 0,
+  "starredUsers": "31",
+  "isInAWaitingRoom": false,
+  "onlineAtRoom": "33",
+  "createdRoom": "33"
+},[],[],[],[
+  "123",
+  "124"
+],"https://www.github.com/","https://www.mikasa.dev","Japanese","0c013be3-a9e0-4be1-b3b9-e55d284040cb",{
+  "id": "34",
+  "name": "35",
+  "username": "36",
+  "profilePhoto": "37",
+  "userBio": "38",
+  "socialLinks": "39",
+  "interests": "40",
+  "spokenLangs": "41",
+  "friends": "42",
+  "following": "43",
+  "followers": "44",
+  "messages": "45",
+  "starCount": 0,
+  "starredUsers": "46",
+  "isInAWaitingRoom": false,
+  "onlineAtRoom": "47",
+  "createdRoom": "47"
+},[
+  "97"
+],"ソフトウェア開発への熱意","How to become like Eren at software development?",[],[],[
+  "124",
+  "110"
+],"https://www.instagram.com/johndoe",{
+  "id": "34",
+  "name": "35",
+  "username": "36",
+  "profilePhoto": "37",
+  "userBio": "38",
+  "socialLinks": "125",
+  "interests": "126",
+  "spokenLangs": "127",
+  "friends": "128",
+  "following": "129",
+  "followers": "130",
+  "messages": "131",
+  "starCount": 0,
+  "starredUsers": "132",
+  "isInAWaitingRoom": false,
+  "onlineAtRoom": "133",
+  "createdRoom": "133"
+},[
+  "105",
+  "4"
+],[],[],[
+  "124",
+  "110"
+],"#javascript","#pairprogramming","#webdevelopment",[],[
+  "65",
+  "78"
+],[
+  "79",
+  "68"
+],[],[],[],[],[],{
+  "id": "80",
+  "owner": "81",
+  "participants": "82",
+  "title": "83",
+  "description": "84",
+  "roomLanguage": "68",
+  "kickedPeople": "85",
+  "waitingPeople": "86",
+  "maxParticipants": 4,
+  "canUseMic": true,
+  "canUseWebcam": false,
+  "canShareScreen": false,
+  "canTypeToChatBox": true,
+  "isPrivate": false,
+  "roomTags": "87",
+  "createdAt": 1621902839510
+},{
+  "id": "19",
+  "name": "20",
+  "username": "21",
+  "profilePhoto": "22",
+  "userBio": "23",
+  "socialLinks": "24",
+  "interests": "25",
+  "spokenLangs": "26",
+  "friends": "27",
+  "following": "28",
   "followers": "29",
   "messages": "30",
   "starCount": 0,
   "starredUsers": "31",
   "isInAWaitingRoom": false,
   "onlineAtRoom": "32",
-  "createdRoom": "32"
+  "createdRoom": "33"
+},"#computerscience","#career",[
+  "93",
+  "94"
+],[
+  "65"
+],[
+  "95",
+  "68"
+],[],[],[],[],[],{
+  "id": "96",
+  "owner": "105",
+  "participants": "134",
+  "title": "99",
+  "description": "100",
+  "roomLanguage": "95",
+  "kickedPeople": "107",
+  "waitingPeople": "108",
+  "maxParticipants": 10,
+  "canUseMic": true,
+  "canUseWebcam": true,
+  "canShareScreen": true,
+  "canTypeToChatBox": false,
+  "isPrivate": false,
+  "roomTags": "109",
+  "createdAt": 1621902839510
 },[
-  "79"
-],"Let's talk about computer science","Welcome to my room! Feel free to introduce yourself!",[],[],[
-  "101",
-  "102"
-],"https://www.github.com/","https://www.mikasa.dev","Japanese","7f26727d-9755-4518-b055-4f5e18f4bf02",{
-  "id": "33",
-  "name": "34",
-  "username": "35",
-  "profilePhoto": "36",
-  "userBio": "37",
-  "socialLinks": "38",
-  "interests": "39",
-  "spokenLangs": "40",
-  "friends": "41",
-  "followings": "42",
-  "followers": "43",
-  "messages": "44",
+  "105",
+  "135"
+],{
+  "id": "19",
+  "name": "20",
+  "username": "21",
+  "profilePhoto": "22",
+  "userBio": "23",
+  "socialLinks": "136",
+  "interests": "137",
+  "spokenLangs": "138",
+  "friends": "139",
+  "following": "140",
+  "followers": "141",
+  "messages": "142",
   "starCount": 0,
-  "starredUsers": "45",
+  "starredUsers": "143",
   "isInAWaitingRoom": false,
-  "onlineAtRoom": "46",
-  "createdRoom": "46"
-},[
-  "90"
-],"ソフトウェア開発への熱意","How to become like Eren at software development?",[],[],[
-  "102",
-  "98"
-],"https://www.instagram.com/johndoe","#javascript","#pairprogramming","#webdevelopment","#computerscience","#career"]
+  "onlineAtRoom": "144",
+  "createdRoom": "145"
+},[],[
+  "65",
+  "78"
+],[
+  "79",
+  "68"
+],[],[],[],[],[],{
+  "id": "96",
+  "owner": "105",
+  "participants": "106",
+  "title": "99",
+  "description": "100",
+  "roomLanguage": "95",
+  "kickedPeople": "107",
+  "waitingPeople": "108",
+  "maxParticipants": 10,
+  "canUseMic": true,
+  "canUseWebcam": true,
+  "canShareScreen": true,
+  "canTypeToChatBox": false,
+  "isPrivate": false,
+  "roomTags": "109",
+  "createdAt": 1621902839510
+},{
+  "id": "80",
+  "owner": "146",
+  "participants": "147",
+  "title": "83",
+  "description": "84",
+  "roomLanguage": "68",
+  "kickedPeople": "148",
+  "waitingPeople": "149",
+  "maxParticipants": 4,
+  "canUseMic": true,
+  "canUseWebcam": false,
+  "canShareScreen": false,
+  "canTypeToChatBox": true,
+  "isPrivate": false,
+  "roomTags": "150",
+  "createdAt": 1621902839510
+},{
+  "id": "19",
+  "name": "20",
+  "username": "21",
+  "profilePhoto": "22",
+  "userBio": "23",
+  "socialLinks": "136",
+  "interests": "137",
+  "spokenLangs": "138",
+  "friends": "139",
+  "following": "140",
+  "followers": "141",
+  "messages": "142",
+  "starCount": 0,
+  "starredUsers": "143",
+  "isInAWaitingRoom": false,
+  "onlineAtRoom": "145",
+  "createdRoom": "145"
+},[],[],[],[
+  "123",
+  "124"
+]]
