@@ -21,7 +21,32 @@ block content
             textarea(rows="3" cols="40")
             button Send
 
+    br
+    br
 
+    if room.isPrivate
+        strong Waiting People 
+        hr
+
+        ul 
+            each user in room.waitingPeople 
+                li 
+                    a(href=`../u/${user.id}`)
+                        i #{user.name}
+
+        br
+        br
+
+    strong Kicked People 
+    hr
+
+    ul 
+        each user in room.kickedPeople 
+            li 
+                a(href=`../u/${user.id}`)
+                    i #{user.name}
+    br
+    br
     hr
     button MICROPHONE
     button CAMERA
