@@ -35,33 +35,119 @@ router.post("/:userId/join", async (req, res) => {
     return res.send("You have been banned from this room before")
   } else if (
     room.participants.some(participant => participant.id == user.id) ||
-    user.onlineAtRoom?.id == room.id
+    user.activeRoom?.id == room.id
   ) {
     return res.send("You are already in this room")
   }
 
-  if (user.onlineAtRoom) {
-    if (user.isInAWaitingRoom) {
-      user.onlineAtRoom.waitingPeople = user.onlineAtRoom.waitingPeople.filter(
-        waitingUser => waitingUser.id !== user.id
-      )
-      user.isInAWaitingRoom = false
-    }
-    user.onlineAtRoom.participants = user.onlineAtRoom.participants.filter(
-      participant => participant.id !== user.id
-    )
-    await createdRoomsDatabase.update(user.onlineAtRoom)
+  if (user.activeRoom) {
+    user.activeRoom.participants = user.activeRoom.participants.filter(p => p.id !== user.id)
+    await createdRoomsDatabase.update(user.activeRoom)
 
-    user.onlineAtRoom = null
+    user.activeRoom = null
     await usersDatabase.update(user)
 
+    user.joinRoom(room)
+    await usersDatabase.update(user)
+    await createdRoomsDatabase.update(room)
+
     console.log(colors.magenta(`${user.name} left`))
+  } else if (user.waitingRoom) {
+    user.waitingRoom.waitingPeople = user.waitingRoom.waitingPeople.filter(u => u.id !== user.id)
+    await createdRoomsDatabase.update(user.waitingRoom)
+
+    user.waitingRoom = null
+    await usersDatabase.update(user)
+
+    user.joinRoom(room)
+    await usersDatabase.update(user)
+    await createdRoomsDatabase.update(room)
+
+    console.log(colors.magenta(`${user.name} left from the waiting room`))
+  } else {
+    user.joinRoom(room)
+    await usersDatabase.update(user)
+    await createdRoomsDatabase.update(room)
   }
 
-  user.joinRoom(room)
+  res.send("OK")
+})
+
+router.post("/:userId/createdRoom", async (req, res) => {
+  const { userId } = req.params
+  const {
+    title,
+    description,
+    roomLanguage,
+    maxParticipants,
+    canUseMic,
+    canUseWebcam,
+    canShareScreen,
+    canTypeToChatBox,
+    isPrivate,
+    roomTags
+  } = req.body
+
+  const user = await usersDatabase.find(userId)
+  const room = user.createRoom(
+    title,
+    description,
+    roomLanguage,
+    maxParticipants,
+    canUseMic,
+    canUseWebcam,
+    canShareScreen,
+    canTypeToChatBox,
+    isPrivate,
+    roomTags
+  )
+
+  await createdRoomsDatabase.insert(room)
+
+  res.send("OK")
+})
+
+router.post("/:ownerId/accept", async (req, res) => {
+  const { ownerId } = req.params
+  const { userId } = req.query
+
+  const owner = await usersDatabase.find(ownerId)
+  const user = await usersDatabase.find(userId)
+
+  owner.acceptWaitingUser(user)
+
+  await createdRoomsDatabase.update(owner.createdRoom)
   await usersDatabase.update(user)
-  if (user.createdRoom) await createdRoomsDatabase.update(user.createdRoom)
-  await createdRoomsDatabase.update(room)
+
+  res.send("OK")
+})
+
+router.post("/:ownerId/ban", async (req, res) => {
+  const { ownerId } = req.params
+  const { userId } = req.query
+
+  const owner = await usersDatabase.find(ownerId)
+  const user = await usersDatabase.find(userId)
+
+  owner.kickOutParticipant(user)
+
+  await usersDatabase.update(user)
+  await createdRoomsDatabase.update(owner.createdRoom)
+
+  res.send("OK")
+})
+
+router.post("/:ownerId/unban", async (req, res) => {
+  const { ownerId } = req.params
+  const { userId } = req.query
+
+  const owner = await usersDatabase.find(ownerId)
+  const user = await usersDatabase.find(userId)
+
+  owner.removeBan(user)
+
+  await usersDatabase.update(user)
+  await createdRoomsDatabase.update(owner.createdRoom)
 
   res.send("OK")
 })

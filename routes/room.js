@@ -8,4 +8,10 @@ router.get("/:roomId", async (req, res) => {
   res.render("room", { room })
 })
 
+router.delete("/:roomId", async (req, res) => {
+  await createdRoomsDatabase.removeBy("id", req.params.roomId)
+
+  res.send("OK")
+})
+
 module.exports = router
