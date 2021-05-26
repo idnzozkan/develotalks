@@ -1,24 +1,18 @@
-const { usersDatabase, createdRoomsDatabase } = require("./database")
-const { printOnlineUserStats, printRoomStats } = require("./lib")
+const express = require("express")
+const bodyParser = require("body-parser")
+const indexRouter = require("./routes/index")
+const userRouter = require("./routes/user")
+const roomRouter = require("./routes/room")
 
-async function main() {
-  try {
-    const john = await usersDatabase.findByName("John Doe")
-    const kristina = await usersDatabase.findByName("Kristina")
+const app = express()
+app.use(bodyParser.json())
 
-    john.joinRoom(kristina.createdRoom)
-    await usersDatabase.update(john)
-    await createdRoomsDatabase.update(kristina.createdRoom)
+app.set("view engine", "pug")
 
-    kristina.kickOutParticipant(john)
-    await usersDatabase.update(john)
-    await createdRoomsDatabase.update(kristina.createdRoom)
+app.use("/u", userRouter)
+app.use("/r", roomRouter)
+app.use("/", indexRouter)
 
-    printOnlineUserStats([john])
-    printRoomStats(kristina.createdRoom)
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-main()
+app.listen(3000, () => {
+  console.log("started listening")
+})

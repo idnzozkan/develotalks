@@ -18,7 +18,7 @@
   "canTypeToChatBox": true,
   "isPrivate": true,
   "roomTags": "12",
-  "createdAt": 1621466768970
+  "createdAt": 1622036485019
 },{
   "id": "13",
   "owner": "14",
@@ -35,7 +35,7 @@
   "canTypeToChatBox": true,
   "isPrivate": false,
   "roomTags": "20",
-  "createdAt": 1621466768970
+  "createdAt": 1622036485019
 },{
   "id": "21",
   "owner": "22",
@@ -52,8 +52,8 @@
   "canTypeToChatBox": false,
   "isPrivate": false,
   "roomTags": "29",
-  "createdAt": 1621466768970
-},"0156ac88-d2ce-4d10-85eb-f06592de2474",{
+  "createdAt": 1622036485019
+},"d8be1b9d-6687-4abd-9203-63095fcde580",{
   "id": "30",
   "name": "31",
   "username": "32",
@@ -63,21 +63,23 @@
   "interests": "36",
   "spokenLangs": "37",
   "friends": "38",
-  "followings": "39",
+  "following": "39",
   "followers": "40",
   "messages": "41",
   "starCount": 0,
   "starredUsers": "42",
-  "isInAWaitingRoom": false,
-  "onlineAtRoom": "43",
-  "createdRoom": "43"
+  "activeRoom": "1",
+  "createdRoom": "1",
+  "waitingRoom": null
 },[
   "5"
-],"Cool room","This is the description of our cool room","English",[],[],[
+],"Cool room","This is the description of our cool room","English",[
+  "43"
+],[],[
   "44",
   "45",
   "46"
-],"cb316a5b-a6dc-40bc-8ee6-2c1b0c46ff4e",{
+],"ef38087d-58da-4b25-8eeb-9bec9ae14f5f",{
   "id": "47",
   "name": "48",
   "username": "49",
@@ -87,21 +89,18 @@
   "interests": "53",
   "spokenLangs": "54",
   "friends": "55",
-  "followings": "56",
+  "following": "56",
   "followers": "57",
   "messages": "58",
   "starCount": 0,
   "starredUsers": "59",
-  "isInAWaitingRoom": false,
-  "onlineAtRoom": "2",
-  "createdRoom": "2"
-},[
-  "14",
-  "60"
-],"Let's talk about computer science","Welcome to my room! Feel free to introduce yourself!",[],[],[
+  "activeRoom": "60",
+  "createdRoom": "60",
+  "waitingRoom": null
+},[],"Let's talk about computer science","Welcome to my room! Feel free to introduce yourself!",[],[],[
   "61",
   "62"
-],"90c8c996-f5c3-41c0-a30e-21a7d4da3253",{
+],"362d7248-eb16-4f9d-9991-64d3e3534d3a",{
   "id": "63",
   "name": "64",
   "username": "65",
@@ -111,20 +110,20 @@
   "interests": "69",
   "spokenLangs": "70",
   "friends": "71",
-  "followings": "72",
+  "following": "72",
   "followers": "73",
   "messages": "74",
   "starCount": 0,
   "starredUsers": "75",
-  "isInAWaitingRoom": false,
-  "onlineAtRoom": "76",
-  "createdRoom": "76"
+  "activeRoom": "76",
+  "createdRoom": "76",
+  "waitingRoom": null
 },[
   "22"
 ],"ソフトウェア開発への熱意","How to become like Eren at software development?","Japanese",[],[],[
   "62",
   "44"
-],"2d4d3438-b05c-45bc-b906-f1ece73fd890","Deniz","dennis","imgURL","lorem ipsum dolor sit amet",[
+],"090d29ee-fd02-4829-9588-9a3e44c71e21","Deniz","dennis","imgURL","Lorem ipsum dolor sit amet",[
   "77",
   "78",
   "79"
@@ -136,49 +135,49 @@
   "9",
   "83"
 ],[],[],[],[],[],{
-  "id": "4",
-  "owner": "5",
-  "participants": "6",
-  "title": "7",
-  "description": "8",
-  "roomLanguage": "9",
-  "kickedPeople": "10",
-  "waitingPeople": "11",
-  "maxParticipants": 2,
-  "canUseMic": true,
-  "canUseWebcam": true,
-  "canShareScreen": true,
-  "canTypeToChatBox": true,
-  "isPrivate": true,
-  "roomTags": "12",
-  "createdAt": 1621466768970
-},"#javascript","#pairprogramming","#webdevelopment","976f5c35-93da-4649-b953-6651a2e0598b","Kristina","iamkristina","/img/kristina.jpg","Hi, this is Kristina, a web developer.",[],[
+  "id": "47",
+  "name": "48",
+  "username": "49",
+  "profilePhoto": "50",
+  "userBio": "51",
+  "socialLinks": "84",
+  "interests": "85",
+  "spokenLangs": "86",
+  "friends": "87",
+  "following": "88",
+  "followers": "89",
+  "messages": "90",
+  "starCount": 0,
+  "starredUsers": "91",
+  "activeRoom": null,
+  "createdRoom": "92",
+  "waitingRoom": null
+},"#javascript","#pairprogramming","#webdevelopment","6ff582f7-6cb2-4ff7-8cfc-b7796d9930ee","Kristina","iamkristina","/img/kristina.jpg","Hi, this is Kristina, a web developer.",[],[
   "80",
-  "84"
+  "93"
 ],[
-  "85",
+  "94",
   "9"
 ],[],[],[],[],[],{
-  "id": "86",
-  "name": "87",
-  "username": "88",
-  "profilePhoto": "89",
-  "userBio": "90",
-  "socialLinks": "91",
-  "interests": "92",
-  "spokenLangs": "93",
-  "friends": "94",
-  "followings": "95",
-  "followers": "96",
-  "messages": "97",
-  "starCount": 0,
-  "starredUsers": "98",
-  "isInAWaitingRoom": false,
-  "onlineAtRoom": "2",
-  "createdRoom": null
-},"#computerscience","#career","bfc75204-e858-4e9a-8816-d9a15dec1805","Mikasa","mikasa0123","https://example.com/image.jpg","こんにちは、日本の三笠です",[
-  "99",
-  "100"
+  "id": "13",
+  "owner": "14",
+  "participants": "95",
+  "title": "16",
+  "description": "17",
+  "roomLanguage": "9",
+  "kickedPeople": "18",
+  "waitingPeople": "19",
+  "maxParticipants": 4,
+  "canUseMic": true,
+  "canUseWebcam": false,
+  "canShareScreen": false,
+  "canTypeToChatBox": true,
+  "isPrivate": false,
+  "roomTags": "20",
+  "createdAt": 1622036485019
+},"#computerscience","#career","4060e2c7-4f46-4b5e-954d-fd1a4c501af7","Mikasa","mikasa0123","https://example.com/image.jpg","こんにちは、日本の三笠です",[
+  "96",
+  "97"
 ],[
   "80"
 ],[
@@ -200,11 +199,130 @@
   "canTypeToChatBox": false,
   "isPrivate": false,
   "roomTags": "29",
-  "createdAt": 1621466768970
-},"twitter.com/account","github.com/account","linkedin.com/in/account","Frontend","Backend","Devops","Turkish","Web Development","Russian","685009a4-a16e-43f9-919e-e4963a05d165","John Doe","john.doe","https://johndoe.com/image.jpg","Hey, I am John Doe.",[
-  "101"
+  "createdAt": 1622036485019
+},"twitter.com/account","github.com/account","linkedin.com/in/account","Frontend","Backend","Devops","Turkish",[],[
+  "80",
+  "93"
 ],[
-  "81"
-],[
+  "94",
   "9"
-],[],[],[],[],[],"https://www.github.com/","https://www.mikasa.dev","https://www.instagram.com/johndoe"]
+],[],[],[],[],[],{
+  "id": "13",
+  "owner": "98",
+  "participants": "99",
+  "title": "16",
+  "description": "17",
+  "roomLanguage": "9",
+  "kickedPeople": "100",
+  "waitingPeople": "101",
+  "maxParticipants": 4,
+  "canUseMic": true,
+  "canUseWebcam": false,
+  "canShareScreen": false,
+  "canTypeToChatBox": true,
+  "isPrivate": false,
+  "roomTags": "102",
+  "createdAt": 1622036485019
+},"Web Development","Russian",[
+  "103"
+],"https://www.github.com/","https://www.mikasa.dev",{
+  "id": "47",
+  "name": "48",
+  "username": "49",
+  "profilePhoto": "50",
+  "userBio": "51",
+  "socialLinks": "84",
+  "interests": "85",
+  "spokenLangs": "86",
+  "friends": "87",
+  "following": "88",
+  "followers": "89",
+  "messages": "90",
+  "starCount": 0,
+  "starredUsers": "91",
+  "activeRoom": "92",
+  "createdRoom": "92",
+  "waitingRoom": null
+},[],[],[],[
+  "61",
+  "62"
+],{
+  "id": "47",
+  "name": "48",
+  "username": "49",
+  "profilePhoto": "50",
+  "userBio": "51",
+  "socialLinks": "104",
+  "interests": "105",
+  "spokenLangs": "106",
+  "friends": "107",
+  "following": "108",
+  "followers": "109",
+  "messages": "110",
+  "starCount": 0,
+  "starredUsers": "111",
+  "activeRoom": "112",
+  "createdRoom": "113",
+  "waitingRoom": null
+},[],[
+  "80",
+  "93"
+],[
+  "94",
+  "9"
+],[],[],[],[],[],{
+  "id": "13",
+  "owner": "14",
+  "participants": "15",
+  "title": "16",
+  "description": "17",
+  "roomLanguage": "9",
+  "kickedPeople": "18",
+  "waitingPeople": "19",
+  "maxParticipants": 4,
+  "canUseMic": true,
+  "canUseWebcam": false,
+  "canShareScreen": false,
+  "canTypeToChatBox": true,
+  "isPrivate": false,
+  "roomTags": "20",
+  "createdAt": 1622036485019
+},{
+  "id": "13",
+  "owner": "114",
+  "participants": "115",
+  "title": "16",
+  "description": "17",
+  "roomLanguage": "9",
+  "kickedPeople": "116",
+  "waitingPeople": "117",
+  "maxParticipants": 4,
+  "canUseMic": true,
+  "canUseWebcam": false,
+  "canShareScreen": false,
+  "canTypeToChatBox": true,
+  "isPrivate": false,
+  "roomTags": "118",
+  "createdAt": 1622036485019
+},{
+  "id": "47",
+  "name": "48",
+  "username": "49",
+  "profilePhoto": "50",
+  "userBio": "51",
+  "socialLinks": "104",
+  "interests": "105",
+  "spokenLangs": "106",
+  "friends": "107",
+  "following": "108",
+  "followers": "109",
+  "messages": "110",
+  "starCount": 0,
+  "starredUsers": "111",
+  "activeRoom": "113",
+  "createdRoom": "113",
+  "waitingRoom": null
+},[],[],[],[
+  "61",
+  "62"
+]]

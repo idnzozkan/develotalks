@@ -1,0 +1,45 @@
+extends layout 
+block content
+    p Welcome to DeveloTalks.com! We are the most friendly developer community in the world.
+    h2 Rooms
+    span 
+        b #{rooms.length}
+        |  rooms online
+    ul
+        each room in rooms 
+            li 
+                strong #{room.title}
+                if room.isPrivate 
+                    b  [PRIVATE]
+                br
+                br
+                span 
+                    u Participants:
+                br
+                each participant in room.participants 
+                    a(href=`/u/${participant.id}`) 
+                        i 
+                            span #{participant.name}
+                    br
+                br
+                span #{room.participants.length}/#{room.maxParticipants}
+                br
+                span #{room.roomLanguage} 
+                br
+                each tag in room.roomTags 
+                    span #{tag} 
+                br
+                br
+                i Created by #{room.owner.name} #{room.createdAt} time ago
+                br
+                br                    
+                a(href=`/r/${room.id}`) 
+                    b Join
+                         
+
+            br
+            hr
+
+                            
+                
+    

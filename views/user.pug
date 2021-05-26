@@ -1,0 +1,26 @@
+extends layout 
+block content 
+    h2 #{user.name} 
+    br
+    span @#{user.username}
+    br
+    span #{!user.following.length ? '0' : user.following.length} Following | #{!user.followers.length ? '0' : user.followers.length} Followers | #{!user.friends.length ? '0' : user.friends.length} Friends 
+    br
+    strong Online At: 
+    span #{user.activeRoom ? `${user.activeRoom.owner.name}'s room` : ' - '}     
+    br
+    strong Bio: 
+    span #{user.userBio}         
+    br
+    strong Interests: 
+    span #{user.interests}
+    br
+    strong Speaks: 
+    span #{user.spokenLangs}        
+    br
+    strong Socials: 
+    span #{user.socialLinks} 
+    br
+    strong Star Count: 
+    span #{user.starCount}   
+    button Star             

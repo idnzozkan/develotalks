@@ -1,0 +1,54 @@
+extends layout 
+block content 
+    if room.title
+        h2 #{room.title}
+    else 
+        h2 #{room.owner}'s Room
+    if room.description 
+        h3 #{room.description}
+    p #{room.participants.length}/#{room.maxParticipants} People | #{room.roomLanguage} | #{room.roomTags} | Created by #{room.owner.name}
+
+    hr
+    ul
+        each participant in room.participants 
+            li 
+                a(href=`../u/${participant.id}`) 
+                    h4 #{participant.name}
+                br 
+                
+    div 
+        form
+            textarea(rows="3" cols="40")
+            button Send
+
+    br
+    br
+
+    if room.isPrivate
+        strong Waiting People 
+        hr
+
+        ul 
+            each user in room.waitingPeople 
+                li 
+                    a(href=`../u/${user.id}`)
+                        i #{user.name}
+
+        br
+        br
+
+    strong Kicked People 
+    hr
+
+    ul 
+        each user in room.kickedPeople 
+            li 
+                a(href=`../u/${user.id}`)
+                    i #{user.name}
+    br
+    br
+    hr
+    button MICROPHONE
+    button CAMERA
+    button SHARE SCREEN
+    button DISCONNECT

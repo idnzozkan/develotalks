@@ -3,8 +3,26 @@ const colors = require("colors")
 const { v4: uuidv4 } = require("uuid")
 
 class User {
-  constructor(name, username, profilePhoto, userBio, socialLinks, interests, spokenLangs) {
-    this.id = uuidv4()
+  constructor(
+    id = uuidv4(),
+    name,
+    username,
+    profilePhoto,
+    userBio,
+    socialLinks,
+    interests,
+    spokenLangs,
+    friends = [],
+    following = [],
+    followers = [],
+    messages = [],
+    starCount = 0,
+    starredUsers = [],
+    activeRoom = null,
+    createdRoom = null,
+    waitingRoom = null
+  ) {
+    this.id = id
     this.name = name
     this.username = username
     this.profilePhoto = profilePhoto
@@ -12,15 +30,15 @@ class User {
     this.socialLinks = socialLinks
     this.interests = interests
     this.spokenLangs = spokenLangs
-    this.friends = []
-    this.followings = []
-    this.followers = []
-    this.messages = []
-    this.starCount = 0
-    this.starredUsers = []
-    this.isInAWaitingRoom = false
-    this.onlineAtRoom = null
-    this.createdRoom = null
+    this.friends = friends
+    this.following = following
+    this.followers = followers
+    this.messages = messages
+    this.starCount = starCount
+    this.starredUsers = starredUsers
+    this.activeRoom = activeRoom
+    this.createdRoom = createdRoom
+    this.waitingRoom = waitingRoom
   }
 
   createRoom(
@@ -35,10 +53,8 @@ class User {
     isPrivate,
     roomTags
   ) {
-    if (this.onlineAtRoom) this.stopSession()
-
-    const room = new Room(
-      this,
+    const room = Room.create({
+      owner: this,
       title,
       description,
       roomLanguage,
@@ -49,65 +65,39 @@ class User {
       canTypeToChatBox,
       isPrivate,
       roomTags
-    )
+    })
     this.createdRoom = room
-    this.onlineAtRoom = room
+    this.activeRoom = room
 
     return room
   }
 
   joinRoom(room) {
-    if (room.maxParticipants <= room.participants.length) {
-      // ✘ CANNOT JOIN
-      console.log(colors.yellow("Room is full"))
-    } else if (room.kickedPeople.some(bannedUser => bannedUser.id == this.id)) {
-      // ✘ CANNOT JOIN
-      console.log(colors.red("You have been banned from this room before"))
-    } else if (this.onlineAtRoom?.id == room.id) {
-      // ✘ CANNOT JOIN
-      console.log(colors.rainbow("You are already in this room"))
-    } else if (room.isPrivate && this !== room.owner) {
-      // ✘ CANNOT JOIN: user cannot directly join the room. take them to the waiting room
+    if (room.isPrivate && this !== room.owner) {
       console.log(
-        colors.yellow(
+        colors.bold.yellow(
           "This is a private room. You need to wait for you to be taken into the room by the owner."
         )
       )
 
-      this.onlineAtRoom = null
       room.waitingPeople.push(this)
-      this.isInAWaitingRoom = true
+      this.waitingRoom = room
     } else {
-      // ✔ CAN JOIN: user can join the room.
-
-      if (this.isInAWaitingRoom) this.isInAWaitingRoom = false
-
-      this.onlineAtRoom = room
+      this.activeRoom = room
       room.participants.push(this)
 
       console.log(colors.green(`${this.name} joined ${room.owner.name}'s room`))
     }
   }
 
-  stopSession() {
-    if (this.isInAWaitingRoom) {
-      this.isInAWaitingRoom = false
-    }
-    this.onlineAtRoom.participants = this.onlineAtRoom.participants.filter(
-      participant => participant.id !== this.id
-    )
-    this.onlineAtRoom = null
-    console.log(colors.magenta(`${this.name} left`))
-  }
-
   // Owner methods
   kickOutParticipant(user) {
-    if (this.id !== this.onlineAtRoom?.owner.id) {
+    if (this.id !== this.activeRoom?.owner.id) {
       console.log(colors.red("You do not have permission to do this"))
-    } else if (this.id === this.onlineAtRoom.owner.id && user.id === this.id) {
+    } else if (this.id === this.activeRoom.owner.id && user.id === this.id) {
       console.log(colors.red("You cannot kick yourself. Try to disconnect."))
     } else {
-      user.onlineAtRoom = null
+      user.activeRoom = null
       this.createdRoom.participants = this.createdRoom.participants.filter(
         participant => participant.id !== user.id
       )
@@ -119,7 +109,7 @@ class User {
   }
 
   removeBan(user) {
-    if (this.createdRoom !== this.onlineAtRoom) {
+    if (this.createdRoom?.id !== this.activeRoom?.id) {
       console.log(colors.red("You do not have permission to do this"))
     } else {
       this.createdRoom.kickedPeople = this.createdRoom.kickedPeople.filter(
@@ -130,32 +120,18 @@ class User {
   }
 
   acceptWaitingUser(user) {
-    // single user
-    if (user) {
-      this.createdRoom.waitingPeople = this.createdRoom.waitingPeople.filter(
-        waitingUser => waitingUser.id !== user.id
-      )
-      user.isInAWaitingRoom = false
-      this.createdRoom.participants.push(user)
-      user.onlineAtRoom = this.createdRoom
-      console.log(colors.cyan(`${this.name} accepted ${user.name}'s joining request`))
-    }
-    // all users
-    else {
-      this.createdRoom.waitingPeople.map(waitingUser => {
-        console.log(colors.cyan(`${this.name} accepted ${waitingUser.name}'s joining request`))
-        return (waitingUser.isInAWaitingRoom = false)
-      })
-      this.createdRoom.waitingPeople.map(
-        waitingUser => (waitingUser.onlineAtRoom = this.createdRoom)
-      )
-
-      this.createdRoom.participants = [
-        ...this.createdRoom.participants,
-        ...this.createdRoom.waitingPeople
-      ]
-
-      this.createdRoom.waitingPeople = []
+    if (this.createdRoom && this.activeRoom.id == this.createdRoom.id) {
+      if (user && user.waitingRoom.id == this.createdRoom.id) {
+        this.createdRoom.waitingPeople = this.createdRoom.waitingPeople.filter(
+          waitingUser => waitingUser.id !== user.id
+        )
+        user.waitingRoom = null
+        this.createdRoom.participants.push(user)
+        user.activeRoom = this.createdRoom
+        console.log(colors.cyan(`${this.name} accepted ${user.name}'s joining request`))
+      }
+    } else {
+      console.log("Only room owner can do this action!")
     }
   }
 
@@ -169,37 +145,34 @@ class User {
     interests,
     spokenLangs,
     friends,
-    followings,
+    following,
     followers,
     messages,
     starCount,
     starredUsers,
-    isInAWaitingRoom,
-    onlineAtRoom,
-    createdRoom
+    activeRoom,
+    createdRoom,
+    waitingRoom
   }) {
-    const newUser = new User(
+    return new User(
+      id,
       name,
       username,
       profilePhoto,
       userBio,
       socialLinks,
       interests,
-      spokenLangs
+      spokenLangs,
+      friends,
+      following,
+      followers,
+      messages,
+      starCount,
+      starredUsers,
+      activeRoom,
+      createdRoom,
+      waitingRoom
     )
-
-    newUser.id = id
-    newUser.friends = friends
-    newUser.followings = followings
-    newUser.followers = followers
-    newUser.messages = messages
-    newUser.starCount = starCount
-    newUser.starredUsers = starredUsers
-    newUser.isInAWaitingRoom = isInAWaitingRoom
-    newUser.onlineAtRoom = onlineAtRoom
-    newUser.createdRoom = createdRoom
-
-    return newUser
   }
 }
 
