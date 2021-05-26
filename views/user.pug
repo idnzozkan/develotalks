@@ -7,7 +7,7 @@ block content
     span #{!user.following.length ? '0' : user.following.length} Following | #{!user.followers.length ? '0' : user.followers.length} Followers | #{!user.friends.length ? '0' : user.friends.length} Friends 
     br
     strong Online At: 
-    span #{user.onlineAtRoom ? `${user.onlineAtRoom.owner.name}'s room` : ' - '}     
+    span #{user.activeRoom ? `${user.activeRoom.owner.name}'s room` : ' - '}     
     br
     strong Bio: 
     span #{user.userBio}         

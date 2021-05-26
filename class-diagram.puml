@@ -15,7 +15,7 @@ class User <<Entity>> {
     + starCount: Number
     + starredUsers: [User]
     + isInARoom: Boolean
-    + onlineAtRoom: Room
+    + activeRoom: Room
 
     + createRoom()
     + joinRoom()
