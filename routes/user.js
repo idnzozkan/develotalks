@@ -1,79 +1,55 @@
-const { usersDatabase, createdRoomsDatabase } = require("../database")
-const colors = require("colors")
-
+const { usersService } = require("../services")
 const router = require("express").Router()
 
+router.get("/", async (req, res) => {
+  const users = await usersService.load()
+
+  res.send(users)
+})
+
+router.post("/", async (req, res, next) => {
+  try {
+    const user = await usersService.insert(req.body)
+    res.send(user)
+  } catch (e) {
+    next(e)
+  }
+})
+
 router.get("/:userId", async (req, res) => {
-  const user = await usersDatabase.find(req.params.userId)
+  const user = await usersService.find(req.params.userId)
   if (!user) return res.status(404).send("404 - Cannot find user")
 
   res.render("user", { user })
 })
 
-router.post("/", async (req, res) => {
-  const user = await usersDatabase.insert(req.body)
-
-  res.send(user)
-})
-
 router.delete("/:userId", async (req, res) => {
-  await usersDatabase.removeBy("id", req.params.userId)
+  await usersService.removeBy("_id", req.params.userId)
 
   res.send("OK")
 })
 
-router.post("/:userId/join", async (req, res) => {
+router.post("/:userId/join", async (req, res, next) => {
   const { userId } = req.params
   const { roomId } = req.query
 
-  const user = await usersDatabase.find(userId)
-  const room = await createdRoomsDatabase.find(roomId)
-
-  if (room.maxParticipants <= room.participants.length) {
-    return res.send("Room is full")
-  } else if (room.kickedPeople.some(bannedUser => bannedUser.id == user.id)) {
-    return res.send("You have been banned from this room before")
-  } else if (
-    room.participants.some(participant => participant.id == user.id) ||
-    user.activeRoom?.id == room.id
-  ) {
-    return res.send("You are already in this room")
+  try {
+    await usersService.joinRoom(userId, roomId)
+    res.send("OK")
+  } catch (e) {
+    next(e)
   }
+})
 
-  if (user.activeRoom) {
-    user.activeRoom.participants = user.activeRoom.participants.filter(p => p.id !== user.id)
-    await createdRoomsDatabase.update(user.activeRoom)
+router.post("/:userId/disconnect", async (req, res) => {
+  const user = await usersService.find(req.params.userId)
 
-    user.activeRoom = null
-    await usersDatabase.update(user)
-
-    user.joinRoom(room)
-    await usersDatabase.update(user)
-    await createdRoomsDatabase.update(room)
-
-    console.log(colors.magenta(`${user.name} left`))
-  } else if (user.waitingRoom) {
-    user.waitingRoom.waitingPeople = user.waitingRoom.waitingPeople.filter(u => u.id !== user.id)
-    await createdRoomsDatabase.update(user.waitingRoom)
-
-    user.waitingRoom = null
-    await usersDatabase.update(user)
-
-    user.joinRoom(room)
-    await usersDatabase.update(user)
-    await createdRoomsDatabase.update(room)
-
-    console.log(colors.magenta(`${user.name} left from the waiting room`))
-  } else {
-    user.joinRoom(room)
-    await usersDatabase.update(user)
-    await createdRoomsDatabase.update(room)
-  }
+  await usersService.stopSession(user)
 
   res.send("OK")
 })
 
-router.post("/:userId/createdRoom", async (req, res) => {
+router.post("/:userId/createdRoom", async (req, res, next) => {
   const { userId } = req.params
   const {
     title,
@@ -88,36 +64,31 @@ router.post("/:userId/createdRoom", async (req, res) => {
     roomTags
   } = req.body
 
-  const user = await usersDatabase.find(userId)
-  const room = user.createRoom(
-    title,
-    description,
-    roomLanguage,
-    maxParticipants,
-    canUseMic,
-    canUseWebcam,
-    canShareScreen,
-    canTypeToChatBox,
-    isPrivate,
-    roomTags
-  )
-
-  await createdRoomsDatabase.insert(room)
-
-  res.send("OK")
+  try {
+    const room = await usersService.createRoom(
+      userId,
+      title,
+      description,
+      roomLanguage,
+      maxParticipants,
+      canUseMic,
+      canUseWebcam,
+      canShareScreen,
+      canTypeToChatBox,
+      isPrivate,
+      roomTags
+    )
+    res.send(room)
+  } catch (e) {
+    next(e)
+  }
 })
 
 router.post("/:ownerId/accept", async (req, res) => {
   const { ownerId } = req.params
   const { userId } = req.query
 
-  const owner = await usersDatabase.find(ownerId)
-  const user = await usersDatabase.find(userId)
-
-  owner.acceptWaitingUser(user)
-
-  await createdRoomsDatabase.update(owner.createdRoom)
-  await usersDatabase.update(user)
+  usersService.acceptWaitingUser(ownerId, userId)
 
   res.send("OK")
 })
@@ -126,13 +97,7 @@ router.post("/:ownerId/ban", async (req, res) => {
   const { ownerId } = req.params
   const { userId } = req.query
 
-  const owner = await usersDatabase.find(ownerId)
-  const user = await usersDatabase.find(userId)
-
-  owner.kickOutParticipant(user)
-
-  await usersDatabase.update(user)
-  await createdRoomsDatabase.update(owner.createdRoom)
+  usersService.kickOutParticipant(ownerId, userId)
 
   res.send("OK")
 })
@@ -141,13 +106,25 @@ router.post("/:ownerId/unban", async (req, res) => {
   const { ownerId } = req.params
   const { userId } = req.query
 
-  const owner = await usersDatabase.find(ownerId)
-  const user = await usersDatabase.find(userId)
+  usersService.removeBan(ownerId, userId)
 
-  owner.removeBan(user)
+  res.send("OK")
+})
 
-  await usersDatabase.update(user)
-  await createdRoomsDatabase.update(owner.createdRoom)
+router.patch("/:userId", async (req, res) => {
+  const { userId } = req.params
+  const { name, profilePhoto, userBio, socialLinks, interests, spokenLangs } = req.body
+
+  const obj = {}
+
+  if (name) obj.name = name
+  if (profilePhoto) obj.profilePhoto = profilePhoto
+  if (userBio) obj.userBio = userBio
+  if (socialLinks) obj.socialLinks = socialLinks
+  if (interests) obj.interests = interests
+  if (spokenLangs) obj.spokenLangs = spokenLangs
+
+  await usersService.update(userId, obj)
 
   res.send("OK")
 })
