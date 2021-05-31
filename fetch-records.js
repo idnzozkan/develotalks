@@ -1,18 +1,18 @@
-const { usersDatabase, createdRoomsDatabase } = require("./database")
+const { usersService, createdRoomsService } = require("./services")
 const { printOnlineUserStats, printRoomStats } = require("./lib")
 
 async function main() {
   try {
-    const john = await usersDatabase.findByName("John Doe")
-    const kristina = await usersDatabase.findByName("Kristina")
+    const john = await usersService.findByName("John Doe")
+    const kristina = await usersService.findByName("Kristina")
 
     john.joinRoom(kristina.createdRoom)
-    await usersDatabase.update(john)
-    await createdRoomsDatabase.update(kristina.createdRoom)
+    await usersService.update(john)
+    await createdRoomsService.update(kristina.createdRoom)
 
     kristina.kickOutParticipant(john)
-    await usersDatabase.update(john)
-    await createdRoomsDatabase.update(kristina.createdRoom)
+    await usersService.update(john)
+    await createdRoomsService.update(kristina.createdRoom)
 
     printOnlineUserStats([john])
     printRoomStats(kristina.createdRoom)
