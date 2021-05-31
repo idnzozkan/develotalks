@@ -1,78 +1,51 @@
-const { v4: uuidv4 } = require("uuid")
-class Room {
-  constructor(
-    id = uuidv4(),
-    owner,
-    participants = [owner],
-    title,
-    description,
-    roomLanguage,
-    kickedPeople = [],
-    waitingPeople = [],
-    maxParticipants,
-    canUseMic,
-    canUseWebcam,
-    canShareScreen,
-    canTypeToChatBox,
-    isPrivate,
-    roomTags,
-    createdAt = Date.now()
-  ) {
-    this.id = id
-    this.owner = owner
-    this.participants = participants
-    this.title = title
-    this.description = description
-    this.roomLanguage = roomLanguage
-    this.kickedPeople = kickedPeople
-    this.waitingPeople = waitingPeople
-    this.maxParticipants = maxParticipants
-    this.canUseMic = canUseMic
-    this.canUseWebcam = canUseWebcam
-    this.canShareScreen = canShareScreen
-    this.canTypeToChatBox = canTypeToChatBox
-    this.isPrivate = isPrivate
-    this.roomTags = roomTags
-    this.createdAt = createdAt
-  }
+const mongoose = require("mongoose")
 
-  static create({
-    id,
-    owner,
-    participants,
-    title,
-    description,
-    roomLanguage,
-    kickedPeople,
-    waitingPeople,
-    maxParticipants,
-    canUseMic,
-    canUseWebcam,
-    canShareScreen,
-    canTypeToChatBox,
-    isPrivate,
-    roomTags,
-    createdAt
-  }) {
-    return new Room(
-      id,
-      owner,
-      participants,
-      title,
-      description,
-      roomLanguage,
-      kickedPeople,
-      waitingPeople,
-      maxParticipants,
-      canUseMic,
-      canUseWebcam,
-      canShareScreen,
-      canTypeToChatBox,
-      isPrivate,
-      roomTags,
-      createdAt
-    )
-  }
-}
+const RoomSchema = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    autopopulate: { maxDepth: 1 }
+  },
+  participants: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: this.owner,
+      autopopulate: { maxDepth: 1 }
+    }
+  ],
+  title: {
+    type: String,
+    maxLength: 100
+  },
+  description: {
+    type: String,
+    maxLength: 200
+  },
+  roomLanguage: String,
+  kickedPeople: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      autopopulate: { maxDepth: 1 }
+    }
+  ],
+  waitingPeople: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      autopopulate: { maxDepth: 1 }
+    }
+  ],
+  maxParticipants: Number,
+  canUseMic: Boolean,
+  canUseWebcam: Boolean,
+  canShareScreen: Boolean,
+  canTypeToChatBox: Boolean,
+  isPrivate: Boolean,
+  roomTags: [String],
+  createdAt: { type: Date, default: Date.now }
+})
 
-module.exports = Room
+RoomSchema.plugin(require("mongoose-autopopulate"))
+module.exports = mongoose.model("Room", RoomSchema)
