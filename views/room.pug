@@ -3,7 +3,7 @@ block content
     if room.title
         h2 #{room.title}
     else 
-        h2 #{room.owner}'s Room
+        h2 #{room.owner.name}'s Room
     if room.description 
         h3 #{room.description}
     p #{room.participants.length}/#{room.maxParticipants} People | #{room.roomLanguage} | #{room.roomTags} | Created by #{room.owner.name}
