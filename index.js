@@ -3,6 +3,7 @@ const bodyParser = require("body-parser")
 const indexRouter = require("./routes/index")
 const userRouter = require("./routes/user")
 const roomRouter = require("./routes/room")
+require("./mongo-connection")
 
 const app = express()
 app.use(bodyParser.json())
