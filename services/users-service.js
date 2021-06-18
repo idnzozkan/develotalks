@@ -162,7 +162,7 @@ class UsersService extends BaseService {
     const owner = await this.find(ownerId)
     const user = await this.find(userId)
 
-    if (owner.createdRoom && owner.activeRoom._id.toString() == owner.createdRoom._id.toString()) {
+    if (owner._id.toString() == user.activeRoom?.owner._id.toString()) {
       if (user && user.waitingRoom._id.toString() == owner.createdRoom._id.toString()) {
         owner.createdRoom.waitingPeople = owner.createdRoom.waitingPeople.filter(
           waitingUser => waitingUser._id.toString() != user._id.toString()
