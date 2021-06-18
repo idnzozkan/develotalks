@@ -11,7 +11,7 @@ class UsersService extends BaseService {
   async stopSession(user) {
     if (user.activeRoom) {
       user.activeRoom.participants = user.activeRoom.participants.filter(
-        p => p._id.toString() != user._id.toString()
+        p => !p._id.equals(user._id)
       )
       await user.activeRoom.save()
 
@@ -23,7 +23,7 @@ class UsersService extends BaseService {
 
     if (user.waitingRoom) {
       user.waitingRoom.waitingPeople = user.waitingRoom.waitingPeople.filter(
-        u => u._id.toString() !== user._id.toString()
+        u => !u._id.equals(user._id)
       )
       await user.waitingRoom.save()
 
@@ -82,20 +82,15 @@ class UsersService extends BaseService {
 
     if (room.maxParticipants <= room.participants.length) {
       throw new Error("Room is full")
-    } else if (
-      room.kickedPeople.some(bannedUser => bannedUser._id.toString() == user._id.toString())
-    ) {
+    } else if (room.kickedPeople.some(bannedUser => bannedUser._id.equals(user._id))) {
       throw new Error("You have been banned from this room before")
-    } else if (
-      room.participants.some(participant => participant._id.toString() == user._id.toString()) ||
-      user.activeRoom?._id.toString() == room._id.toString()
-    ) {
+    } else if (room.participants.some(participant => participant._id.equals(user._id))) {
       throw new Error("You are already in this room")
     }
 
     if (user.activeRoom || user.waitingRoom) await this.stopSession(user)
 
-    if (room.isPrivate && user._id.toString() !== room.owner._id.toString()) {
+    if (room.isPrivate && !user._id.equals(room.owner._id)) {
       console.log(
         colors.bold.yellow(
           "This is a private room. You need to wait for you to be taken into the room by the owner."
@@ -119,65 +114,75 @@ class UsersService extends BaseService {
     const owner = await this.find(ownerId)
     const user = await this.find(userId)
 
-    if (owner._id.toString() != owner.activeRoom?.owner._id.toString()) {
-      console.log(colors.red("You do not have permission to do this"))
-    } else if (
-      owner._id.toString() == owner.activeRoom.owner._id.toString() &&
-      user._id.toString() == owner._id.toString()
-    ) {
-      console.log(colors.red("You cannot kick yourself. Try to disconnect."))
-    } else {
-      user.activeRoom = null
-      owner.createdRoom.participants = owner.createdRoom.participants.filter(
-        p => p._id.toString() != user._id.toString()
-      )
-      owner.createdRoom.kickedPeople.push(user)
+    if (owner.createdRoom && user.activeRoom) {
+      if (
+        !owner._id.equals(user.activeRoom.owner._id) &&
+        user.activeRoom.participants.some(p => !p._id.equals(owner._id))
+      ) {
+        console.log(colors.red("You do not have permission to do this"))
+      } else if (user._id.equals(owner._id)) {
+        console.log(colors.red("You cannot kick yourself. Try to disconnect."))
+      } else {
+        user.activeRoom = null
+        owner.createdRoom.participants = owner.createdRoom.participants.filter(
+          p => !p._id.equals(user._id)
+        )
+        owner.createdRoom.kickedPeople.push(user)
 
-      console.log(
-        colors.red(`${colors.bold(`${user.name}`)} kicked by ${colors.bold(`${owner.name}`)}`)
-      )
+        console.log(
+          colors.red(`${colors.bold(`${user.name}`)} kicked by ${colors.bold(`${owner.name}`)}`)
+        )
+      }
+
+      await user.save()
+      await owner.createdRoom.save()
     }
-
-    await user.save()
-    await owner.createdRoom.save()
   }
 
   async removeBan(ownerId, userId) {
     const owner = await this.find(ownerId)
     const user = await this.find(userId)
 
-    if (owner.createdRoom?._id.toString() != owner.activeRoom?._id.toString()) {
-      console.log(colors.red("You do not have permission to do this"))
-    } else {
-      owner.createdRoom.kickedPeople = owner.createdRoom.kickedPeople.filter(
-        bannedUser => bannedUser._id.toString() != user._id.toString()
-      )
-      console.log(colors.yellow(`${owner.name} removed ${user.name}'s ban`))
-    }
+    if (owner.createdRoom && owner.activeRoom) {
+      if (
+        !owner.createdRoom._id.equals(owner.activeRoom._id) &&
+        owner.activeRoom.kickedPeople.some(u => !u._id.equals(user._id))
+      ) {
+        console.log(colors.red("You do not have permission to do this"))
+      } else {
+        owner.createdRoom.kickedPeople = owner.createdRoom.kickedPeople.filter(
+          bannedUser => !bannedUser._id.equals(user._id)
+        )
+        console.log(colors.yellow(`${owner.name} removed ${user.name}'s ban`))
+      }
 
-    await owner.createdRoom.save()
+      await owner.createdRoom.save()
+    }
   }
 
   async acceptWaitingUser(ownerId, userId) {
     const owner = await this.find(ownerId)
     const user = await this.find(userId)
 
-    if (owner.createdRoom && owner.activeRoom._id.toString() == owner.createdRoom._id.toString()) {
-      if (user && user.waitingRoom._id.toString() == owner.createdRoom._id.toString()) {
+    if (owner.createdRoom && owner.activeRoom && user.waitingRoom) {
+      if (
+        owner._id.equals(user.waitingRoom.owner._id) &&
+        owner.activeRoom._id.equals(user.waitingRoom?._id)
+      ) {
         owner.createdRoom.waitingPeople = owner.createdRoom.waitingPeople.filter(
-          waitingUser => waitingUser._id.toString() != user._id.toString()
+          waitingUser => !waitingUser._id.equals(user._id)
         )
         user.waitingRoom = null
         owner.createdRoom.participants.push(user)
         user.activeRoom = owner.createdRoom
         console.log(colors.cyan(`${owner.name} accepted ${user.name}'s joining request`))
+      } else {
+        console.log("Only room owner can do this action!")
       }
-    } else {
-      console.log("Only room owner can do this action!")
-    }
 
-    await user.save()
-    await owner.createdRoom.save()
+      await user.save()
+      await owner.createdRoom.save()
+    }
   }
 }
 
