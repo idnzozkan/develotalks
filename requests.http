@@ -3,13 +3,13 @@ POST http://localhost:3000/u HTTP/1.1
 content-type: application/json
 
 {
-  "name": "John",
-  "username": "john.doe",
-  "profilePhoto": "/img/john.jpg",
-  "userBio": "Hi, I'm John Doe",
-  "socialLinks": ["https://www.github.com/idnzozkan", "https://www.linkedin.com/in/idnzozkan"],
+  "name": "Mikasa",
+  "username": "mikasa_ackerman",
+  "profilePhoto": "/img/mikasa_ackerman.jpg",
+  "userBio": "I'm a web developer",
+  "socialLinks": ["https://www.github.com/"],
   "interests": ["Web Development"],
-  "spokenLangs": ["Japanese", "English"]
+  "spokenLangs": ["English"]
 }
 
 ### Fetch all users
@@ -19,20 +19,20 @@ GET http://localhost:3000/u HTTP/1.1
 GET http://localhost:3000/u/60b04606c3f82fc7773668db HTTP/1.1
 
 ### Create a new room
-POST http://localhost:3000/u/60b4ce72b66493b3b07ee3e6/createdRoom HTTP/1.1
+POST http://localhost:3000/u/60cbd3cb7f2728a7a338c429/createdRoom HTTP/1.1
 content-type: application/json
 
 {
-  "title": "Levi's cool room",
-  "description": "I am senior and the best",
+  "title": "Senior Engineers Only",
+  "description": "I'm looking for a mentor",
   "roomLanguage": "English",
-  "maxParticipants": 3,
+  "maxParticipants": 4,
   "canUseMic": true,
   "canUseWebcam": true,
   "canShareScreen": true,
   "canTypeToChatBox": true,
-  "isPrivate": false,
-  "roomTags": ["#javascript"]
+  "isPrivate": true,
+  "roomTags": ["#webdevelopment", "#career"]
 }
 
 ### Delete a user
@@ -45,7 +45,7 @@ content-type: application/json
 { "name": "Levi", "profilePhoto": "updated-profile-photo.jpg" }
 
 ### Join a room
-POST http://localhost:3000/u/60b4ce72b66493b3b07ee3e6/join?roomId=60b526e0ec34b4f603d4b64f HTTP/1.1
+POST http://localhost:3000/u/60b4ce72b66493b3b07ee3e6/join?roomId=60cbd43e7f2728a7a338c42a HTTP/1.1
 
 ### Exit from the active room 
 POST http://localhost:3000/u/60b4ce37b66493b3b07ee3e5/disconnect HTTP/1.1
@@ -57,7 +57,7 @@ POST http://localhost:3000/u/60b4ce72b66493b3b07ee3e6/ban?userId=60b52800ec34b4f
 POST http://localhost:3000/u/60b4ce72b66493b3b07ee3e6/unban?userId=60b52800ec34b4f603d4b651 HTTP/1.1
 
 ### Accept a waiting user's joining request
-POST http://localhost:3000/u/60b4ce37b66493b3b07ee3e5/accept?userId=60b52800ec34b4f603d4b651 HTTP/1.1
+POST http://localhost:3000/u/60b4ce37b66493b3b07ee3e5/accept?userId=60b4ce72b66493b3b07ee3e6 HTTP/1.1
 
 ### Fetch all rooms
 GET http://localhost:3000/r HTTP/1.1
@@ -66,10 +66,10 @@ GET http://localhost:3000/r HTTP/1.1
 DELETE http://localhost:3000/r/60b3aa725a00b11795ad96e0 HTTP/1.1
 
 ### Update a room's property
-PATCH http://localhost:3000/r/60b526e0ec34b4f603d4b64f HTTP/1.1
+PATCH http://localhost:3000/r/60cbd43e7f2728a7a338c42a HTTP/1.1
 content-type: application/json
 
-{ "title": "This room title has been updated", "roomLanguage": "Turkish" }
+{ "isPrivate": "true" }
 
 ### Filter rooms by query
 GET http://localhost:3000/r/search?ownerId=60b3a8b95a00b11795ad96de HTTP/1.1
