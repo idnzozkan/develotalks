@@ -1,7 +1,8 @@
 const mongoose = require("mongoose")
 mongoose.connect("mongodb://localhost/develotalks", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
 
 const db = mongoose.connection
