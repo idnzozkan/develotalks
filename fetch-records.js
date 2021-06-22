@@ -1,21 +1,12 @@
 const { usersService, createdRoomsService } = require("./services")
 const { printOnlineUserStats, printRoomStats } = require("./lib")
+require("./mongo-connection")
 
 async function main() {
   try {
-    const john = await usersService.findByName("John Doe")
-    const kristina = await usersService.findByName("Kristina")
+    const users = await usersService.load()
 
-    john.joinRoom(kristina.createdRoom)
-    await usersService.update(john)
-    await createdRoomsService.update(kristina.createdRoom)
-
-    kristina.kickOutParticipant(john)
-    await usersService.update(john)
-    await createdRoomsService.update(kristina.createdRoom)
-
-    printOnlineUserStats([john])
-    printRoomStats(kristina.createdRoom)
+    printOnlineUserStats(users)
   } catch (error) {
     console.log(error)
   }
