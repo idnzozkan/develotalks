@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon",
-    "test": "jest",
-    "test-watch": "jest --watch"
+    "test": "jest --verbose",
+    "test-watch": "jest --verbose --watch"
   },
   "nodemonConfig": {
     "ignore": [
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "jest": "^27.0.4",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   }
 }
