@@ -4,10 +4,10 @@
   "description": "Developer meeting center",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "watch": "nodemon",
-    "test": "jest",
-    "test-watch": "jest --watch"
+    "start": "node .bin/www",
+    "watch": "nodemon .bin/www",
+    "test": "jest --coverage --verbose",
+    "test-watch": "jest --coverage --verbose --watch"
   },
   "nodemonConfig": {
     "ignore": [
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "jest": "^27.0.4",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   }
 }

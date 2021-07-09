@@ -14,6 +14,4 @@ app.use("/u", userRouter)
 app.use("/r", roomRouter)
 app.use("/", indexRouter)
 
-app.listen(3000, () => {
-  console.log("started listening")
-})
+module.exports = app
