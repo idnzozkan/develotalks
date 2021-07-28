@@ -20,7 +20,7 @@ router.get("/:userId", async (req, res) => {
   const user = await usersService.find(req.params.userId)
   if (!user) return res.status(404).send("404 - Cannot find user")
 
-  res.render("user", { user })
+  res.send(user)
 })
 
 router.delete("/:userId", async (req, res) => {

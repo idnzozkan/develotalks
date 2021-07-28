@@ -1,10 +1,8 @@
 const { createdRoomsService } = require("../services")
 const router = require("express").Router()
 
-router.get("/", async (req, res) => {
-  const rooms = await createdRoomsService.load()
-
-  res.render("index", { rooms })
+router.get("/ping", async (req, res) => {
+  res.send("pong!")
 })
 
 module.exports = router
