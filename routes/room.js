@@ -17,14 +17,14 @@ router.get("/search", async (req, res) => {
 
   const rooms = await createdRoomsService.query(query)
 
-  res.render("index", { rooms })
+  res.send(rooms)
 })
 
 router.get("/:roomId", async (req, res) => {
   const room = await createdRoomsService.find(req.params.roomId)
   if (!room) return res.status(404).send("404 - Cannot find room")
 
-  res.render("room", { room })
+  res.send(room)
 })
 
 router.delete("/:roomId", async (req, res) => {
