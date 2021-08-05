@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+axios.defaults.baseURL = 'http://localhost:3000'
+
 Vue.use(Vuex)
 
 const Mutations = {
@@ -30,7 +32,7 @@ export default new Vuex.Store({
       commit(Mutations.DECREMENT, type)
     },
     async fetchRooms () {
-      const rooms = await axios.get('http://localhost:3000/r')
+      const rooms = await axios.get('/r')
       return rooms.data
     }
   },
