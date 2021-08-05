@@ -10,9 +10,17 @@ export default {
     maxParticipants: Number,
     isPrivate: Boolean
   },
+  data () {
+    return {
+      btnText: 'Join'
+    }
+  },
   computed: {
     btnVariant () {
       return this.isPrivate ? 'private-btn' : 'public-btn'
+    },
+    btnTextByCapacity () {
+      return (this.participants.length >= this.maxParticipants) ? 'Full' : 'Join'
     }
   }
 }
@@ -24,16 +32,16 @@ export default {
       p.room-title {{ title }}
       .room-details
         span Info
-    .participants
+    .participants(v-for="participant in this.participants")
       .user
-        img(src="#").avatar
+        img(src="test.jpg").avatar
     .tags
       ul(v-for="tag in tags")
         li {{ tag }}
     .card-bottom
       span {{ maxParticipants }}
       span {{ language }}
-      button(:class="btnVariant")
+      button(:class="btnVariant") {{ btnTextByCapacity }}
 </template>
 
 <style lang="scss" scoped>
@@ -43,5 +51,16 @@ export default {
     height: 462px;
     min-width: 380px;
     color: white;
+
+    .participants {
+      display: flex;
+      width: 100%;
+      align-items: center;
+
+      .avatar {
+        width: 100px;
+      }
+    }
+
   }
 </style>
