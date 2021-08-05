@@ -9,7 +9,8 @@ export default {
   },
   data () {
     return {
-      rooms: []
+      rooms: [],
+      isLoading: true
     }
   },
   methods: {
@@ -17,20 +18,22 @@ export default {
   },
   async mounted () {
     this.rooms = await this.fetchRooms()
+    this.isLoading = false
   }
 }
 </script>
 
 <template lang="pug">
   .home
-    div(v-for="room in rooms")
-      RoomCard(:title="room.title" :owner="room.owner" :participants="room.participants" :language="room.roomLanguage" :tags="room.roomTags" :maxParticipants="room.maxParticipants" :isPrivate="isPrivate")
+    p(v-if="isLoading") Please wait...
+    div(v-else v-for="room in rooms")
+      RoomCard(:title="room.title" :owner="room.owner" :participants="room.participants" :language="room.roomLanguage" :tags="room.roomTags" :maxParticipants="room.maxParticipants" :isPrivate="room.isPrivate")
 </template>
 
 <style lang="scss" scoped>
   .home {
     display: flex;
     padding: 10rem;
-    background-color: rgba(255, 217, 0, 0.151);
+    background-color: #1E252B;
   }
 </style>
