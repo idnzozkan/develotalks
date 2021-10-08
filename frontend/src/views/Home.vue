@@ -1,6 +1,6 @@
 <script>
 import { mapActions } from 'vuex'
-import RoomCard from '@/components/RoomCard.vue'
+import RoomCard from '@/components/content/RoomCard.vue'
 
 export default {
   name: 'Home',
@@ -31,9 +31,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-  .home {
-    display: flex;
-    padding: 10rem;
-    background-color: #1E252B;
-  }
+.home {
+  display: flex;
+  padding: 10rem;
+}
 </style>
