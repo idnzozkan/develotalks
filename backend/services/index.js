@@ -1,4 +1,4 @@
 const usersService = require("./users-service")
-const createdRoomsService = require("./createdRooms-service")
+const roomsService = require("./rooms-service")
 
-module.exports = { usersService, createdRoomsService }
+module.exports = { usersService, roomsService }

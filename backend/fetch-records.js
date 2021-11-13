@@ -1,4 +1,4 @@
-const { usersService, createdRoomsService } = require("./services")
+const { usersService, roomsService } = require("./services")
 const { printOnlineUserStats, printRoomStats } = require("./lib")
 require("./mongo-connection")
 

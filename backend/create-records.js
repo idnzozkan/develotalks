@@ -2,7 +2,7 @@ const User = require("./models/user")
 const Tags = require("./enums/Tags")
 const Interests = require("./enums/Interests")
 const Languages = require("./enums/Languages")
-const { usersService, createdRoomsService } = require("./services")
+const { usersService, roomsService } = require("./services")
 const { printOnlineUserStats, printRoomStats } = require("./lib")
 
 const dennis = User.create({
@@ -77,7 +77,7 @@ const mikasaRoom = mikasa.createRoom(
 async function main() {
   try {
     await usersService.save([dennis, kristina, mikasa])
-    await createdRoomsService.save([dennisRoom, kristinaRoom, mikasaRoom])
+    await roomsService.save([dennisRoom, kristinaRoom, mikasaRoom])
 
     const john = User.create({
       name: "John Doe",
@@ -94,7 +94,7 @@ async function main() {
     const users = await usersService.load()
     printOnlineUserStats(users)
 
-    const rooms = await createdRoomsService.load()
+    const rooms = await roomsService.load()
     rooms.forEach(printRoomStats)
   } catch (error) {
     console.log(error)

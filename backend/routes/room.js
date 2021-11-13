@@ -1,8 +1,8 @@
-const { createdRoomsService } = require("../services")
+const { roomsService } = require("../services")
 const router = require("express").Router()
 
 router.get("/", async (req, res) => {
-  const rooms = await createdRoomsService.load()
+  const rooms = await roomsService.load()
 
   res.send(rooms)
 })
@@ -15,20 +15,20 @@ router.get("/search", async (req, res) => {
   if (ownerId) query.owner = ownerId
   if (roomLang) query.roomLanguage = roomLang
 
-  const rooms = await createdRoomsService.query(query)
+  const rooms = await roomsService.query(query)
 
   res.send(rooms)
 })
 
 router.get("/:roomId", async (req, res) => {
-  const room = await createdRoomsService.find(req.params.roomId)
+  const room = await roomsService.find(req.params.roomId)
   if (!room) return res.status(404).send("404 - Cannot find room")
 
   res.send(room)
 })
 
 router.delete("/:roomId", async (req, res) => {
-  await createdRoomsService.removeBy("_id", req.params.roomId)
+  await roomsService.removeBy("_id", req.params.roomId)
 
   res.send("OK")
 })
@@ -61,7 +61,7 @@ router.patch("/:roomId", async (req, res) => {
   if (isPrivate) obj.isPrivate = isPrivate
   if (roomTags) obj.roomTags = roomTags
 
-  await createdRoomsService.update(roomId, obj)
+  await roomsService.update(roomId, obj)
 
   res.send("OK")
 })
