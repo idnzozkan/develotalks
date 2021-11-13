@@ -1,6 +1,6 @@
 const BaseService = require("./base-service")
 const User = require("../models/user")
-const createdRoomsService = require("./createdRooms-service")
+const roomsService = require("./rooms-service")
 const colors = require("colors")
 
 class UsersService extends BaseService {
@@ -53,7 +53,7 @@ class UsersService extends BaseService {
       await this.stopSession(owner)
     }
 
-    const room = await createdRoomsService.insert({
+    const room = await roomsService.insert({
       owner,
       participants: [owner],
       title,
@@ -78,7 +78,7 @@ class UsersService extends BaseService {
 
   async joinRoom(userId, roomId) {
     const user = await this.find(userId)
-    const room = await createdRoomsService.find(roomId)
+    const room = await roomsService.find(roomId)
 
     if (room.maxParticipants <= room.participants.length) {
       throw new Error("Room is full")
