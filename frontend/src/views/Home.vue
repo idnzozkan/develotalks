@@ -1,5 +1,5 @@
 <script>
-import RoomList from '@/components/rooms/RoomList.vue'
+import RoomList from '@/components/content/room-list'
 
 export default {
   name: 'Home',
@@ -10,12 +10,8 @@ export default {
 </script>
 
 <template lang="pug">
-  .container
-    RoomList
+  RoomList
 </template>
 
 <style lang="scss" scoped>
-  .container {
-    padding: 4rem 8.87500rem;
-  }
 </style>
