@@ -1,18 +1,19 @@
 <script>
-import Sidebar from '@/components/sidebar/Sidebar.vue'
+import Sidebar from '@/components/sidebar'
+import Content from '@/components/content'
 
 export default {
   components: {
-    Sidebar
+    Sidebar,
+    Content
   }
 }
 </script>
 
-<template>
-  <div id="app">
-    <Sidebar/>
-    <router-view/>
-  </div>
+<template lang="pug">
+  #app
+    Sidebar
+    Content
 </template>
 
 <style lang="scss">
@@ -25,11 +26,18 @@ export default {
 }
 
 body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   background-color: #1e252b;
   font-family: Roboto;
 }
 
 ul {
   list-style-type: none;
+}
+
+#app {
+  display: flex;
 }
 </style>
