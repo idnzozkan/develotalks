@@ -1,6 +1,6 @@
 <script>
 import { mapActions } from 'vuex'
-import RoomCard from './RoomCard.vue'
+import RoomCard from './RoomCard'
 
 export default {
   name: 'RoomList',
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template lang="pug">
-  .container
+  .room-list-container
     p(v-if="isLoading") Please wait...
     div(v-else v-for="room in rooms")
       RoomCard(:title="room.title"
@@ -38,8 +38,9 @@ export default {
 </template>
 
 <style scoped lang="scss">
-  .container {
+  .room-list-container {
     display: flex;
     justify-content: center;
+    padding: 4rem 8.87500rem;
   }
 </style>
