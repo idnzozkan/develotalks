@@ -35,6 +35,18 @@ body {
 
 ul {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #6C5DD3;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: #7a69e4;
+  }
 }
 
 #app {

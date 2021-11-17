@@ -1,10 +1,10 @@
 <script>
-import Header from './Header.vue'
-import Profile from './Profile.vue'
+import Header from './header'
+import Profile from './profile'
 import CreateRoomButton from './create-room/create-room-button'
-import Menu from './Menu.vue'
+import Menu from './menu'
 import FriendsList from './friends-list'
-import Footer from './Footer.vue'
+import Footer from './footer'
 
 export default {
   name: 'Sidebar',
