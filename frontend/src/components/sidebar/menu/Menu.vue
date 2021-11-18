@@ -23,13 +23,15 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-menu {
+  margin-bottom: 6.37500rem;
+
   svg {
     font-size: 1.5625rem;
     margin-right: 1.1875rem;
   }
 
   ul {
-    padding: 0 1rem;
+    padding: 0 3.4375rem;
   }
 
   li {

@@ -16,8 +16,8 @@ export default {
 .create-room-btn-wrapper {
   display: flex;
   justify-content: center;
-  padding: 0 1rem;
-  margin: 4.5rem 0;
+  padding: 0 3.4375rem;
+  margin: 4.5rem 0 6.37500rem 0;
 
   svg {
     font-size: 1.619375rem;

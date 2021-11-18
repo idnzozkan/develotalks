@@ -29,8 +29,9 @@ export default {
   align-items: center;
   text-align: center;
   color: white;
-  margin-top: 3rem;
+  margin-top: 0.5625rem;
   margin-bottom: 4.5rem;
+  padding: 0 3.4375rem;
 }
 
 .user-avatar-frame {
@@ -46,6 +47,14 @@ export default {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .user-display-name {

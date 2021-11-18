@@ -6,8 +6,9 @@ export default {
 
 <template lang="pug">
   .header
-    span.title Develo
-      span Talks
+    router-link(to="/")
+      span.title Develo
+        span Talks
     .hamburger
       .line
       .line
@@ -20,6 +21,11 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: sticky;
+  top: 0;
+  background: #1e252b;
+  padding: 2.4375rem 3.4375rem;
+  z-index: 1;
 }
 
 .title {
@@ -40,6 +46,7 @@ export default {
 .hamburger {
   display: flex;
   flex-direction: column;
+  padding: 0.25rem;
 
   .line {
     width: 32px;
