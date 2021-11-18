@@ -39,8 +39,9 @@ export default {
 
 <style scoped lang="scss">
   .room-list-container {
-    display: flex;
-    justify-content: center;
-    padding: 4rem 8.87500rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 4rem;
+    padding: 3.4375rem 8rem;
   }
 </style>
