@@ -32,10 +32,13 @@ export default {
 <style lang="scss" scoped>
 .sidebar-container {
   position: relative;
-  padding: 2.4375rem;
   width: 21.562rem;
   height: 100vh;
-  overflow: hidden;
   border-right: 1px solid #2C353D;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>
