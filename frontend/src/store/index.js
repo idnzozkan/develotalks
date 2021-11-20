@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import getRooms from '../@fake-db/rooms'
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
@@ -34,6 +35,10 @@ export default new Vuex.Store({
     async fetchRooms () {
       const rooms = await axios.get('/r')
       return rooms.data
+    },
+    async fetchFakeRooms () {
+      const rooms = await getRooms()
+      return rooms
     }
   },
   modules: {

@@ -14,10 +14,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchRooms'])
+    ...mapActions(['fetchRooms', 'fetchFakeRooms'])
   },
   async mounted () {
-    this.rooms = await this.fetchRooms()
+    // this.rooms = await this.fetchRooms()
+    this.rooms = await this.fetchFakeRooms()
     this.isLoading = false
   }
 }
