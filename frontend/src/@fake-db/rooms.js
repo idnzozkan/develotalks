@@ -317,6 +317,108 @@ const getRooms = async () => [
     canTypeToChatBox: true,
     isPrivate: false,
     createdAt: '2021-05-31T20:11:44.410Z'
+  },
+  {
+    _id: '60b526e0ec34h4f603d4b71f',
+    participants: [
+      {
+        _id: '60b4ce37b456493b3b07ea8e6',
+        socialLinks: [
+          'https://www.github.com/'
+        ],
+        interests: [
+          'Game Development'
+        ],
+        spokenLangs: [
+          'English',
+          'Korean'
+        ],
+        friends: [],
+        following: [],
+        followers: [],
+        messages: [],
+        starCount: 0,
+        starredUsers: [],
+        name: 'Jane Smith',
+        username: 'jane.smith',
+        profilePhoto: 'https://avatarmaker.net/images/2.png',
+        userBio: 'I am Mike Doe, a game developer',
+        activeRoom: '60b526e0ec34b4f603d4b71f',
+        createdRoom: '60b526e0ec34b4f603d4b64f',
+        waitingRoom: null
+      },
+      {
+        _id: '60b4ce37b456493f6b07ea8e6',
+        socialLinks: [
+          'https://www.twitter.com/'
+        ],
+        interests: [
+          'Game Development'
+        ],
+        spokenLangs: [
+          'English',
+          'Korean'
+        ],
+        friends: [],
+        following: [],
+        followers: [],
+        messages: [],
+        starCount: 0,
+        starredUsers: [],
+        name: 'Another Guy',
+        username: 'another.guy',
+        profilePhoto: 'https://www.pngrepo.com/png/9650/512/avatar.png',
+        userBio: 'I am Another Guy, a game developer',
+        activeRoom: '60b526e0ec34b4f603d4b71f',
+        createdRoom: '60b526e0ec34b4f603d4b64f',
+        waitingRoom: null
+      }
+    ],
+    kickedPeople: [],
+    waitingPeople: [],
+    roomTags: [
+      '#general',
+      '#javascript',
+      '#gamedevelopment',
+      '#unity',
+      '#csharp'
+    ],
+    owner: {
+      _id: '60b4ce37b456493b3b07ea8e6',
+      socialLinks: [
+        'https://www.github.com/'
+      ],
+      interests: [
+        'Game Development'
+      ],
+      spokenLangs: [
+        'English',
+        'Korean'
+      ],
+      friends: [],
+      following: [],
+      followers: [],
+      messages: [],
+      starCount: 0,
+      starredUsers: [],
+      name: 'Jane Smith',
+      username: 'jane.smith',
+      profilePhoto: 'https://avatarmaker.net/images/2.png',
+      userBio: 'I am Mike Doe, a game developer',
+      activeRoom: '60b526e0ec34b4f603d4b71f',
+      createdRoom: '60b526e0ec34b4f603d4b64f',
+      waitingRoom: null
+    },
+    title: 'Only my best friends!',
+    description: 'lorem ipsum dolor sit amet',
+    roomLanguage: 'English',
+    maxParticipants: 3,
+    canUseMic: true,
+    canUseWebcam: true,
+    canShareScreen: true,
+    canTypeToChatBox: true,
+    isPrivate: true,
+    createdAt: '2021-05-31T20:11:44.410Z'
   }
 ]
 
