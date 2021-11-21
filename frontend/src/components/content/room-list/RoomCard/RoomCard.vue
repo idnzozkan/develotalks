@@ -22,11 +22,14 @@ export default {
     participantCircleSize () {
       return `padding-top: ${90 / this.maxParticipants}%;`
     },
-    btnVariant () {
-      return this.isPrivate ? 'private-btn' : 'public-btn'
+    btnVariantByPrivacy () {
+      return this.isPrivate ? 'btn-private' : 'btn-public'
     },
     btnTextByCapacity () {
       return (this.participants.length >= this.maxParticipants) ? 'Full' : 'Join'
+    },
+    btnVariantByCapacity () {
+      return (this.participants.length >= this.maxParticipants) ? 'btn-full' : this.btnVariantByPrivacy
     }
   },
   mounted () {
@@ -52,9 +55,14 @@ export default {
         li(v-for="tag in tags")
          | {{ tag }}
     .card-bottom
-      span {{ maxParticipants }}
-      span {{ language }}
-      button(:class="btnVariant") {{ btnTextByCapacity }}
+      .max-participants
+        font-awesome-icon(icon="user-friends")
+        span {{ participants.length + '/' + maxParticipants }}
+      .room-language
+        font-awesome-icon(icon="globe")
+        span {{ language }}
+      .join-button
+        button(:class="btnVariantByCapacity + ' btn'") {{ btnTextByCapacity }}
 </template>
 
 <style lang="scss" scoped>
@@ -133,7 +141,7 @@ export default {
         border-radius: 50%;
         width: 100%;
         height: 100%;
-        position:absolute;
+        position: absolute;
 
       }
     }
@@ -147,6 +155,7 @@ export default {
         -webkit-user-select: none;
         -moz-user-select: none;
         -webkit-overflow-scrolling: touch;
+
         &::-webkit-scrollbar {
           display: none;
         }
@@ -176,6 +185,78 @@ export default {
       }
     }
 
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 25%;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+
+      div {
+        display: flex;
+        align-items: center;
+      }
+
+      svg {
+        margin-right: 0.9375rem;
+        font-size: 1.37500rem;
+      }
+
+      span {
+        font-size: 100%;
+      }
+
+      .btn {
+        width: 5.62500rem;
+        height: 2.62500rem;
+        border-radius: 1.25rem;
+        outline: none;
+        border: none;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        transition: all 0.05s ease-out;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &-public {
+          color: #FFFFFF;
+          background: linear-gradient(180deg, #897DD7 0%, #6C5DD3 100%);
+          border: 1px solid #897DD7;
+
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+
+        &-private {
+          color: #FFFFFF;
+          background: linear-gradient(180deg, #FD996F 0%, #FF6E30 100%);
+          border: 1px solid #FD996F;
+
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+
+        &-full {
+          color: rgba(255, 255, 255, 0.3);
+          background: linear-gradient(180deg, rgba(97, 117, 124, 0.3) 0%, rgba(97, 117, 124, 0.3) 100%);
+          border: 1px solid rgba(97, 117, 124, 0.2);
+
+          &:hover {
+            cursor: not-allowed;
+          }
+        }
+      }
+
+    }
   }
 
 </style>
