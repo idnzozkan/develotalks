@@ -46,7 +46,7 @@ export default {
         font-awesome-icon(icon="info-circle" class="info-icon")
     .participants
       .participant-avatar-container(v-for="participant in this.participants" :style="participantAvatarSize")
-        img(src="https://www.shareicon.net/data/512x512/2016/07/05/791224_man_512x512.png")
+        img(:src="participant.profilePhoto")
       template(v-if="this.participants.length < this.maxParticipants" )
         .participant-avatar-container(v-for="circle in this.maxParticipants - this.participants.length" :style="participantAvatarSize")
          .participant-space-circle
@@ -143,6 +143,9 @@ export default {
         height: 100%;
         position: absolute;
 
+        &:hover {
+          cursor: default;
+        }
       }
     }
 
