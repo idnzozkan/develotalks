@@ -25,6 +25,43 @@ export default {
   box-sizing: border-box;
 }
 
+html {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #6758cc6c;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6d5dd375;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: #6b5cdbad;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1e252b;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  ::-webkit-scrollbar-track:hover {
+    background: #1e252b;
+  }
+  ::-webkit-scrollbar-track:active {
+    background: #1e252b;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+}
+
 body {
   position: relative;
   width: 100%;
