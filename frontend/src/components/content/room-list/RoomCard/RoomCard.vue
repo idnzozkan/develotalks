@@ -48,8 +48,9 @@ export default {
         .participant-avatar-container(v-for="circle in this.maxParticipants - this.participants.length" :style="participantAvatarSize")
          .participant-space-circle
     .tags
-      ul(v-for="tag in tags")
-        li {{ tag }}
+      ul
+        li(v-for="tag in tags")
+         | {{ tag }}
     .card-bottom
       span {{ maxParticipants }}
       span {{ language }}
@@ -106,12 +107,24 @@ export default {
         overflow: hidden;
         position: relative;
         margin-right: 0.5rem;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+
+        &:hover {
+          cursor: pointer;
+          img {
+            width: 105%;
+          }
+        }
 
         img {
           width: 100%;
           position: absolute;
           top: 50%; left: 50%;
           transform: translate(-50%, -50%);
+          -webkit-user-drag: none;
+          transition: all 0.15s ease;
         }
       }
 
@@ -124,6 +137,45 @@ export default {
 
       }
     }
+
+    .tags {
+      ul {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -webkit-overflow-scrolling: touch;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        li {
+          width: fit-content;
+          background: rgba(97, 117, 124, 0.3);
+          color: rgba(255, 255, 255, 0.5);
+          border-radius: 1.25rem;
+          padding: 0.5rem;
+          margin-right: 1.4375rem;
+          transition: all 0.075s ease;
+          font-size: 1rem;
+          font-weight: 300;
+          line-height: 1.1875rem;
+
+          &:hover {
+            cursor: pointer;
+            background: rgba(97, 117, 124, 0.35);
+            color: rgba(255, 255, 255, 0.55);
+          }
+
+          &:active {
+            transform: scale(0.98)
+          }
+        }
+      }
+    }
+
   }
 
 </style>
