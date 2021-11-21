@@ -16,12 +16,21 @@ export default {
     }
   },
   computed: {
+    participantAvatarSize () {
+      return `width: ${90 / this.maxParticipants}%; height: 0; padding-bottom: ${90 / this.maxParticipants}%;`
+    },
+    participantCircleSize () {
+      return `padding-top: ${90 / this.maxParticipants}%;`
+    },
     btnVariant () {
       return this.isPrivate ? 'private-btn' : 'public-btn'
     },
     btnTextByCapacity () {
       return (this.participants.length >= this.maxParticipants) ? 'Full' : 'Join'
     }
+  },
+  mounted () {
+    this.participantSpaceHeight()
   }
 }
 </script>
@@ -33,10 +42,11 @@ export default {
       .room-details
         font-awesome-icon(icon="info-circle" class="info-icon")
     .participants
-      .user(v-for="participant in this.participants")
-        img(src="https://thispersondoesnotexidst.com/image").avatar
-      .user-space(v-if="this.participants.length < this.maxParticipants")
-        .blank-user-circle(v-for="circle in this.maxParticipants - this.participants.length")
+      .participant-avatar-container(v-for="participant in this.participants" :style="participantAvatarSize")
+        img(src="https://www.shareicon.net/data/512x512/2016/07/05/791224_man_512x512.png")
+      template(v-if="this.participants.length < this.maxParticipants" )
+        .participant-avatar-container(v-for="circle in this.maxParticipants - this.participants.length" :style="participantAvatarSize")
+         .participant-space-circle
     .tags
       ul(v-for="tag in tags")
         li {{ tag }}
@@ -50,6 +60,7 @@ export default {
   .room-card {
     background-color: #2C353D;
     border-radius: 1.25rem;
+    max-width: 23.75rem;
     height: 28.87500rem;
     color: white;
     padding: 1.75rem;
@@ -69,24 +80,49 @@ export default {
 
       svg {
         color: rgba(97, 117, 124, 0.8);
+        transition: all 0.075s ease;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:active {
+          transform: scale(0.9)
+        }
       }
     }
 
     .participants {
       display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
       height: 11.4375rem;
-      background: rgba(245, 245, 220, 0.26);
       margin: 2.87500rem 0;
-    }
-    .user-space{
-      display: flex;
-    }
 
-    .blank-user-circle {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 2px solid black;
+      .participant-avatar-container {
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        margin-right: 0.5rem;
+
+        img {
+          width: 100%;
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .participant-space-circle {
+        border: 2px dashed #61757C;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        position:absolute;
+
+      }
     }
   }
 
