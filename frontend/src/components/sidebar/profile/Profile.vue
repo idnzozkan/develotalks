@@ -22,7 +22,7 @@ export default {
         span Following
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .profile {
   display: flex;
   flex-direction: column;
