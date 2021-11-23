@@ -1,5 +1,5 @@
 <script>
-import Topbar from '../topbar'
+import Topbar from './topbar'
 export default {
   name: 'Content',
   components: {
