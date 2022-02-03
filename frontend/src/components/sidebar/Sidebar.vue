@@ -31,8 +31,11 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-container {
-  position: relative;
-  width: 21.562rem;
+  flex: 1;
+  position: sticky;
+  top: 0;
+  left: 0;
+  min-width: 22rem;
   height: 100vh;
   border-right: 1px solid #2C353D;
   overflow-y: auto;
