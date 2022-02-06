@@ -13,7 +13,7 @@ export default {
     br
     br
     p.copyright-text
-    | DeveloTalks © 2021
+    | DeveloTalks © 2022
     a(href="https://www.twitter.com/idnzozkan" target="_blank")  Deniz Ozkan
     br
     br
