@@ -6,26 +6,34 @@ export default {
 
 <template lang="pug">
   .header
-    router-link(to="/")
-      span.title Develo
-        span Talks
-    .hamburger
-      .line
-      .line
+    .header-wrapper
+      router-link(to="/")
+        span.title Develo
+          span Talks
+      .hamburger
+        .line
+        .line
 </template>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;800&display=swap');
 
 .header {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   position: sticky;
   top: 0;
   background: #1e252b;
-  padding: 2.4375rem 3.4375rem;
   z-index: 1;
+  padding: 2.4375rem 0;
+}
+
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 3.4375rem;
+
 }
 
 .title {
