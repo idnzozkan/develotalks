@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Session from '../views/Session.vue'
+import Room from '../views/Room.vue'
 
 Vue.use(VueRouter)
 
@@ -13,8 +13,8 @@ const routes = [
   },
   {
     path: '/r/:id',
-    name: 'Session',
-    component: Session
+    name: 'Room',
+    component: Room
   }
 ]
 
