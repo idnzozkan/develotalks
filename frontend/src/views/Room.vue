@@ -14,22 +14,25 @@ export default {
       .room-actions
         .room-actions-wrapper
           button.room-action-btn.mic
-            | mic
+            font-awesome-icon(icon="microphone")
           button.room-action-btn.camera
-            | camera
+            font-awesome-icon(icon="video")
           button.room-action-btn.screen-share
-            | screenshare
+            font-awesome-icon(icon="share-square")
           button.room-action-btn.leave
-            | End Meeting
+            font-awesome-icon(icon="phone-slash")
           button.room-action-btn.fullscreen
-            | fullscreen
+            font-awesome-icon(icon="expand")
           button.room-action-btn.people
-            | people
+            font-awesome-icon(icon="users")
           button.room-action-btn.chat
-            | chat
-
+            font-awesome-icon(icon="comments")
     .room-chat
-      | chat
+      .room-chat-wrapper
+        .dialogues-area
+        .chatting-area
+          input(type="text")
+          font-awesome-icon(:icon="['far', 'smile']")
 
 </template>
 
@@ -106,18 +109,27 @@ export default {
     border: none;
     background: #2C353D;
     color: #A8A9AF;
-    font-size: 0.9rem;
+    font-size: 1.5rem;
+    transition: all 100ms;
 
     &:last-child {
       margin-right: 0;
     }
 
     &.leave {
-      flex: 3;
+      flex: 2;
       margin: 0 5rem;
       background: #DE3D3D;
       color: #F9E1E1;
       font-weight: 600;
+
+      &:hover {
+        background: #ff4242;
+      }
+    }
+
+    &:hover {
+      background: #36414b;
     }
   }
 
@@ -126,6 +138,46 @@ export default {
     border-radius: 1.25rem;
     background-color: #2C353D;
     margin-left: 2rem;
+
+    .room-chat-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      padding: 1rem;
+
+      .dialogues-area {
+        padding: 0.5rem 0;
+        height: 100%;
+      }
+
+      .chatting-area {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 0.5rem 0;
+
+        input {
+          flex: 1;
+          padding: 0.5rem 2rem 0.5rem 0.5rem;
+          border-radius: 8px;
+          height: 100%;
+          outline: none;
+          border: none;
+          background-color: rgba(97, 117, 124, 0.3);
+          color: rgba(255, 255, 255, 0.3);
+          font-size: 1rem;
+        }
+
+        svg {
+          position: absolute;
+          right: 10px;
+          cursor: pointer;
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+      }
+    }
   }
 
 </style>

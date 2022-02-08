@@ -4,11 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faComment, faCog, faPlusCircle, faEye, faInfoCircle, faUserFriends, faGlobe, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { faBell } from '@fortawesome/free-regular-svg-icons'
+import { faHome, faComment, faCog, faPlusCircle, faEye, faInfoCircle, faUserFriends, faGlobe, faSearch, faMicrophone, faVideo, faShareSquare, faDoorOpen, faExpand, faUsers, faComments, faPhoneSlash } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faSmile } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faHome, faComment, faCog, faPlusCircle, faEye, faInfoCircle, faUserFriends, faGlobe, faSearch, faBell)
+library.add(faHome, faComment, faCog, faPlusCircle, faEye, faInfoCircle, faUserFriends, faGlobe, faSearch, faBell, faMicrophone, faVideo, faShareSquare, faDoorOpen, faExpand, faUsers, faComments, faPhoneSlash, faSmile)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
