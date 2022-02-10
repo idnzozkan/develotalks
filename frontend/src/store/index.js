@@ -8,29 +8,21 @@ axios.defaults.baseURL = 'http://localhost:3000'
 Vue.use(Vuex)
 
 const Mutations = {
-  INCREMENT: 'INCREMENT',
-  DECREMENT: 'DECREMENT'
+  SET_JOINED_ROOM: 'SET_JOINED_ROOM'
 }
 
 export default new Vuex.Store({
   state: {
-    countHome: 0,
-    countAbout: 0
+    joinedRoom: null
   },
   mutations: {
-    [Mutations.INCREMENT] (state, type) {
-      type === 'countHome' ? state.countHome++ : state.countAbout++
-    },
-    [Mutations.DECREMENT] (state, type) {
-      type === 'countHome' ? state.countHome-- : state.countAbout--
+    [Mutations.SET_JOINED_ROOM] (state, room) {
+      state.joinedRoom = room
     }
   },
   actions: {
-    increment ({ commit }, type) {
-      commit(Mutations.INCREMENT, type)
-    },
-    decrement ({ commit }, type) {
-      commit(Mutations.DECREMENT, type)
+    setJoinedRoom ({ commit }, room) {
+      commit(Mutations.SET_JOINED_ROOM, room)
     },
     async fetchRooms () {
       const rooms = await axios.get('/r')
