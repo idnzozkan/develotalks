@@ -1,6 +1,31 @@
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
-  name: 'Topbar'
+  name: 'Topbar',
+  data () {
+    return {
+      inRoom: false
+    }
+  },
+  computed: {
+    ...mapState(['joinedRoom'])
+  },
+  methods: {
+    ...mapActions(['setJoinedRoom']),
+    backToRoom () {
+      this.$router.push('/r/' + this.joinedRoom.id)
+    }
+  },
+  watch: {
+    '$route' () {
+      if (this.$route.path.startsWith('/r/')) {
+        this.inRoom = true
+        return
+      }
+      this.inRoom = false
+    }
+  }
 }
 </script>
 
@@ -10,6 +35,10 @@ export default {
       .topbar-search
         font-awesome-icon(icon="search")
         input.search-box(type="search" placeholder="Search for rooms")
+      .back-to-room(v-if="!inRoom && joinedRoom" @click="backToRoom")
+        .back-to-room-wrapper
+          .back-to-room-circle.pulse
+          span Back to Room
       .topbar-profile
         font-awesome-icon(:icon="['far', 'bell']")
         .user-avatar-frame
@@ -18,19 +47,20 @@ export default {
 
 <style lang="scss" scoped>
 .topbar {
-  width: 100%;
-  /* height: 5.9375rem; */
   border-bottom: 1px solid #2C353D;
-  padding: 1.9rem 8rem;
+  width: 100%;
 
   .topbar-inner-container {
     display: flex;
     justify-content: space-between;
+    padding: 1.9rem 0;
+    width: 68vw;
+    margin: auto;
 
     .topbar-search {
       display: flex;
       align-items: center;
-      width: 100%;
+      width: 50%;
       height: auto;
 
       .search-box {
@@ -88,11 +118,56 @@ export default {
       }
     }
 
+    .back-to-room {
+      &-wrapper {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        cursor: pointer;
+      }
+
+      &-circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        box-shadow: 0px 0px 1px 1px #38ED85;
+        background: #4FC380;
+        margin-right: 1.5rem;
+      }
+
+      span {
+        font-size: 1rem;
+        color: #4FC380;
+        border: 1px solid #4FC380;
+        background: #4fc37f0a;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        transition: all 200ms ease;
+
+        &:hover {
+          color: #47db85;
+        }
+      }
+
+      .pulse {
+        animation: pulse-animation 1.5s infinite;
+      }
+
+      @keyframes pulse-animation {
+        0% {
+          box-shadow: 0 0 0 0px #4FC380;
+        }
+        100% {
+          box-shadow: 0 0 0 12px rgba(79, 195, 128, 0);
+        }
+      }
+    }
+
     .topbar-profile {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      width: 100%;
+      width: fit-content;
       height: auto;
       padding-right: 1rem;
 
