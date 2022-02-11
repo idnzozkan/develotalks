@@ -32,9 +32,21 @@ export default {
 <template lang="pug">
   .topbar
     .topbar-inner-container
-      .topbar-search
+      .topbar-search(v-if="!inRoom")
         font-awesome-icon(icon="search")
         input.search-box(type="search" placeholder="Search for rooms")
+      .inroom-header(v-if="inRoom && joinedRoom")
+        .inroom-header-wrapper
+          .inroom-header-texts
+            h2.inroom-title {{ joinedRoom.title }}
+            .inroom-info-section
+              span.inroom-language {{ joinedRoom.language }}
+              span.inroom-private(v-if="joinedRoom.isPrivate") Private
+              span.inroom-tag(v-if="joinedRoom.tags.length" v-for="tag in joinedRoom.tags")
+                | {{ tag }}
+              .inroom-header-icons
+                font-awesome-icon(icon="info-circle" class="info-icon")
+                font-awesome-icon(icon="edit" class="edit-icon")
       .back-to-room(v-if="!inRoom && joinedRoom" @click="backToRoom")
         .back-to-room-wrapper
           .back-to-room-circle.pulse
@@ -115,6 +127,73 @@ export default {
         margin-left: 1.12500rem;
         font-size: 1.12500rem;
         color: #6B7277;
+      }
+    }
+
+    .inroom-header {
+      width: 75%;
+
+      &-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &-texts {
+        h2 {
+          color: white;
+          margin-top: -0.75rem;
+        }
+
+        .inroom-info-section {
+          display: flex;
+          align-items: center;
+          margin-top: 0.75rem;
+          font-size: 0.9rem;
+
+          span {
+            padding: 0.2rem 0.625rem;
+            margin-right: 0.75rem;
+            border-radius: 8px;
+
+            &.inroom-language {
+              border: 1px solid #6d5dd398;
+              color: #6C5DD3;
+            }
+
+            &.inroom-private {
+              border: 1px solid #FF6E3098;
+              color: #FF6E30;
+            }
+
+            &.inroom-tag {
+              background: rgba(97, 117, 124, 0.3);
+              border: 1px solid rgba(97, 117, 124, 0.3);
+              color: rgba(255, 255, 255, 0.5);
+            }
+          }
+        }
+      }
+
+      &-icons {
+        display: inline-flex;
+        align-items: center;
+        svg {
+          color: rgba(97, 117, 124, 0.5);
+          transition: all 0.075s ease;
+          font-size: 2rem;
+          margin-left: 0.5rem;
+          padding: 0.35rem;
+
+          &:hover {
+            color: rgba(97, 117, 124, 0.8);
+            cursor: pointer;
+          }
+
+          &:active {
+            transform: scale(0.9)
+          }
+        }
       }
     }
 
