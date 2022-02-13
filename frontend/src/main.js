@@ -3,6 +3,7 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import Fragment from 'vue-fragment'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faHome,
@@ -51,7 +52,7 @@ library.add(
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-
+Vue.use(Fragment.Plugin)
 Vue.config.productionTip = false
 
 new Vue({
