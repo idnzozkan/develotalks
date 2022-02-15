@@ -1,7 +1,7 @@
 <script>
 import Header from './header'
 import Profile from './profile'
-import CreateRoomButton from './create-room/create-room-button'
+import CreateRoomButton from './create-room-button'
 import Menu from './menu'
 import FriendsList from './friends-list'
 import Footer from './footer'
@@ -39,6 +39,7 @@ export default {
   height: 100vh;
   border-right: 1px solid #2C353D;
   overflow-y: auto;
+  z-index: 1;
 
   &::-webkit-scrollbar {
     display: none;
