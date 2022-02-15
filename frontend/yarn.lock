@@ -9954,10 +9954,10 @@
     "lodash" "^4.17.21"
     "semver" "^6.3.0"
 
-"vue-fragment@^1.5.2":
-  "integrity" "sha512-KEW0gkeNOLJjtXN4jqJhTazez5jtrwimHkE5Few/VxblH4F9EcvJiEsahrV5kg5uKd5U8du4ORKS6QjGE0piYA=="
-  "resolved" "https://registry.npmjs.org/vue-fragment/-/vue-fragment-1.5.2.tgz"
-  "version" "1.5.2"
+"vue-fragment@1.5.1":
+  "integrity" "sha512-ig6eES6TcMBbANW71ylB+AJgRN+Zksb3f50AxjGpAk6hMzqmeuD80qeh4LJP0jVw2dMBMjgRUfIkrvxygoRgtQ=="
+  "resolved" "https://registry.npmjs.org/vue-fragment/-/vue-fragment-1.5.1.tgz"
+  "version" "1.5.1"
 
 "vue-hot-reload-api@^2.3.0":
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="

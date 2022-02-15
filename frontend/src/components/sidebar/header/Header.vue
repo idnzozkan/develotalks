@@ -22,7 +22,6 @@ export default {
   position: sticky;
   top: 0;
   background: #1e252b;
-  z-index: 1;
   padding: 2.4375rem 0;
 }
 

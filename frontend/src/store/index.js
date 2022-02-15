@@ -8,12 +8,14 @@ axios.defaults.baseURL = 'http://localhost:3000'
 Vue.use(Vuex)
 
 const Mutations = {
-  SET_JOINED_ROOM: 'SET_JOINED_ROOM'
+  SET_JOINED_ROOM: 'SET_JOINED_ROOM',
+  SET_CREATE_ROOM_MODAL_VISIBILITY: 'SET_CREATE_ROOM_MODAL_VISIBILITY'
 }
 
 export default new Vuex.Store({
   state: {
-    joinedRoom: null
+    joinedRoom: null,
+    isCreateRoomModalVisible: true
   },
   mutations: {
     [Mutations.SET_JOINED_ROOM] (state, room) {
