@@ -1,6 +1,15 @@
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'RoomActions'
+  name: 'RoomActions',
+  methods: {
+    ...mapActions(['setJoinedRoom']),
+    handleLeaveBtn () {
+      this.setJoinedRoom(null)
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
@@ -13,7 +22,7 @@ export default {
         font-awesome-icon(icon="video")
       button.room-action-btn.screen-share
         font-awesome-icon(icon="share-square")
-      button.room-action-btn.leave
+      button.room-action-btn.leave(@click="handleLeaveBtn")
         font-awesome-icon(icon="phone-slash")
       button.room-action-btn.fullscreen
         font-awesome-icon(icon="expand")
