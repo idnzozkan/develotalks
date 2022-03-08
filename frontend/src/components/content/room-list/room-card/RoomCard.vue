@@ -1,7 +1,9 @@
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'RoomCard',
   props: {
+    id: String,
     title: String,
     owner: Object,
     participants: Array,
@@ -10,11 +12,6 @@ export default {
     maxParticipants: Number,
     isPrivate: Boolean
   },
-  data () {
-    return {
-      btnText: 'Join'
-    }
-  },
   computed: {
     participantAvatarSize () {
       return `width: ${90 / this.maxParticipants}%; height: 0; padding-bottom: ${90 / this.maxParticipants}%;`
@@ -22,18 +19,37 @@ export default {
     participantCircleSize () {
       return `padding-top: ${90 / this.maxParticipants}%;`
     },
+    isFull () {
+      return this.participants.length >= this.maxParticipants
+    },
     btnVariantByPrivacy () {
       return this.isPrivate ? 'btn-private' : 'btn-public'
     },
     btnTextByCapacity () {
-      return (this.participants.length >= this.maxParticipants) ? 'Full' : 'Join'
+      return this.isFull ? 'Full' : 'Join'
     },
     btnVariantByCapacity () {
-      return (this.participants.length >= this.maxParticipants) ? 'btn-full' : this.btnVariantByPrivacy
+      return this.isFull ? 'btn-full' : this.btnVariantByPrivacy
     }
   },
-  mounted () {
-    this.participantSpaceHeight()
+  methods: {
+    ...mapActions(['setJoinedRoom']),
+    joinRoom (id) {
+      if (this.isFull) {
+        return
+      }
+      this.setJoinedRoom({
+        id: this.id,
+        title: this.title,
+        owner: this.owner,
+        participants: this.participants,
+        maxParticipants: this.maxParticipants,
+        language: this.language,
+        tags: this.tags,
+        isPrivate: this.isPrivate
+      })
+      this.$router.push(`/r/${id}`)
+    }
   }
 }
 </script>
@@ -62,17 +78,18 @@ export default {
         font-awesome-icon(icon="globe")
         span {{ language }}
       .join-button
-        button(:class="btnVariantByCapacity + ' btn'") {{ btnTextByCapacity }}
+        button(:class="btnVariantByCapacity + ' btn'" @click="joinRoom(id)") {{ btnTextByCapacity }}
 </template>
 
 <style lang="scss" scoped>
   .room-card {
     background-color: #2C353D;
     border-radius: 1.25rem;
-    max-width: 23.75rem;
+    width: 23.75rem;
     height: 28.87500rem;
     color: white;
     padding: 1.75rem;
+    margin-top: 3.5rem;
 
     .card-top {
       display: flex;
@@ -118,7 +135,6 @@ export default {
         user-select: none;
         -webkit-user-select: none;
         -moz-user-select: none;
-
         &:hover {
           cursor: pointer;
           img {
@@ -137,7 +153,7 @@ export default {
       }
 
       .participant-space-circle {
-        border: 2px dashed #61757C;
+        border: 2px dashed #61757cc7;
         border-radius: 50%;
         width: 100%;
         height: 100%;
@@ -258,7 +274,6 @@ export default {
           }
         }
       }
-
     }
   }
 
