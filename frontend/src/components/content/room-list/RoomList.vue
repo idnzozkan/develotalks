@@ -1,11 +1,13 @@
 <script>
 import { mapActions } from 'vuex'
-import RoomCard from './RoomCard'
+import RoomCard from './room-card'
+import RoomFilters from '../room-filters'
 
 export default {
   name: 'RoomList',
   components: {
-    RoomCard
+    RoomCard,
+    RoomFilters
   },
   data () {
     return {
@@ -25,24 +27,26 @@ export default {
 </script>
 
 <template lang="pug">
-  .room-list-container
-    p(v-if="isLoading") Please wait...
-    div(v-else v-for="room in rooms")
-      RoomCard(:title="room.title"
-               :owner="room.owner"
-               :participants="room.participants"
-               :language="room.roomLanguage"
-               :tags="room.roomTags"
-               :maxParticipants="room.maxParticipants"
-               :isPrivate="room.isPrivate")
+  .home-container
+    RoomFilters
+    .room-list-container
+      p(v-if="isLoading") Please wait...
+      div(v-else v-for="room in rooms")
+        RoomCard(:title="room.title"
+                :id="room._id"
+                :owner="room.owner"
+                :participants="room.participants"
+                :language="room.roomLanguage"
+                :tags="room.roomTags"
+                :maxParticipants="room.maxParticipants"
+                :isPrivate="room.isPrivate")
 
 </template>
 
 <style scoped lang="scss">
   .room-list-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 4rem;
-    padding: 3.4375rem 8rem;
+    grid-template-columns: repeat(auto-fill, 380px);
+    justify-content: space-between;
   }
 </style>
