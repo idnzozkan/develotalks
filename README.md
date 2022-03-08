@@ -1,14 +1,89 @@
 # DeveloTalks
 
-> Work-in-Progress
+| This project is currently a work in progress. Keep in mind that you are likely to encounter features that do not work exactly as expected while using it. |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
-DeveloTalks is a social platform aiming to be the #1 developer meeting center in the world. 🚀
+## Introduction
 
-You can start new conversations by creating a new room, or join an existing room with a topic that interests you.🎙️
+`DeveloTalks` is a social platform aiming to be the #1 developer meeting center. You can start new conversations by creating a new room, or you can join an existing room with a topic that interests you.
 
-Chatting with voice, video, or text! You can meet many new developers from all around the world, expand your network, solve your technical problems, find answers to your questions, and more! 💜
+Chatting with `voice`, `video`, or `text`! You can find developers to talk to from all around the world, at any time of the day!
 
-![Preview](./preview.png)
+Using DeveloTalks,
+
+- You can **expand your networks**,
+- You can **share your screen and solve your technical problems with people**,
+- You can **talk about a new technology**,
+- You can **talk in your native language** or **practice your English with others**,
+- You can **get career advice** or you can **share your experiences with others**,
+- You can **get prepared with mock interviews**,
+
+and more!
+
+![Preview](./develotalks-readme.png)
+
+
+## Installation & Running in Development
+
+> Make sure you have **MongoDB** and **Node.js** installed on your system.
+
+### Backend
+
+1 - Open your terminal and navigate to the `backend` folder
+
+```bash
+$ cd backend
+```
+
+2 - Install dependencies via npm
+
+```bash
+$ npm install
+```
+
+3 - Run the backend in development by using the following command
+
+```bash
+$ npm run watch
+```
+
+### Frontend
+
+1 - Open your terminal and navigate to the `frontend` folder
+
+```bash
+$ cd frontend
+```
+
+2 - Install dependencies via npm
+
+```bash
+$ npm install
+```
+
+3 - Run the frontend in development by using the following command
+
+```bash
+$ npm run serve
+```
+
+After that, you should be able to see the app at [http://localhost:8080](http://localhost:8080) in your browser.
+
+## Tests
+
+### Backend
+
+1 - Open your terminal and navigate to the `backend` folder
+
+```bash
+$ cd backend
+```
+
+2 - Run the tests by using the following command
+
+```bash
+$ npm run test
+```
 
 ## License
 MIT License
