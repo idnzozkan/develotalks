@@ -64,11 +64,10 @@ export default {
       flex-direction: column;
       justify-content: space-around;
       position: relative;
-      height: 100%;
       padding: 2rem;
       color: white;
-      width: 700px;
-      height: 500px;
+      width: fit-content;
+      height: fit-content;
       background: #2C353D;
       box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.2);
       border-radius: 1.25rem;
