@@ -1,5 +1,6 @@
 <script>
 import Topbar from './topbar'
+
 export default {
   name: 'Content',
   components: {
@@ -17,11 +18,13 @@ export default {
 
 <style lang="scss">
   .content-container {
-    width: calc(100vw - 21.562rem);
-    height: 100vh;
+    flex: 4.5;
+    height: 100%;
   }
 
   .inner-container {
-    width: calc(100vw - 21.562rem);
+    padding: 2.5rem 0;
+    width: 68vw;
+    margin: auto;
   }
 </style>
