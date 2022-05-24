@@ -1,9 +1,8 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require('cors')
-const indexRouter = require("./routes/index")
-const userRouter = require("./routes/user")
-const roomRouter = require("./routes/room")
+const usersRouter = require("./routes/users")
+const roomsRouter = require("./routes/rooms")
 require("./mongo-connection")
 
 const app = express()
@@ -12,8 +11,7 @@ app.use(cors())
 
 app.set("view engine", "pug")
 
-app.use("/u", userRouter)
-app.use("/r", roomRouter)
-app.use("/", indexRouter)
+app.use("/users", usersRouter)
+app.use("/rooms", roomsRouter)
 
 module.exports = app
