@@ -1,13 +1,12 @@
 const { roomsService } = require("../services")
-const router = require("express").Router()
 
-router.get("/", async (req, res) => {
+const getRooms = async (req, res) => {
   const rooms = await roomsService.load()
 
   res.send(rooms)
-})
+}
 
-router.get("/search", async (req, res) => {
+const searchRooms = async (req, res) => {
   const { ownerId, roomLang } = req.query
 
   const query = {}
@@ -18,22 +17,22 @@ router.get("/search", async (req, res) => {
   const rooms = await roomsService.query(query)
 
   res.send(rooms)
-})
+}
 
-router.get("/:roomId", async (req, res) => {
+const getRoom = async (req, res) => {
   const room = await roomsService.find(req.params.roomId)
   if (!room) return res.status(404).send("404 - Cannot find room")
 
   res.send(room)
-})
+}
 
-router.delete("/:roomId", async (req, res) => {
+const deleteRoom = async (req, res) => {
   await roomsService.removeBy("_id", req.params.roomId)
 
   res.send("OK")
-})
+}
 
-router.patch("/:roomId", async (req, res) => {
+const updateRoom = async (req, res) => {
   const { roomId } = req.params
   const {
     title,
@@ -45,7 +44,7 @@ router.patch("/:roomId", async (req, res) => {
     canShareScreen,
     canTypeToChatBox,
     isPrivate,
-    roomTags
+    roomTags,
   } = req.body
 
   const obj = {}
@@ -64,6 +63,12 @@ router.patch("/:roomId", async (req, res) => {
   await roomsService.update(roomId, obj)
 
   res.send("OK")
-})
+}
 
-module.exports = router
+module.exports = {
+  getRooms,
+  searchRooms,
+  getRoom,
+  deleteRoom,
+  updateRoom
+}

@@ -1,35 +1,35 @@
 const { usersService } = require("../services")
 const router = require("express").Router()
 
-router.get("/", async (req, res) => {
+const getUsers = async (req, res) => {
   const users = await usersService.load()
 
   res.send(users)
-})
+}
 
-router.post("/", async (req, res, next) => {
+const createUser = async (req, res, next) => {
   try {
     const user = await usersService.insert(req.body)
     res.send(user)
   } catch (e) {
     next(e)
   }
-})
+}
 
-router.get("/:userId", async (req, res) => {
+const getUser = async (req, res) => {
   const user = await usersService.find(req.params.userId)
   if (!user) return res.status(404).send("404 - Cannot find user")
 
   res.send(user)
-})
+}
 
-router.delete("/:userId", async (req, res) => {
+const deleteUser = async (req, res) => {
   await usersService.removeBy("_id", req.params.userId)
 
   res.send("OK")
-})
+}
 
-router.post("/:userId/join", async (req, res, next) => {
+const join = async (req, res, next) => {
   const { userId } = req.params
   const { roomId } = req.query
 
@@ -39,9 +39,9 @@ router.post("/:userId/join", async (req, res, next) => {
   } catch (e) {
     next(e)
   }
-})
+}
 
-router.post("/:userId/disconnect", async (req, res) => {
+const leave = router.post("/:userId/disconnect", async (req, res) => {
   const user = await usersService.find(req.params.userId)
 
   await usersService.stopSession(user)
@@ -49,7 +49,7 @@ router.post("/:userId/disconnect", async (req, res) => {
   res.send("OK")
 })
 
-router.post("/:userId/createdRoom", async (req, res, next) => {
+const createRoom = async (req, res, next) => {
   const { userId } = req.params
   const {
     title,
@@ -61,7 +61,7 @@ router.post("/:userId/createdRoom", async (req, res, next) => {
     canShareScreen,
     canTypeToChatBox,
     isPrivate,
-    roomTags
+    roomTags,
   } = req.body
 
   try {
@@ -82,36 +82,36 @@ router.post("/:userId/createdRoom", async (req, res, next) => {
   } catch (e) {
     next(e)
   }
-})
+}
 
-router.post("/:ownerId/accept", async (req, res) => {
+const acceptUser = async (req, res) => {
   const { ownerId } = req.params
   const { userId } = req.query
 
   usersService.acceptWaitingUser(ownerId, userId)
 
   res.send("OK")
-})
+}
 
-router.post("/:ownerId/ban", async (req, res) => {
+const banUser = async (req, res) => {
   const { ownerId } = req.params
   const { userId } = req.query
 
   usersService.kickOutParticipant(ownerId, userId)
 
   res.send("OK")
-})
+}
 
-router.post("/:ownerId/unban", async (req, res) => {
+const unbanUser = async (req, res) => {
   const { ownerId } = req.params
   const { userId } = req.query
 
   usersService.removeBan(ownerId, userId)
 
   res.send("OK")
-})
+}
 
-router.patch("/:userId", async (req, res) => {
+const updateUser = async (req, res) => {
   const { userId } = req.params
   const { name, profilePhoto, userBio, socialLinks, interests, spokenLangs } = req.body
 
@@ -127,6 +127,18 @@ router.patch("/:userId", async (req, res) => {
   await usersService.update(userId, obj)
 
   res.send("OK")
-})
+}
 
-module.exports = router
+module.exports = {
+  getUsers,
+  createUser,
+  getUser,
+  deleteUser,
+  join,
+  leave,
+  createRoom,
+  acceptUser,
+  banUser,
+  unbanUser,
+  updateUser
+}
