@@ -25,7 +25,7 @@ and more!
 
 ## Installation & Running in Development
 
-> Make sure you have **MongoDB** and **Node.js** installed on your system.
+> Make sure you have **Node.js** installed on your system.
 
 ### Backend
 
