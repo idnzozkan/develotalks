@@ -19,7 +19,7 @@ export default {
         h2 New Room
       template(v-slot:body)
         .create-room-modal-form
-          .flex-wrapper
+          .modal-form-row
             .modal-form-col-l
               .room-title.field
                 label(for="title") Title
@@ -112,10 +112,6 @@ export default {
   }
 
   .create-room-modal-form {
-    .flex-wrapper {
-      display: flex;
-    }
-
     .modal-form-col {
       &-l {
         display: flex;
