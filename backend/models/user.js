@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema({
+  googleId: String,
   name: {
     type: String,
     required: true,
@@ -10,7 +11,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  profilePhoto: String,
+  email: {
+    type: String,
+    required: true
+  },
+  avatar: String,
   userBio: {
     type: String,
     maxLength: 500
