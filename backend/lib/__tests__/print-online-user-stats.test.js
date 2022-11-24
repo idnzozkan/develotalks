@@ -1,4 +1,4 @@
-const printOnlineUserStats = require("../print-online-user-stats")
+const printOnlineUserStats = require("../stats/print-online-user-stats")
 
 test("prints users active in any room", () => {
   const users = [
