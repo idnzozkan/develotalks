@@ -34,6 +34,10 @@ class BaseService {
   async findBy(property, value) {
     return this.model.find({ [property]: value })
   }
+
+  async findOneBy(property, value) {
+    return this.model.findOne({ [property]: value })
+  }
 }
 
 module.exports = BaseService
