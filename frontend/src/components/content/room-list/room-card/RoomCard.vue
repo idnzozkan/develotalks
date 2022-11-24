@@ -33,7 +33,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setJoinedRoom']),
+    ...mapActions('room', ['setJoinedRoom']),
     joinRoom (id) {
       if (this.isFull) {
         return

@@ -1,13 +1,11 @@
 <script>
 import { mapActions } from 'vuex'
 import RoomCard from './room-card'
-import RoomFilters from '../room-filters'
 
 export default {
   name: 'RoomList',
   components: {
-    RoomCard,
-    RoomFilters
+    RoomCard
   },
   data () {
     return {
@@ -16,7 +14,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchRooms', 'fetchFakeRooms'])
+    ...mapActions('room', ['fetchRooms', 'fetchFakeRooms'])
   },
   async mounted () {
     // this.rooms = await this.fetchRooms()
@@ -28,7 +26,6 @@ export default {
 
 <template lang="pug">
   .home-container
-    RoomFilters
     .room-list-container
       p(v-if="isLoading") Please wait...
       div(v-else v-for="room in rooms")
@@ -44,6 +41,10 @@ export default {
 </template>
 
 <style scoped lang="scss">
+  .home-container {
+    padding-bottom: 2.5rem;
+  }
+
   .room-list-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, 380px);

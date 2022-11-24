@@ -1,18 +1,37 @@
-const BaseService = require("./base-service")
-const User = require("../models/user")
-const roomsService = require("./rooms-service")
-const colors = require("colors")
+const BaseService = require('./base-service')
+const User = require('../models/user')
+const roomsService = require('./rooms-service')
+const colors = require('colors')
 
 class UsersService extends BaseService {
+  async findOrCreateByProvider(provider, profile) {
+    switch (provider) {
+      case 'google':
+        let user = await this.findOneBy('googleId', profile.id)
+
+        if (user) return user
+
+        user = await this.insert({
+          googleId: profile.id,
+          name: profile._json.name,
+          username: profile._json.email.split('@')[0],
+          email: profile._json.email,
+          avatar: profile._json.picture.split('=')[0],
+        })
+
+        return user
+      default:
+        return
+    }
+  }
+
   async findByName(name) {
-    return this.findBy("name", name)
+    return this.findBy('name', name)
   }
 
   async stopSession(user) {
     if (user.activeRoom) {
-      user.activeRoom.participants = user.activeRoom.participants.filter(
-        p => !p._id.equals(user._id)
-      )
+      user.activeRoom.participants = user.activeRoom.participants.filter(p => !p._id.equals(user._id))
       await user.activeRoom.save()
 
       user.activeRoom = null
@@ -22,9 +41,7 @@ class UsersService extends BaseService {
     }
 
     if (user.waitingRoom) {
-      user.waitingRoom.waitingPeople = user.waitingRoom.waitingPeople.filter(
-        u => !u._id.equals(user._id)
-      )
+      user.waitingRoom.waitingPeople = user.waitingRoom.waitingPeople.filter(u => !u._id.equals(user._id))
       await user.waitingRoom.save()
 
       user.waitingRoom = null
@@ -65,7 +82,7 @@ class UsersService extends BaseService {
       canShareScreen,
       canTypeToChatBox,
       isPrivate,
-      roomTags
+      roomTags,
     })
 
     owner.activeRoom = room
@@ -81,20 +98,18 @@ class UsersService extends BaseService {
     const room = await roomsService.find(roomId)
 
     if (room.maxParticipants <= room.participants.length) {
-      throw new Error("Room is full")
+      throw new Error('Room is full')
     } else if (room.kickedPeople.some(bannedUser => bannedUser._id.equals(user._id))) {
-      throw new Error("You have been banned from this room before")
+      throw new Error('You have been banned from this room before')
     } else if (room.participants.some(participant => participant._id.equals(user._id))) {
-      throw new Error("You are already in this room")
+      throw new Error('You are already in this room')
     }
 
     if (user.activeRoom || user.waitingRoom) await this.stopSession(user)
 
     if (room.isPrivate && !user._id.equals(room.owner._id)) {
       console.log(
-        colors.bold.yellow(
-          "This is a private room. You need to wait for you to be taken into the room by the owner."
-        )
+        colors.bold.yellow('This is a private room. You need to wait for you to be taken into the room by the owner.')
       )
 
       room.waitingPeople.push(user)
@@ -119,19 +134,15 @@ class UsersService extends BaseService {
         !owner._id.equals(user.activeRoom.owner._id) &&
         user.activeRoom.participants.some(p => !p._id.equals(owner._id))
       ) {
-        console.log(colors.red("You do not have permission to do this"))
+        console.log(colors.red('You do not have permission to do this'))
       } else if (user._id.equals(owner._id)) {
-        console.log(colors.red("You cannot kick yourself. Try to disconnect."))
+        console.log(colors.red('You cannot kick yourself. Try to disconnect.'))
       } else {
         user.activeRoom = null
-        owner.createdRoom.participants = owner.createdRoom.participants.filter(
-          p => !p._id.equals(user._id)
-        )
+        owner.createdRoom.participants = owner.createdRoom.participants.filter(p => !p._id.equals(user._id))
         owner.createdRoom.kickedPeople.push(user)
 
-        console.log(
-          colors.red(`${colors.bold(`${user.name}`)} kicked by ${colors.bold(`${owner.name}`)}`)
-        )
+        console.log(colors.red(`${colors.bold(`${user.name}`)} kicked by ${colors.bold(`${owner.name}`)}`))
       }
 
       await user.save()
@@ -148,7 +159,7 @@ class UsersService extends BaseService {
         !owner.createdRoom._id.equals(owner.activeRoom._id) &&
         owner.activeRoom.kickedPeople.some(u => !u._id.equals(user._id))
       ) {
-        console.log(colors.red("You do not have permission to do this"))
+        console.log(colors.red('You do not have permission to do this'))
       } else {
         owner.createdRoom.kickedPeople = owner.createdRoom.kickedPeople.filter(
           bannedUser => !bannedUser._id.equals(user._id)
@@ -165,10 +176,7 @@ class UsersService extends BaseService {
     const user = await this.find(userId)
 
     if (owner.createdRoom && owner.activeRoom && user.waitingRoom) {
-      if (
-        owner._id.equals(user.waitingRoom.owner._id) &&
-        owner.activeRoom._id.equals(user.waitingRoom?._id)
-      ) {
+      if (owner._id.equals(user.waitingRoom.owner._id) && owner.activeRoom._id.equals(user.waitingRoom?._id)) {
         owner.createdRoom.waitingPeople = owner.createdRoom.waitingPeople.filter(
           waitingUser => !waitingUser._id.equals(user._id)
         )
@@ -177,7 +185,7 @@ class UsersService extends BaseService {
         user.activeRoom = owner.createdRoom
         console.log(colors.cyan(`${owner.name} accepted ${user.name}'s joining request`))
       } else {
-        console.log("Only room owner can do this action!")
+        console.log('Only room owner can do this action!')
       }
 
       await user.save()

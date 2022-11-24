@@ -1,4 +1,6 @@
 <script>
+import { mapState } from 'vuex'
+
 import Header from './header'
 import Profile from './profile'
 import CreateRoomButton from './create-room-button'
@@ -15,12 +17,15 @@ export default {
     Menu,
     FriendsList,
     Footer
+  },
+  computed: {
+    ...mapState('user', ['user'])
   }
 }
 </script>
 
 <template lang="pug">
-  .sidebar-container
+  .sidebar-container(v-if="user")
     Header
     Profile
     CreateRoomButton

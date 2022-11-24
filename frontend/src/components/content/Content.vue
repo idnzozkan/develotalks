@@ -23,7 +23,6 @@ export default {
   }
 
   .inner-container {
-    padding: 2.5rem 0;
     width: 68vw;
     margin: auto;
   }

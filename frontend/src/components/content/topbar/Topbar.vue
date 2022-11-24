@@ -1,6 +1,8 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
+import Logo from '../../shared/logo'
+
 export default {
   name: 'Topbar',
   data () {
@@ -8,13 +10,24 @@ export default {
       inRoom: false
     }
   },
+  components: {
+    Logo
+  },
   computed: {
-    ...mapState(['joinedRoom'])
+    ...mapState('room', ['joinedRoom']),
+    ...mapState('user', ['user'])
   },
   methods: {
-    ...mapActions(['setJoinedRoom']),
+    ...mapActions('room', ['setJoinedRoom']),
+    ...mapActions('user', ['logout']),
     backToRoom () {
       this.$router.push('/r/' + this.joinedRoom.id)
+    },
+    handleLogin () {
+      window.open(`${process.env.VUE_APP_BACKEND_BASE_PATH}/oauth/google`, '_self')
+    },
+    async handleLogout () {
+      await this.logout()
     }
   },
   watch: {
@@ -32,6 +45,7 @@ export default {
 <template lang="pug">
   .topbar
     .topbar-inner-container
+      Logo(v-if="!user")
       .topbar-search(v-if="!inRoom")
         font-awesome-icon(icon="search")
         input.search-box(type="search" placeholder="Search for rooms")
@@ -51,10 +65,11 @@ export default {
         .back-to-room-wrapper
           .back-to-room-circle.pulse
           span Back to Room
-      .topbar-profile
+      button.login-btn(v-if="!user" @click="handleLogin") Login
+      .topbar-profile(v-if="user")
         font-awesome-icon(:icon="['far', 'bell']")
-        .user-avatar-frame
-          img(src="https://i.ibb.co/PwQ7Dxv/profile.jpg")
+        .user-avatar-frame(@click="handleLogout")
+          img(:src="user.avatar + '=s96-c'" referrerpolicy="no-referrer")
 </template>
 
 <style lang="scss" scoped>
@@ -65,6 +80,7 @@ export default {
   .topbar-inner-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1.9rem 0;
     width: 68vw;
     margin: auto;
@@ -239,6 +255,27 @@ export default {
         100% {
           box-shadow: 0 0 0 12px rgba(79, 195, 128, 0);
         }
+      }
+    }
+
+    .login-btn {
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      border: 1px solid #6c5dd3;
+      border-radius: 8px;
+      background-color: transparent;
+      color: #6c5dd3;
+      font-size: 1rem;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background-color: #6d5dd310;
+        color: #7867e0;
+      }
+
+      &:active {
+        transform: scale(0.98);
       }
     }
 

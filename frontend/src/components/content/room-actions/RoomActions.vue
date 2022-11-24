@@ -4,7 +4,7 @@ import { mapActions } from 'vuex'
 export default {
   name: 'RoomActions',
   methods: {
-    ...mapActions(['setJoinedRoom']),
+    ...mapActions('room', ['setJoinedRoom']),
     handleLeaveBtn () {
       this.setJoinedRoom(null)
       this.$router.push('/')

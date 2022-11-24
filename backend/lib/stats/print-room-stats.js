@@ -11,11 +11,11 @@ function printRoomStats(room) {
     ${colors.bold(`Capacity:`)} ${room.participants.length} / ${
     room.maxParticipants
   }
-  
+
     ${colors.italic(
       `Createad by ${room.owner.name} ${Date.now() - room.createdAt} ms ago`
     )}
-  
+
     ${colors.rainbow("* * * ")}
     `);
 }
