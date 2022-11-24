@@ -1,5 +1,8 @@
-const app = require('../')
+var app = require('../')
+var colors = require('colors')
 
-app.listen(3000, () => {
-  console.log("started listening on 3000")
+var port = 3000
+
+app.listen(port, () => {
+  console.log(colors.yellow.bold(`Started listening on ${port}`))
 })
