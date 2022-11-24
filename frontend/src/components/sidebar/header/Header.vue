@@ -1,15 +1,18 @@
 <script>
+import Logo from '../../shared/logo'
+
 export default {
-  name: 'Header'
+  name: 'Header',
+  components: {
+    Logo
+  }
 }
 </script>
 
 <template lang="pug">
   .header
     .header-wrapper
-      router-link(to="/")
-        span.title Develo
-          span Talks
+      Logo
       .hamburger
         .line
         .line
@@ -33,21 +36,6 @@ export default {
   height: 100%;
   padding: 0 3.4375rem;
 
-}
-
-.title {
-  color: #fff;
-  font-size: 1.37500rem;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  font-weight: 800;
-  text-transform: uppercase;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-
-  span {
-    font-weight: normal;
-  }
 }
 
 .hamburger {

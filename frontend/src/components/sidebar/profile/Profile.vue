@@ -1,24 +1,29 @@
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Profile'
+  name: 'Profile',
+  computed: {
+    ...mapState('user', ['user'])
+  }
 }
 </script>
 
 <template lang="pug">
   .profile
     .user-avatar-frame
-      img.user-avatar(src="https://i.ibb.co/PwQ7Dxv/profile.jpg")
-    span.user-display-name Deniz Ozkan
-    span.username @deniz
+      img.user-avatar(:src="user.avatar" referrerpolicy="no-referrer")
+    span.user-display-name {{ user.name }}
+    span.username @{{ user.username }}
     .user-stats
       .total-stars
-        span 1.4K
+        span {{user.starCount}}
         span Stars
       .total-followers
-        span 1.2K
+        span {{user.followers.length}}
         span Followers
       .total-following
-        span 100
+        span {{user.following.length}}
         span Following
 </template>
 
@@ -38,7 +43,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1.5px solid #6C5DD3;
+  border: 1.5px solid #6c5dd3;
   border-radius: 50%;
   padding: 5.56px;
 }
@@ -58,7 +63,7 @@ export default {
 }
 
 .user-display-name {
-  font-size: 1.12500rem;
+  font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.318125rem;
   margin-top: 0.4375rem;
@@ -75,9 +80,11 @@ export default {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  margin-top: 2.12500rem;
+  margin-top: 2.125rem;
 
-  .total-stars, .total-followers, .total-following {
+  .total-stars,
+  .total-followers,
+  .total-following {
     display: flex;
     flex-direction: column;
 
@@ -96,5 +103,4 @@ export default {
     }
   }
 }
-
 </style>
