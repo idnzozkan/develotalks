@@ -1,30 +1,30 @@
-extends layout 
-block content 
-    h2 #{user.name} 
+extends layout
+block content
+    h2 #{user.name}
     br
     span @#{user.username}
     br
-    span #{!user.following.length ? '0' : user.following.length} Following | #{!user.followers.length ? '0' : user.followers.length} Followers | #{!user.friends.length ? '0' : user.friends.length} Friends 
+    span #{!user.following.length ? '0' : user.following.length} Following | #{!user.followers.length ? '0' : user.followers.length} Followers | #{!user.friends.length ? '0' : user.friends.length} Friends
     br
-    strong Online At: 
-    if user.activeRoom  
-        a(href=`/r/${user.activeRoom._id}`)
+    strong Online At:
+    if user.activeRoom
+        a(href=`/rooms/${user.activeRoom._id}`)
             span #{user.activeRoom.owner.name}'s room
-    else 
+    else
         span -
     br
-    strong Bio: 
-    span #{user.userBio}         
+    strong Bio:
+    span #{user.userBio}
     br
-    strong Interests: 
+    strong Interests:
     span #{user.interests}
     br
-    strong Speaks: 
-    span #{user.spokenLangs}        
+    strong Speaks:
+    span #{user.spokenLangs}
     br
-    strong Socials: 
-    span #{user.socialLinks} 
+    strong Socials:
+    span #{user.socialLinks}
     br
-    strong Star Count: 
-    span #{user.starCount}   
-    button Star             
+    strong Star Count:
+    span #{user.starCount}
+    button Star

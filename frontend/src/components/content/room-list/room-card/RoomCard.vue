@@ -62,7 +62,7 @@ export default {
         font-awesome-icon(icon="info-circle" class="info-icon")
     .participants
       .participant-avatar-container(v-for="participant in this.participants" :style="participantAvatarSize")
-        img(:src="participant.profilePhoto")
+        img(:src="participant.avatar" referrerpolicy="no-referrer")
       template(v-if="this.participants.length < this.maxParticipants" )
         .participant-avatar-container(v-for="circle in this.maxParticipants - this.participants.length" :style="participantAvatarSize")
          .participant-space-circle

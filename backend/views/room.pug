@@ -1,22 +1,22 @@
-extends layout 
-block content 
+extends layout
+block content
     if room.title
         h2 #{room.title}
-    else 
+    else
         h2 #{room.owner.name}'s Room
-    if room.description 
+    if room.description
         h3 #{room.description}
     p #{room.participants.length}/#{room.maxParticipants} People | #{room.roomLanguage} | #{room.roomTags} | Created by #{room.owner.name}
 
     hr
     ul
-        each participant in room.participants 
-            li 
-                a(href=`../u/${participant.id}`) 
+        each participant in room.participants
+            li
+                a(href=`../users/${participant.id}`)
                     h4 #{participant.name}
-                br 
-                
-    div 
+                br
+
+    div
         form
             textarea(rows="3" cols="40")
             button Send
@@ -25,25 +25,25 @@ block content
     br
 
     if room.isPrivate
-        strong Waiting People 
+        strong Waiting People
         hr
 
-        ul 
-            each user in room.waitingPeople 
-                li 
-                    a(href=`../u/${user.id}`)
+        ul
+            each user in room.waitingPeople
+                li
+                    a(href=`../users/${user.id}`)
                         i #{user.name}
 
         br
         br
 
-    strong Kicked People 
+    strong Kicked People
     hr
 
-    ul 
-        each user in room.kickedPeople 
-            li 
-                a(href=`../u/${user.id}`)
+    ul
+        each user in room.kickedPeople
+            li
+                a(href=`../users/${user.id}`)
                     i #{user.name}
     br
     br

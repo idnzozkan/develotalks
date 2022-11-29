@@ -16,10 +16,10 @@ content-type: application/json
 GET http://localhost:3000/u HTTP/1.1
 
 ### Fetch specific user
-GET http://localhost:3000/u/60b04606c3f82fc7773668db HTTP/1.1
+GET http://localhost:3000/users/60b04606c3f82fc7773668db HTTP/1.1
 
 ### Create a new room
-POST http://localhost:3000/u/60cbd3cb7f2728a7a338c429/createdRoom HTTP/1.1
+POST http://localhost:3000/users/60cbd3cb7f2728a7a338c429/room HTTP/1.1
 content-type: application/json
 
 {
@@ -36,41 +36,40 @@ content-type: application/json
 }
 
 ### Delete a user
-DELETE http://localhost:3000/u/60afc6db1caa88713ec8648a HTTP/1.1
+DELETE http://localhost:3000/users/60afc6db1caa88713ec8648a HTTP/1.1
 
 ### Update a user's property
-PATCH http://localhost:3000/u/60b4ce72b66493b3b07ee3e6 HTTP/1.1
+PATCH http://localhost:3000/users/60b4ce72b66493b3b07ee3e6 HTTP/1.1
 content-type: application/json
 
 { "name": "Levi", "profilePhoto": "updated-profile-photo.jpg" }
 
 ### Join a room
-POST http://localhost:3000/u/60b4ce72b66493b3b07ee3e6/join?roomId=60cbd43e7f2728a7a338c42a HTTP/1.1
+POST http://localhost:3000/users/60b4ce72b66493b3b07ee3e6/join?roomId=60cbd43e7f2728a7a338c42a HTTP/1.1
 
-### Exit from the active room 
-POST http://localhost:3000/u/60b4ce37b66493b3b07ee3e5/disconnect HTTP/1.1
+### Exit from the active room
+POST http://localhost:3000/users/60b4ce37b66493b3b07ee3e5/disconnect HTTP/1.1
 
 ### Kick out a participant
-POST http://localhost:3000/u/60b4ce72b66493b3b07ee3e6/ban?userId=60b52800ec34b4f603d4b651 HTTP/1.1
+POST http://localhost:3000/users/60b4ce72b66493b3b07ee3e6/ban?userId=60b52800ec34b4f603d4b651 HTTP/1.1
 
 ### Remove a participant's ban
-POST http://localhost:3000/u/60b4ce72b66493b3b07ee3e6/unban?userId=60b52800ec34b4f603d4b651 HTTP/1.1
+POST http://localhost:3000/users/60b4ce72b66493b3b07ee3e6/unban?userId=60b52800ec34b4f603d4b651 HTTP/1.1
 
 ### Accept a waiting user's joining request
-POST http://localhost:3000/u/60b4ce37b66493b3b07ee3e5/accept?userId=60b4ce72b66493b3b07ee3e6 HTTP/1.1
+POST http://localhost:3000/users/60b4ce37b66493b3b07ee3e5/accept?userId=60b4ce72b66493b3b07ee3e6 HTTP/1.1
 
 ### Fetch all rooms
 GET http://localhost:3000/r HTTP/1.1
 
 ### Delete a room
-DELETE http://localhost:3000/r/60b3aa725a00b11795ad96e0 HTTP/1.1
+DELETE http://localhost:3000/rooms/60b3aa725a00b11795ad96e0 HTTP/1.1
 
 ### Update a room's property
-PATCH http://localhost:3000/r/60cbd43e7f2728a7a338c42a HTTP/1.1
+PATCH http://localhost:3000/rooms/60cbd43e7f2728a7a338c42a HTTP/1.1
 content-type: application/json
 
 { "isPrivate": "true" }
 
 ### Filter rooms by query
-GET http://localhost:3000/r/search?ownerId=60b3a8b95a00b11795ad96de HTTP/1.1
-
+GET http://localhost:3000/rooms/search?ownerId=60b3a8b95a00b11795ad96de HTTP/1.1

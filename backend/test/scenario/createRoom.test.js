@@ -27,10 +27,10 @@ test("creates a new room", async () => {
     roomTags: ["#javascript", "#frontend", "#backend"]
   }
 
-  const userResponse = await request.post("/u").send(userToCreate).expect(200)
+  const userResponse = await request.post("/users").send(userToCreate).expect(200)
 
   const createdRoomResponse = await request
-    .post(`/u/${userResponse.body._id}/createdRoom`)
+    .post(`/users/${userResponse.body._id}/room`)
     .send(roomToCreate)
     .expect(200)
 

@@ -82,7 +82,7 @@ class UsersService extends BaseService {
       canShareScreen,
       canTypeToChatBox,
       isPrivate,
-      roomTags,
+      roomTags
     })
 
     owner.activeRoom = room

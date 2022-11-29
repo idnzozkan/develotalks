@@ -1,45 +1,41 @@
-extends layout 
+extends layout
 block content
     p Welcome to DeveloTalks.com! We are the most friendly developer community in the world.
     h2 Rooms
-    span 
+    span
         b #{rooms.length}
         |  rooms online
     ul
-        each room in rooms 
-            li 
+        each room in rooms
+            li
                 strong #{room.title}
-                if room.isPrivate 
+                if room.isPrivate
                     b  [PRIVATE]
                 br
                 br
-                span 
+                span
                     u Participants:
                 br
-                each participant in room.participants 
-                    a(href=`/u/${participant.id}`) 
-                        i 
+                each participant in room.participants
+                    a(href=`/users/${participant.id}`)
+                        i
                             span #{participant.name}
                     br
                 br
                 span #{room.participants.length}/#{room.maxParticipants}
                 br
-                span #{room.roomLanguage} 
+                span #{room.roomLanguage}
                 br
-                each tag in room.roomTags 
-                    span #{tag} 
+                each tag in room.roomTags
+                    span #{tag}
                 br
                 br
                 i Created at #{room.createdAt} by #{room.owner.name}
                 br
-                br                    
-                a(href=`/r/${room.id}`) 
+                br
+                a(href=`/rooms/${room.id}`)
                     b Join
-                         
+
 
             br
             hr
-
-                            
-                
-    

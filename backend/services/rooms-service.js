@@ -1,17 +1,17 @@
-const BaseService = require("./base-service")
-const Room = require("../models/room")
+const BaseService = require('./base-service')
+const Room = require('../models/room')
 
-class CreatedRoomsService extends BaseService {
+class RoomsService extends BaseService {
   async findByOwnerId(ownerId) {
-    return this.findBy("owner", ownerId)
+    return this.findBy('owner', ownerId)
   }
 
   async findByLang(lang) {
-    return this.findBy("roomLanguage", lang)
+    return this.findBy('roomLanguage', lang)
   }
 
   async findByTag(tag) {
-    return this.findBy("roomTags", tag)
+    return this.findBy('roomTags', tag)
   }
 
   async filterByLangAndTag(lang, tag) {
@@ -19,4 +19,4 @@ class CreatedRoomsService extends BaseService {
   }
 }
 
-module.exports = new CreatedRoomsService(Room)
+module.exports = new RoomsService(Room)
