@@ -17,8 +17,8 @@ export default {
     ...mapActions('room', ['fetchRooms', 'fetchFakeRooms'])
   },
   async mounted () {
-    // this.rooms = await this.fetchRooms()
-    this.rooms = await this.fetchFakeRooms()
+    this.rooms = await this.fetchRooms()
+    // this.rooms = await this.fetchFakeRooms()
     this.isLoading = false
   }
 }

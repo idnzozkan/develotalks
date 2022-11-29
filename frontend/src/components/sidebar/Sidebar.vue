@@ -3,7 +3,7 @@ import { mapState } from 'vuex'
 
 import Header from './header'
 import Profile from './profile'
-import CreateRoomButton from './create-room-button'
+import CreateRoom from './create-room'
 import Menu from './menu'
 import FriendsList from './friends-list'
 import Footer from './footer'
@@ -13,7 +13,7 @@ export default {
   components: {
     Header,
     Profile,
-    CreateRoomButton,
+    CreateRoom,
     Menu,
     FriendsList,
     Footer
@@ -28,7 +28,7 @@ export default {
   .sidebar-container(v-if="user")
     Header
     Profile
-    CreateRoomButton
+    CreateRoom
     Menu
     FriendsList
     Footer

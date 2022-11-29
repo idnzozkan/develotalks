@@ -27,6 +27,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { faBell, faSmile } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
+import VueNumberInput from '@chenfengyuan/vue-number-input'
 
 library.add(
   faHome,
@@ -52,6 +55,9 @@ library.add(
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('v-select', vSelect)
+Vue.component('vue-number-input', VueNumberInput)
+
 Vue.use(Fragment.Plugin)
 Vue.config.productionTip = false
 

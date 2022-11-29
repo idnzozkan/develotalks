@@ -65,7 +65,6 @@ export default {
       justify-content: space-around;
       position: relative;
       padding: 2rem;
-      color: white;
       width: fit-content;
       height: fit-content;
       background: #2C353D;
@@ -77,6 +76,7 @@ export default {
     }
 
     &__header {
+      color: white;
       margin-bottom: 1rem;
     }
 

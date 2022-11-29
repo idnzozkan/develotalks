@@ -9,14 +9,14 @@ const mutations = {
 const actions = {
   SET_JOINED_ROOM: 'setJoinedRoom',
   FETCH_ROOMS: 'fetchRooms',
-  FETCH_FAKE_ROOMS: 'fetchFakeRooms'
+  FETCH_FAKE_ROOMS: 'fetchFakeRooms',
+  CREATE_ROOM: 'createRoom'
 }
 
 const room = {
   namespaced: true,
   state: () => ({
-    joinedRoom: null,
-    isCreateRoomModalVisible: true
+    joinedRoom: null
   }),
   mutations: {
     [mutations.SET_JOINED_ROOM] (state, room) {
@@ -28,12 +28,21 @@ const room = {
       commit(mutations.SET_JOINED_ROOM, room)
     },
     async [actions.FETCH_ROOMS] () {
-      const rooms = await axios.get('/r')
+      const rooms = await axios.get('/rooms')
       return rooms.data
     },
     async [actions.FETCH_FAKE_ROOMS] () {
       const rooms = await getRooms()
       return rooms
+    },
+    async [actions.CREATE_ROOM] ({ dispatch }, { title, roomTags, roomLanguage, maxParticipants }) {
+      const room = await axios.post('/rooms', {
+        title,
+        roomTags,
+        roomLanguage,
+        maxParticipants
+      })
+      dispatch(actions.SET_JOINED_ROOM, room.data)
     }
   }
 }

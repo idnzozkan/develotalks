@@ -49,41 +49,6 @@ const leave = router.post("/:userId/disconnect", async (req, res) => {
   res.send("OK")
 })
 
-const createRoom = async (req, res, next) => {
-  const { userId } = req.params
-  const {
-    title,
-    description,
-    roomLanguage,
-    maxParticipants,
-    canUseMic,
-    canUseWebcam,
-    canShareScreen,
-    canTypeToChatBox,
-    isPrivate,
-    roomTags,
-  } = req.body
-
-  try {
-    const room = await usersService.createRoom(
-      userId,
-      title,
-      description,
-      roomLanguage,
-      maxParticipants,
-      canUseMic,
-      canUseWebcam,
-      canShareScreen,
-      canTypeToChatBox,
-      isPrivate,
-      roomTags
-    )
-    res.send(room)
-  } catch (e) {
-    next(e)
-  }
-}
-
 const acceptUser = async (req, res) => {
   const { ownerId } = req.params
   const { userId } = req.query
@@ -136,7 +101,6 @@ module.exports = {
   deleteUser,
   join,
   leave,
-  createRoom,
   acceptUser,
   banUser,
   unbanUser,

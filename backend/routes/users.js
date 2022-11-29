@@ -1,27 +1,54 @@
-const router = require("express").Router()
-const { getUsers, createUser, getUser, deleteUser, join, leave, acceptUser, banUser, unbanUser, updateUser } = require("../controllers/users")
-const { createRoom } = require("../services/users-service")
+const router = require('express').Router()
+const UsersController = require('../controllers/users')
 
-router.get("/", getUsers)
+router.get(
+  '/',
+  UsersController.getUsers
+)
 
-router.post("/", createUser)
+router.post(
+  '/',
+  UsersController.createUser
+)
 
-router.get("/:userId", getUser)
+router.get(
+  '/:userId',
+  UsersController.getUser
+)
 
-router.delete("/:userId", deleteUser)
+router.delete(
+  '/:userId',
+  UsersController.deleteUser
+)
 
-router.post("/:userId/join", join)
+router.post(
+  '/:userId/join',
+  UsersController.join
+)
 
-router.post("/:userId/disconnect", leave)
+router.post(
+  '/:userId/disconnect',
+  UsersController.leave
+)
 
-router.post("/:userId/createdRoom", createRoom)
+router.post(
+  '/:ownerId/accept',
+  UsersController.acceptUser
+)
 
-router.post("/:ownerId/accept", acceptUser)
+router.post(
+  '/:ownerId/ban',
+  UsersController.banUser
+)
 
-router.post("/:ownerId/ban", banUser)
+router.post(
+  '/:ownerId/unban',
+  UsersController.unbanUser
+)
 
-router.post("/:ownerId/unban", unbanUser)
-
-router.patch("/:userId", updateUser)
+router.patch(
+  '/:userId',
+  UsersController.updateUser
+)
 
 module.exports = router
