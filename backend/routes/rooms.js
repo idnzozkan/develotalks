@@ -1,14 +1,34 @@
-const router = require("express").Router()
-const { getRooms, searchRooms, getRoom, deleteRoom, updateRoom } = require("../controllers/rooms")
+const router = require('express').Router()
+const RoomsController = require('../controllers/rooms')
 
-router.get("/", getRooms)
+router.get(
+  '/',
+  RoomsController.getRooms
+)
 
-router.get("/search", searchRooms)
+router.post(
+  '/',
+  RoomsController.createRoom
+)
 
-router.get("/:roomId", getRoom)
+router.get(
+  '/:roomId',
+  RoomsController.getRoom
+)
 
-router.delete("/:roomId", deleteRoom)
+router.delete(
+  '/:roomId',
+  RoomsController.deleteRoom
+)
 
-router.patch("/:roomId", updateRoom)
+router.patch(
+  '/:roomId',
+  RoomsController.updateRoom
+)
+
+router.get(
+  '/search',
+  RoomsController.searchRooms
+)
 
 module.exports = router

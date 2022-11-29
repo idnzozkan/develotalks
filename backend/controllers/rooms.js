@@ -1,9 +1,44 @@
-const { roomsService } = require("../services")
+const { roomsService, usersService } = require("../services")
 
 const getRooms = async (req, res) => {
-  const rooms = await roomsService.load()
+  const rooms = await roomsService.load().sort({ createdAt: 'desc' })
 
   res.send(rooms)
+}
+
+const createRoom = async (req, res, next) => {
+  const userId = req.user._id
+  const {
+    title,
+    description,
+    roomLanguage,
+    maxParticipants,
+    canUseMic,
+    canUseWebcam,
+    canShareScreen,
+    canTypeToChatBox,
+    isPrivate,
+    roomTags,
+  } = req.body
+
+  try {
+    const room = await usersService.createRoom(
+      userId,
+      title,
+      description,
+      roomLanguage,
+      maxParticipants,
+      canUseMic,
+      canUseWebcam,
+      canShareScreen,
+      canTypeToChatBox,
+      isPrivate,
+      roomTags
+    )
+    res.send(room)
+  } catch (e) {
+    next(e)
+  }
 }
 
 const searchRooms = async (req, res) => {
@@ -67,6 +102,7 @@ const updateRoom = async (req, res) => {
 
 module.exports = {
   getRooms,
+  createRoom,
   searchRooms,
   getRoom,
   deleteRoom,
