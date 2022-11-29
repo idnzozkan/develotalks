@@ -1,10 +1,55 @@
 <script>
+import { mapActions, mapState } from 'vuex'
+
 import Modal from '../../shared/modal'
+import { languages, tags } from '../../../support/constants'
 
 export default {
-  name: 'CreateRoomButton',
+  name: 'CreateRoom',
   components: {
     Modal
+  },
+  data () {
+    return {
+      isLoading: false,
+      title: '',
+      tags: [],
+      language: '',
+      maxParticipants: 5
+    }
+  },
+  computed: {
+    ...mapState('user', ['user']),
+    ...mapState('room', ['joinedRoom']),
+    languagesData: function () {
+      return Object.values(languages)
+    },
+    tagsData: function () {
+      return Object.values(tags)
+    }
+  },
+  methods: {
+    ...mapActions('room', ['createRoom']),
+    async handleCreate () {
+      this.isLoading = true
+
+      await this.createRoom({
+        title: this.title,
+        roomTags: this.tags,
+        roomLanguage: this.language,
+        maxParticipants: this.maxParticipants
+      })
+
+      this.$router.push(`/r/${this.joinedRoom._id}`)
+
+      this.$refs.createRoomModal.closeModal()
+
+      this.isLoading = false
+      this.title = ''
+      this.tags = []
+      this.language = ''
+      this.maxParticipants = 5
+    }
   }
 }
 </script>
@@ -18,32 +63,23 @@ export default {
       template(v-slot:header)
         h2 New Room
       template(v-slot:body)
-        .create-room-modal-form
-          .modal-form-row
-            .modal-form-col-l
-              .room-title.field
-                label(for="title") Title
-                input(type="text" name="title")
-              .room-description.field
-                label(for="description") Description
-                textarea(name="description" rows="5")
-            .modal-form-col-r
-              .room-language.field
-                label(for="language") Room Language
-                select(name="language")
-              .max-participants.field
-                label(for="max-participants") Max Participants
-                select(name="max-participants")
-              .room-tags.field
-                label(for="tags") Tags
-                select(name="tags")
-          .modal-form-row
-            .room-title.field
-              label(for="title") Title
-              input(type="range" name="title")
-
+        form.create-room-form
+          .row
+            label Title
+            input(type="text" :placeholder="`${user.name}'s room`" v-model="title")
+          .row
+            label Tags
+            v-select(:options="tagsData" multiple v-model="tags")
+          .row
+            .cols
+              .col
+                label Language
+                v-select(:options="languagesData" v-model="language")
+              .col
+                label Max participants
+                vue-number-input(:controls="true" :min="1" :max="10" center v-model="maxParticipants")
       template(v-slot:footer)
-        button.modal-create-btn Create
+        button.modal-create-btn(@click="handleCreate" :disabled="isLoading") Create
 </template>
 
 <style lang="scss">
@@ -86,6 +122,64 @@ export default {
   }
 }
 
+form.create-room-form {
+  label {
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    padding: 0.75rem;
+    outline: none;
+    border: none;
+    border-radius: 0.625rem;
+    font-size: 0.875rem;
+    height: 2.5rem;
+  }
+
+  .vs__dropdown {
+    &-toggle {
+      padding: 0;
+      border: 0;
+      border-radius: 0.625rem;
+
+      input {
+        margin: 0;
+      }
+    }
+
+    &-menu {
+      border-radius: 0.25rem 0.25rem 0.625rem 0.625rem;
+    }
+  }
+
+  .vs__selected {
+    margin: 4px 2px 4px 2px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    width: 30vw;
+  }
+
+  .cols {
+    display: flex;
+    flex-direction: row;
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      &:first-child {
+        margin-right: 1.5rem;
+      }
+    }
+  }
+}
+
 .modal-create-btn {
   width: 100%;
   padding: 0.75rem 2rem;
@@ -103,74 +197,10 @@ export default {
     cursor: pointer;
     background: #6758cc;
   }
-}
 
-.create-room-modal-form {
-  .modal-form-col {
-    &-l {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 70%;
-    }
-
-    &-r {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30%;
-      margin-left: 1rem;
-    }
-  }
-
-  .modal-form-row {
-    display: flex;
-  }
-
-  .room-title {
-    width: 100%;
-  }
-
-  .room-language {
-    width: 100%;
-  }
-
-  .room-description {
-    width: 100%;
-  }
-
-  .room-type {
-    display: flex;
-    flex-direction: row !important;
-    align-items: center;
-    width: 50%;
-
-    input {
-      width: 30px;
-      height: 30px;
-    }
-
-    &-texts {
-      margin-left: 1rem;
-
-      p {
-        font-size: 0.85rem;
-      }
-    }
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    margin-top: 1rem;
-
-    input,
-    select,
-    textarea {
-      padding: 0.25rem;
-      border-radius: 0.25rem;
-      font-size: 1.25rem;
-    }
+  &:disabled {
+    opacity: 0.5;
+    cursor: progress;
   }
 }
 </style>
