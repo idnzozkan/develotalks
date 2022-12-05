@@ -1,5 +1,5 @@
 const GoogleStrategy = require('passport-google-oauth20')
-const { usersService } = require('../../services')
+const { usersService } = require('../../services/internal')
 
 const googleStrategy = new GoogleStrategy(
   {

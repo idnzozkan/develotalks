@@ -22,16 +22,6 @@ router.delete(
 )
 
 router.post(
-  '/:userId/join',
-  UsersController.join
-)
-
-router.post(
-  '/:userId/disconnect',
-  UsersController.leave
-)
-
-router.post(
   '/:ownerId/accept',
   UsersController.acceptUser
 )

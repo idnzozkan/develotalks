@@ -1,3 +1,4 @@
+
 <script>
 export default {
   name: 'Modal',
@@ -44,7 +45,7 @@ export default {
     left: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    z-index: 9;
+    z-index: 100;
 
     &__backdrop {
       position: fixed;
@@ -56,7 +57,7 @@ export default {
       height: 100%;
       background: #1d252bf0;
       backdrop-filter: blur(2.5px);
-      z-index: 2;
+      z-index: 80;
     }
 
     &__dialog {
@@ -71,7 +72,7 @@ export default {
       box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.2);
       border-radius: 1.25rem;
       border: 2px solid #3E454B;
-      z-index: 3;
+      z-index: 90;
       margin: auto;
     }
 

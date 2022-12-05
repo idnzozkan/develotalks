@@ -1,4 +1,5 @@
-const { roomsService, usersService } = require("../services")
+const { roomsService, usersService } = require("../services/internal")
+const hmsService = require("../services/external/hms-service")
 
 const getRooms = async (req, res) => {
   const rooms = await roomsService.load().sort({ createdAt: 'desc' })
@@ -22,7 +23,7 @@ const createRoom = async (req, res, next) => {
   } = req.body
 
   try {
-    const room = await usersService.createRoom(
+    const dbRoom = await usersService.createRoom(
       userId,
       title,
       description,
@@ -35,10 +36,36 @@ const createRoom = async (req, res, next) => {
       isPrivate,
       roomTags
     )
-    res.send(room)
+
+    const hmsRoom = await hmsService.createRoom(dbRoom._id)
+
+    dbRoom.hmsId = hmsRoom.id
+    await dbRoom.save();
+
+    res.send(dbRoom)
   } catch (e) {
     next(e)
   }
+}
+
+const joinRoom = async (req, res, next) => {
+  const { _id: userId } = req.user
+  const { roomId } = req.query
+
+  try {
+    await usersService.joinRoom(userId, roomId)
+    res.send("OK")
+  } catch (e) {
+    next(e)
+  }
+}
+
+const leaveRoom = async (req, res) => {
+  const user = await usersService.find(req.user._id)
+
+  await usersService.stopSession(user)
+
+  res.send("OK")
 }
 
 const searchRooms = async (req, res) => {
@@ -103,6 +130,8 @@ const updateRoom = async (req, res) => {
 module.exports = {
   getRooms,
   createRoom,
+  joinRoom,
+  leaveRoom,
   searchRooms,
   getRoom,
   deleteRoom,

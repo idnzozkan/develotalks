@@ -13,6 +13,7 @@ const { googleStrategy } = require('./lib/passport')
 const oauthRouter = require('./routes/oauth')
 const usersRouter = require('./routes/users')
 const roomsRouter = require('./routes/rooms')
+const hmsRouter = require('./routes/hms')
 
 connectDB()
 
@@ -52,5 +53,6 @@ app.set('view engine', 'pug')
 app.use('/oauth', oauthRouter)
 app.use('/users', usersRouter)
 app.use('/rooms', roomsRouter)
+app.use('/hms', hmsRouter)
 
 module.exports = app

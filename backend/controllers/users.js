@@ -1,4 +1,4 @@
-const { usersService } = require("../services")
+const { usersService } = require("../services/internal")
 const router = require("express").Router()
 
 const getUsers = async (req, res) => {
@@ -28,26 +28,6 @@ const deleteUser = async (req, res) => {
 
   res.send("OK")
 }
-
-const join = async (req, res, next) => {
-  const { userId } = req.params
-  const { roomId } = req.query
-
-  try {
-    await usersService.joinRoom(userId, roomId)
-    res.send("OK")
-  } catch (e) {
-    next(e)
-  }
-}
-
-const leave = router.post("/:userId/disconnect", async (req, res) => {
-  const user = await usersService.find(req.params.userId)
-
-  await usersService.stopSession(user)
-
-  res.send("OK")
-})
 
 const acceptUser = async (req, res) => {
   const { ownerId } = req.params
@@ -99,8 +79,6 @@ module.exports = {
   createUser,
   getUser,
   deleteUser,
-  join,
-  leave,
   acceptUser,
   banUser,
   unbanUser,

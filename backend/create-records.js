@@ -2,7 +2,7 @@ const User = require("./models/user")
 const Tags = require("./enums/Tags")
 const Interests = require("./enums/Interests")
 const Languages = require("./enums/Languages")
-const { usersService, roomsService } = require("./services")
+const { usersService, roomsService } = require("./services/internal")
 const { printOnlineUserStats, printRoomStats } = require("./lib")
 
 const dennis = User.create({

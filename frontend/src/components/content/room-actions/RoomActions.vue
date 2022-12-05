@@ -1,14 +1,31 @@
 <script>
+import { selectIsLocalAudioEnabled, selectIsLocalVideoEnabled } from '@100mslive/hms-video-store'
 import { mapActions } from 'vuex'
+
+import { hmsActions, hmsStore } from '../../../lib/hms'
 
 export default {
   name: 'RoomActions',
   methods: {
-    ...mapActions('room', ['setJoinedRoom']),
-    handleLeaveBtn () {
-      this.setJoinedRoom(null)
+    ...mapActions('room', ['leaveRoom']),
+    async handleLeaveBtn () {
+      if (!confirm('Are you sure you want to leave?')) {
+        return
+      }
+      await this.leaveRoom()
       this.$router.push('/')
+    },
+    async toggleMic () {
+      const isAudioEnabled = hmsStore.getState(selectIsLocalAudioEnabled)
+      await hmsActions.setLocalAudioEnabled(!isAudioEnabled)
+    },
+    async toggleCam () {
+      const isVideoEnabled = hmsStore.getState(selectIsLocalVideoEnabled)
+      await hmsActions.setLocalVideoEnabled(!isVideoEnabled)
     }
+  },
+  created () {
+    window.onunload = window.onbeforeunload = this.leaveRoom
   }
 }
 </script>
@@ -16,66 +33,76 @@ export default {
 <template lang="pug">
   .room-actions
     .room-actions-wrapper
-      button.room-action-btn.mic
-        font-awesome-icon(icon="microphone")
-      button.room-action-btn.camera
-        font-awesome-icon(icon="video")
-      button.room-action-btn.screen-share
-        font-awesome-icon(icon="share-square")
+      .left-group-buttons
+        button.room-action-btn.mic(@click="toggleMic")
+          font-awesome-icon(icon="microphone")
+        button.room-action-btn.camera(@click="toggleCam")
+          font-awesome-icon(icon="video")
+        button.room-action-btn.screen-share
+          font-awesome-icon(icon="share-square")
+
       button.room-action-btn.leave(@click="handleLeaveBtn")
         font-awesome-icon(icon="phone-slash")
-      button.room-action-btn.fullscreen
-        font-awesome-icon(icon="expand")
-      button.room-action-btn.people
-        font-awesome-icon(icon="users")
-      button.room-action-btn.chat
-        font-awesome-icon(icon="comments")
 </template>
 
 <style lang="scss">
-  .room-actions {
-    flex: 1;
-    margin-top: 2rem;
+.room-actions {
+  flex: 1;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(0deg, rgba(13, 12, 24, 0.085) 100%, rgba(0, 0, 0, 0) 0%);
+  border-top: 1px solid rgb(44 52 62 / 50%);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.room-actions-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 1rem 1.5rem;
+}
+
+.left-group-buttons {
+  display: flex;
+}
+
+.room-action-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2.75rem;
+  margin-right: 0.75rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width: 4rem;
+  height: 3.5rem;
+  font-size: 1.35rem;
+  background: #2c353d;
+  color: #a8a9af;
+  cursor: pointer;
+  transition: all 100ms;
+
+  &:last-child {
+    margin-right: 0;
   }
 
-  .room-actions-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-
-  .room-action-btn {
-    flex: 1;
-    padding: 1.25rem 1rem;
-    cursor: pointer;
-    margin-right: 1rem;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    background: #2C353D;
-    color: #A8A9AF;
-    font-size: 1.5rem;
-    transition: all 100ms;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    &.leave {
-      flex: 2;
-      margin: 0 5rem;
-      background: #DE3D3D;
-      color: #F9E1E1;
-      font-weight: 600;
-
-      &:hover {
-        background: #ff4242;
-      }
-    }
+  &.leave {
+    padding-left: 5rem;
+    padding-right: 5rem;
+    background: #de3d3d;
+    color: #f9e1e1;
+    font-weight: 600;
 
     &:hover {
-      background: #36414b;
+      background: #ff4242;
     }
   }
+
+  &:hover {
+    background: #36414b;
+  }
+}
 </style>
