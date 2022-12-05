@@ -11,6 +11,16 @@ router.post(
   RoomsController.createRoom
 )
 
+router.post(
+  '/join',
+  RoomsController.joinRoom
+)
+
+router.post(
+  '/leave',
+  RoomsController.leaveRoom
+)
+
 router.get(
   '/:roomId',
   RoomsController.getRoom
