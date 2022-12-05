@@ -1,7 +1,7 @@
 const googleStrategy = require('./google-strategy')
 
 const passport = require('passport')
-const { usersService } = require('../../services')
+const { usersService } = require('../../services/internal')
 
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {

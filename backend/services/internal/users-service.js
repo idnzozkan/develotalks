@@ -1,5 +1,5 @@
 const BaseService = require('./base-service')
-const User = require('../models/user')
+const User = require('../../models/user')
 const roomsService = require('./rooms-service')
 const colors = require('colors')
 
@@ -99,9 +99,13 @@ class UsersService extends BaseService {
 
     if (room.maxParticipants <= room.participants.length) {
       throw new Error('Room is full')
-    } else if (room.kickedPeople.some(bannedUser => bannedUser._id.equals(user._id))) {
+    }
+
+    if (room.kickedPeople.some(bannedUser => bannedUser._id.equals(user._id))) {
       throw new Error('You have been banned from this room before')
-    } else if (room.participants.some(participant => participant._id.equals(user._id))) {
+    }
+
+    if (room.participants.some(participant => participant._id.equals(user._id))) {
       throw new Error('You are already in this room')
     }
 

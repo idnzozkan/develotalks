@@ -1,5 +1,5 @@
 const BaseService = require('./base-service')
-const Room = require('../models/room')
+const Room = require('../../models/room')
 
 class RoomsService extends BaseService {
   async findByOwnerId(ownerId) {
