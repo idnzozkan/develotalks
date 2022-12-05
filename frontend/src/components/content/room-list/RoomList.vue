@@ -29,25 +29,18 @@ export default {
     .room-list-container
       p(v-if="isLoading") Please wait...
       div(v-else v-for="room in rooms")
-        RoomCard(:title="room.title"
-                :id="room._id"
-                :owner="room.owner"
-                :participants="room.participants"
-                :language="room.roomLanguage"
-                :tags="room.roomTags"
-                :maxParticipants="room.maxParticipants"
-                :isPrivate="room.isPrivate")
+        RoomCard(:room="room")
 
 </template>
 
 <style scoped lang="scss">
-  .home-container {
-    padding-bottom: 2.5rem;
-  }
+.home-container {
+  padding-bottom: 2.5rem;
+}
 
-  .room-list-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 380px);
-    justify-content: space-between;
-  }
+.room-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 380px);
+  justify-content: space-between;
+}
 </style>

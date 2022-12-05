@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@100mslive/hms-video-store": "^0.8.0",
     "@chenfengyuan/vue-number-input": "^1.2.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
@@ -20,6 +21,7 @@
     "vue-fragment": "1.5.1",
     "vue-router": "^3.2.0",
     "vue-select": "^3.20.0",
+    "vue-simple-spinner": "^1.2.10",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

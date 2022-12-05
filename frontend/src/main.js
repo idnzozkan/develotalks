@@ -16,6 +16,7 @@ import {
   faGlobe,
   faSearch,
   faMicrophone,
+  faMicrophoneSlash,
   faVideo,
   faShareSquare,
   faDoorOpen,
@@ -23,7 +24,8 @@ import {
   faUsers,
   faComments,
   faPhoneSlash,
-  faEdit
+  faEdit,
+  faCrown
 } from '@fortawesome/free-solid-svg-icons'
 import { faBell, faSmile } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -43,6 +45,7 @@ library.add(
   faSearch,
   faBell,
   faMicrophone,
+  faMicrophoneSlash,
   faVideo,
   faShareSquare,
   faDoorOpen,
@@ -51,7 +54,8 @@ library.add(
   faComments,
   faPhoneSlash,
   faSmile,
-  faEdit
+  faEdit,
+  faCrown
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
