@@ -44,7 +44,8 @@ const RoomSchema = new mongoose.Schema(
     canShareScreen: Boolean,
     canTypeToChatBox: Boolean,
     isPrivate: Boolean,
-    roomTags: [String]
+    roomTags: [String],
+    hmsId: String
   },
   {
     timestamps: true

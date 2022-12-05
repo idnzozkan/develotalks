@@ -16,7 +16,7 @@ export default {
 
 <style lang="scss">
   .room-side-panel {
-    flex: 1;
+    flex: 1.2;
     border-radius: 1.25rem;
     background-color: #2C353D;
     margin-left: 2rem;

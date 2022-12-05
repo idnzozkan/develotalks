@@ -1,53 +1,77 @@
 <script>
+import ROLES from '../../../support/constants/roles'
+import Participant from '../participant'
+
 export default {
-  name: 'Participants'
+  name: 'Participants',
+  components: {
+    Participant
+  },
+  props: {
+    peers: Array,
+    renderPeers: Function
+  },
+  beforeCreate () {
+    this.ROLES = ROLES
+  }
 }
 </script>
 
 <template lang="pug">
-  .participants-in-room
-    .participant
-    .participant.speaking
-    .participant
+  .participants
+    Participant(v-for="peer in peers" :key="peer.id" :peer="peer")
 </template>
 
-<style lang="scss">
-  .participants-in-room {
-    flex: 8;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    border-radius: 1.25rem;
-    background: rgba(0, 0, 0, 0.2);
+<style lang="scss" scoped>
+.participants {
+  flex: 8;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  background: rgba(0, 0, 0, 0.05);
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
   }
 
-  .participant {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(131, 64, 40, 0.7);
-    padding: 1rem;
-    border-radius: 1.25rem;
-    height: 40%;
-    width: 40%;
-
-    &::before {
-      content: 'D';
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 3rem;
-      width: 5vw;
-      height: 5vw;
-      background: rgba(255, 127, 80, 0.7);
-      padding: 1rem;
-      border-radius: 50%;
-    }
+  &::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
   }
 
-  .speaking {
-    border: 3px solid #6C5DD3;
+  &::-webkit-scrollbar-thumb {
+    background: rgba(44, 52, 62, 0.5);
+    border: 0px none #ffffff;
+    border-radius: 50px;
   }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(44, 52, 62, 0.75);
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(44, 52, 62);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #171c20;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-track:hover {
+    background: #171c20;
+  }
+
+  &::-webkit-scrollbar-track:active {
+    background: #171c20;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
 </style>
