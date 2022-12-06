@@ -1,5 +1,7 @@
 <script>
 import { mapActions } from 'vuex'
+
+import socket from '../../../lib/socket'
 import RoomCard from './room-card'
 
 export default {
@@ -14,11 +16,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions('room', ['fetchRooms', 'fetchFakeRooms'])
+    ...mapActions('room', ['fetchRooms'])
   },
   async mounted () {
     this.rooms = await this.fetchRooms()
-    // this.rooms = await this.fetchFakeRooms()
+
+    socket.on('rooms:updated', rooms => {
+      this.rooms = rooms
+    })
+
     this.isLoading = false
   }
 }
