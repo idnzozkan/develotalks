@@ -1,5 +1,6 @@
 const { roomsService, usersService } = require("../services/internal")
 const hmsService = require("../services/external/hms-service")
+const socket = require('../lib/socket')
 
 const getRooms = async (req, res) => {
   const rooms = await roomsService.load().sort({ createdAt: 'desc' })
@@ -42,6 +43,9 @@ const createRoom = async (req, res, next) => {
     dbRoom.hmsId = hmsRoom.id
     await dbRoom.save();
 
+    const rooms = await roomsService.load().sort({ createdAt: 'desc' })
+    socket().emit('rooms:updated', rooms)
+
     res.send(dbRoom)
   } catch (e) {
     next(e)
@@ -54,6 +58,10 @@ const joinRoom = async (req, res, next) => {
 
   try {
     await usersService.joinRoom(userId, roomId)
+
+    const rooms = await roomsService.load().sort({ createdAt: 'desc' })
+    socket().emit('rooms:updated', rooms)
+
     res.send("OK")
   } catch (e) {
     next(e)
@@ -64,6 +72,9 @@ const leaveRoom = async (req, res) => {
   const user = await usersService.find(req.user._id)
 
   await usersService.stopSession(user)
+
+  const rooms = await roomsService.load().sort({ createdAt: 'desc' })
+  socket().emit('rooms:updated', rooms)
 
   res.send("OK")
 }
@@ -90,6 +101,9 @@ const getRoom = async (req, res) => {
 
 const deleteRoom = async (req, res) => {
   await roomsService.removeBy("_id", req.params.roomId)
+
+  const rooms = await roomsService.load().sort({ createdAt: 'desc' })
+  socket().emit('rooms:updated', rooms)
 
   res.send("OK")
 }
@@ -123,6 +137,9 @@ const updateRoom = async (req, res) => {
   if (roomTags) obj.roomTags = roomTags
 
   await roomsService.update(roomId, obj)
+
+  const rooms = await roomsService.load().sort({ createdAt: 'desc' })
+  socket().emit('rooms:updated', rooms)
 
   res.send("OK")
 }
