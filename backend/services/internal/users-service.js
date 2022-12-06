@@ -72,7 +72,6 @@ class UsersService extends BaseService {
 
     const room = await roomsService.insert({
       owner,
-      participants: [owner],
       title,
       description,
       roomLanguage,
