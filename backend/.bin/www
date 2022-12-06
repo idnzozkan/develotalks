@@ -1,8 +1,13 @@
 var app = require('../')
 var colors = require('colors')
+var http = require('http')
 
 var port = 3000
+var server = http.createServer(app)
 
-app.listen(port, () => {
+// Initialize the socket server
+require('../lib/socket')(server)
+
+server.listen(port, () => {
   console.log(colors.yellow.bold(`Started listening on ${port}`))
 })
