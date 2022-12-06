@@ -9,7 +9,7 @@ const actions = {
   FETCH_USER: 'fetchUser'
 }
 
-const room = {
+const user = {
   namespaced: true,
   state: () => ({
     user: null
@@ -34,4 +34,4 @@ const room = {
   }
 }
 
-export default room
+export default user
