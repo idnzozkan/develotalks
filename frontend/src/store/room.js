@@ -48,6 +48,7 @@ const room = {
         // Server request
         await axios.post(`/rooms/join?roomId=${roomIdForServer}`)
 
+        // HMS request
         const token = await axios.post('/hms/token', { roomId: roomIdForHMS, userId, role })
         await hmsActions.join({
           userName,
