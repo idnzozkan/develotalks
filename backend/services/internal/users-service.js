@@ -25,8 +25,8 @@ class UsersService extends BaseService {
     }
   }
 
-  async findByName(name) {
-    return this.findBy('name', name)
+  async findByUsername(username) {
+    return this.findOneBy('username', username)
   }
 
   async stopSession(user) {
@@ -194,6 +194,48 @@ class UsersService extends BaseService {
       await user.save()
       await owner.createdRoom.save()
     }
+  }
+
+  async followUser(follower, user) {
+    if (user._id.equals(follower._id)) {
+      throw new Error('You cannot follow yourself')
+    }
+
+    if (user.followers.some(u => u._id.equals(follower._id)) || follower.following.some(u => u._id.equals(user._id))) {
+      throw new Error('You are already following this user')
+    }
+
+    follower.following.push(user)
+    user.followers.push(follower)
+
+    if (follower.followers.some(u => u._id.equals(user._id))) {
+      follower.friends.push(user)
+      user.friends.push(follower)
+    }
+
+    await follower.save()
+    await user.save()
+  }
+
+  async unfollowUser(follower, user) {
+    if (user._id.equals(follower._id)) {
+      throw new Error('You cannot unfollow yourself')
+    }
+
+    if (!user.followers.some(u => u._id.equals(follower._id)) || !follower.following.some(u => u._id.equals(user._id))) {
+      throw new Error('You are not following this user')
+    }
+
+    follower.following = follower.following.filter(u => !u._id.equals(user._id))
+    user.followers = user.followers.filter(u => !u._id.equals(follower._id))
+
+    if (follower.friends.some(u => u._id.equals(user._id))) {
+      follower.friends = follower.friends.filter(u => !u._id.equals(user._id))
+      user.friends = user.friends.filter(u => !u._id.equals(follower._id))
+    }
+
+    await follower.save()
+    await user.save()
   }
 }
 
