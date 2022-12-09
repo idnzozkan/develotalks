@@ -19,13 +19,13 @@ export default {
     Footer
   },
   computed: {
-    ...mapState('user', ['user'])
+    ...mapState('user', ['me'])
   }
 }
 </script>
 
 <template lang="pug">
-  .sidebar-container(v-if="user")
+  .sidebar-container(v-if="me")
     Header
     Profile
     CreateRoom

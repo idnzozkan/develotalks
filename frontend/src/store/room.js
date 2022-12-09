@@ -41,7 +41,7 @@ const room = {
       return rooms
     },
     async [actions.JOIN_ROOM] ({ dispatch, rootState }, { room, role }) {
-      const { _id: userId, name: userName } = rootState.user.user
+      const { _id: userId, name: userName } = rootState.user.me
       const { _id: roomIdForServer, hmsId: roomIdForHMS } = room
 
       try {
@@ -57,7 +57,7 @@ const room = {
             isAudioMuted: false,
             isVideoMuted: true
           },
-          metaData: JSON.stringify({ user: rootState.user.user })
+          metaData: JSON.stringify({ user: rootState.user.me })
         })
 
         await dispatch(actions.SET_JOINED_ROOM, room)

@@ -4,7 +4,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Profile',
   computed: {
-    ...mapState('user', ['user'])
+    ...mapState('user', ['me'])
   }
 }
 </script>
@@ -12,18 +12,18 @@ export default {
 <template lang="pug">
   .profile
     .user-avatar-frame
-      img.user-avatar(:src="user.avatar" referrerpolicy="no-referrer")
-    span.user-display-name {{ user.name }}
-    span.username @{{ user.username }}
+      img.user-avatar(:src="me.avatar" referrerpolicy="no-referrer")
+    span.user-display-name {{ me.name }}
+    span.username @{{ me.username }}
     .user-stats
       .total-stars
-        span {{user.starCount}}
+        span {{me.starCount}}
         span Stars
       .total-followers
-        span {{user.followers.length}}
+        span {{me.followers.length}}
         span Followers
       .total-following
-        span {{user.following.length}}
+        span {{me.following.length}}
         span Following
 </template>
 
