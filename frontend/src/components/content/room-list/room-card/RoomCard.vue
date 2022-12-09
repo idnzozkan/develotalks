@@ -18,9 +18,9 @@ export default {
     Spinner
   },
   computed: {
-    ...mapState('user', ['user']),
+    ...mapState('user', ['me']),
     role () {
-      if (this.user.createdRoom?._id === this.room._id) {
+      if (this.me.createdRoom?._id === this.room._id) {
         return ROLES.OWNER
       }
       return ROLES.PARTICIPANT
