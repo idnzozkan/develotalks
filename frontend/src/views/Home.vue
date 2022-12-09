@@ -8,14 +8,13 @@ export default {
     RoomList
   },
   computed: {
-    ...mapState('user', ['user'])
+    ...mapState('user', ['me'])
   },
   methods: {
-    ...mapActions('user', ['fetchUser'])
+    ...mapActions('user', ['fetchMe'])
   },
   async mounted () {
-    if (this.user) return
-    await this.fetchUser()
+    await this.fetchMe()
   }
 }
 </script>

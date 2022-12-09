@@ -19,7 +19,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('user', ['user']),
+    ...mapState('user', ['me']),
     ...mapState('room', ['joinedRoom']),
     languagesData: function () {
       return Object.values(languages)
@@ -66,7 +66,7 @@ export default {
         form.create-room-form
           .row
             label Title
-            input(type="text" :placeholder="`${user.name}'s room`" v-model="title")
+            input(type="text" :placeholder="`${me.name}'s room`" v-model="title")
           .row
             label Tags
             v-select(:options="tagsData" multiple v-model="tags")

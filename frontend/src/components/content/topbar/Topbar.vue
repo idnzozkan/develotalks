@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     ...mapState('room', ['joinedRoom']),
-    ...mapState('user', ['user'])
+    ...mapState('user', ['me'])
   },
   methods: {
     ...mapActions('room', ['setJoinedRoom']),
@@ -45,7 +45,7 @@ export default {
 <template lang="pug">
   .topbar(v-if="!inRoom")
     .topbar-inner-container
-      Logo(v-if="!user")
+      Logo(v-if="!me")
       .topbar-search(v-if="!inRoom")
         font-awesome-icon(icon="search")
         input.search-box(type="search" placeholder="Search for rooms")
@@ -53,11 +53,11 @@ export default {
         .back-to-room-wrapper
           .back-to-room-circle.pulse
           span Back to Room
-      button.login-btn(v-if="!user" @click="handleLogin") Login
-      .topbar-profile(v-if="user")
+      button.login-btn(v-if="!me" @click="handleLogin") Login
+      .topbar-profile(v-if="me")
         font-awesome-icon(:icon="['far', 'bell']")
         .user-avatar-frame(@click="handleLogout")
-          img(:src="user.avatar + '=s96-c'" referrerpolicy="no-referrer")
+          img(:src="me.avatar + '=s96-c'" referrerpolicy="no-referrer")
 </template>
 
 <style lang="scss" scoped>

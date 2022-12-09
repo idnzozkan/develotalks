@@ -25,7 +25,9 @@ import {
   faComments,
   faPhoneSlash,
   faEdit,
-  faCrown
+  faCrown,
+  faUserPlus,
+  faPaperPlane
 } from '@fortawesome/free-solid-svg-icons'
 import { faBell, faSmile } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -55,7 +57,9 @@ library.add(
   faPhoneSlash,
   faSmile,
   faEdit,
-  faCrown
+  faCrown,
+  faUserPlus,
+  faPaperPlane
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
