@@ -1,5 +1,4 @@
 const { usersService } = require("../services/internal")
-const router = require("express").Router()
 
 const getUsers = async (req, res) => {
   const users = await usersService.load()
@@ -17,8 +16,8 @@ const createUser = async (req, res, next) => {
 }
 
 const getUser = async (req, res) => {
-  const user = await usersService.find(req.params.userId)
-  if (!user) return res.status(404).send("404 - Cannot find user")
+  const user = await usersService.findByUsername(req.params.username)
+  if (!user) return res.status(404).send("User does not exist")
 
   res.send(user)
 }
@@ -74,6 +73,30 @@ const updateUser = async (req, res) => {
   res.send("OK")
 }
 
+const followUser = async (req, res, next) => {
+  const follower = await usersService.find(req.user._id)
+  const user = await usersService.find(req.params.userId)
+
+  try {
+    await usersService.followUser(follower, user)
+    res.send(user)
+  } catch (err) {
+    next(err)
+  }
+}
+
+const unfollowUser = async (req, res, next) => {
+  const follower = await usersService.find(req.user._id)
+  const user = await usersService.find(req.params.userId)
+
+  try {
+    await usersService.unfollowUser(follower, user)
+    res.send(user)
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
   getUsers,
   createUser,
@@ -82,5 +105,7 @@ module.exports = {
   acceptUser,
   banUser,
   unbanUser,
-  updateUser
+  updateUser,
+  followUser,
+  unfollowUser
 }

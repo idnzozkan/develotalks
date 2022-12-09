@@ -12,7 +12,7 @@ router.post(
 )
 
 router.get(
-  '/:userId',
+  '/:username',
   UsersController.getUser
 )
 
@@ -39,6 +39,16 @@ router.post(
 router.patch(
   '/:userId',
   UsersController.updateUser
+)
+
+router.post(
+  '/:userId/follow',
+  UsersController.followUser
+)
+
+router.post(
+  '/:userId/unfollow',
+  UsersController.unfollowUser
 )
 
 module.exports = router
