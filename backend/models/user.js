@@ -20,7 +20,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     maxLength: 500
   },
-  socialLinks: [String],
+  socialLinks: [
+    {
+      title: mongoose.Schema.Types.String,
+      url: mongoose.Schema.Types.String
+    }
+  ],
   interests: [String],
   spokenLangs: [String],
   friends: [
