@@ -1,6 +1,7 @@
 const { roomsService, usersService } = require("../services/internal")
 const hmsService = require("../services/external/hms-service")
 const socket = require('../lib/socket')
+const emitActivityStatusToFriends = require('../support/logic/emit-activity-status-to-friends')
 
 const getRooms = async (req, res) => {
   const rooms = await roomsService.load().sort({ createdAt: 'desc' })
@@ -62,6 +63,8 @@ const joinRoom = async (req, res, next) => {
     const rooms = await roomsService.load().sort({ createdAt: 'desc' })
     socket().emit('rooms:updated', rooms)
 
+    await emitActivityStatusToFriends(userId)
+
     res.send("OK")
   } catch (e) {
     next(e)
@@ -75,6 +78,8 @@ const leaveRoom = async (req, res) => {
 
   const rooms = await roomsService.load().sort({ createdAt: 'desc' })
   socket().emit('rooms:updated', rooms)
+
+  await emitActivityStatusToFriends(user._id)
 
   res.send("OK")
 }

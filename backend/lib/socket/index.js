@@ -1,4 +1,5 @@
 const { Server } = require('socket.io')
+const socketManager = require('./SocketManager')
 
 let io = null
 
@@ -12,7 +13,22 @@ module.exports = server => {
   })
 
   io.on('connection', async socket => {
-    console.log('a user connected with the socket:', socket.id)
+    socket.on('disconnect', () => {
+      if (!socket.data.id) {
+        return
+      }
+
+      socketManager.removeSocket(socket.data.id)
+    })
+
+    socket.on('introduce', ({ id }) => {
+      socket.data.id = id
+      socketManager.addSocket(socket)
+    })
+
+    socket.on('leave', () => {
+      socketManager.removeSocket(socket.data.id)
+    })
   })
 
   return io
