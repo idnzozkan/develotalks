@@ -9,7 +9,8 @@ const actions = {
   FETCH_ME: 'fetchMe',
   FETCH_USER: 'fetchUser',
   FOLLOW_USER: 'followUser',
-  UNFOLLOW_USER: 'unfollowUser'
+  UNFOLLOW_USER: 'unfollowUser',
+  FETCH_FRIENDS: 'fetchFriends'
 }
 
 const user = {
@@ -47,6 +48,10 @@ const user = {
       const { data: user } = await axios.post(`/users/${userId}/unfollow`)
       await dispatch(actions.FETCH_ME)
       return user
+    },
+    async [actions.FETCH_FRIENDS] () {
+      const { data: friends } = await axios.get('/users/friends')
+      return friends
     }
   }
 }

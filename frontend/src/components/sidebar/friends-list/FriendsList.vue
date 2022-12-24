@@ -1,32 +1,41 @@
 <script>
+import { mapActions } from 'vuex'
+
+import socket from '../../../lib/socket'
+
 export default {
-  name: 'FriendsList'
+  name: 'FriendsList',
+  data () {
+    return {
+      friends: []
+    }
+  },
+  methods: {
+    ...mapActions('user', ['fetchFriends'])
+  },
+  async mounted () {
+    const data = await this.fetchFriends()
+    this.friends = data
+
+    socket.on('connect', () => {
+      socket.on('friends:updated', async () => {
+        const data = await this.fetchFriends()
+        this.friends = data
+      })
+    })
+  }
 }
 </script>
 
 <template lang="pug">
-  .friends-list
+  .friends-list(v-if="friends.length")
     span.section-title Friends
-      span.total-friends  (20)
-    .friend-container
-      img.friend-avatar(src="https://avatarmaker.net/images/3.png")
-      span.friend-display-name Angela Lawson
-      .online-sign
-
-    .friend-container
-      img.friend-avatar(src="https://avatarmaker.net/images/3.png")
-      span.friend-display-name Steven Williams
-      .online-sign
-
-    .friend-container
-      img.friend-avatar(src="https://avatarmaker.net/images/3.png")
-      span.friend-display-name Victoria I. Rice
-      .offline-sign
-
-    .show-more
-      .show-more-icon
-        font-awesome-icon(icon="eye")
-      span Show more
+      span.total-friends  ({{ friends.length }})
+    .friend-container(v-for="friend in friends")
+      img.friend-avatar(:src="friend.avatar + '=s96-c'" referrerpolicy="no-referrer")
+      span.friend-display-name {{ friend.name }}
+      .online-sign(v-if="friend.activeRoom")
+      .offline-sign(v-else)
 </template>
 
 <style lang="scss">
@@ -40,42 +49,6 @@ export default {
   font-weight: 700;
   line-height: 1.025625rem;
   color: #7F7E8B;
-}
-
-.show-more {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-
-  &:hover *, &:hover {
-    cursor: pointer;
-    color: #7F7E8B;
-  }
-
-  .show-more-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 50%;
-    background: rgba(127, 126, 139, 0.2);
-
-    svg {
-      color: #7f7e8baf;
-      font-size: 0.875rem;
-    }
-  }
-
-  span {
-    color: #7f7e8baf;
-    font-size: 1.12500rem;
-    line-height: 1.318125rem;
-    margin-left: 1rem;
-  }
 }
 
 .friend-container {
