@@ -21,10 +21,8 @@ export default {
     videoTrack: function (track) {
       if (this.$refs.videoRef && track) {
         if (track.enabled) {
-          console.log('attaching')
           hmsActions.attachVideo(track.id, this.$refs.videoRef)
         } else {
-          console.log('detaching')
           hmsActions.detachVideo(track.id, this.$refs.videoRef)
         }
       }
