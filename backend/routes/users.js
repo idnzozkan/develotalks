@@ -12,6 +12,11 @@ router.post(
 )
 
 router.get(
+  '/friends',
+  UsersController.getFriends
+)
+
+router.get(
   '/:username',
   UsersController.getUser
 )

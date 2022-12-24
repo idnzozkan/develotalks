@@ -23,7 +23,7 @@ class BaseService {
     return this.model.deleteOne({ [property]: value })
   }
 
-  async query(obj) {
+  query(obj) {
     return this.model.find(obj)
   }
 

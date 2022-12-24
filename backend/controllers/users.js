@@ -97,6 +97,11 @@ const unfollowUser = async (req, res, next) => {
   }
 }
 
+const getFriends = async (req, res) => {
+  const friends = await usersService.query({ _id: { $in: req.user.friends } }).sort({ activeRoom: -1 })
+  res.send(friends)
+}
+
 module.exports = {
   getUsers,
   createUser,
@@ -107,5 +112,6 @@ module.exports = {
   unbanUser,
   updateUser,
   followUser,
-  unfollowUser
+  unfollowUser,
+  getFriends
 }
