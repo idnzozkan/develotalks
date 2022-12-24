@@ -1,6 +1,8 @@
 <script>
 import { mapActions, mapState } from 'vuex'
+
 import RoomList from '@/components/content/room-list'
+import { setSocketId } from '../lib/socket/helpers'
 
 export default {
   name: 'Home',
@@ -15,6 +17,12 @@ export default {
   },
   async mounted () {
     await this.fetchMe()
+
+    if (this.me) {
+      setSocketId(this.me._id)
+    } else {
+      setSocketId(null)
+    }
   }
 }
 </script>

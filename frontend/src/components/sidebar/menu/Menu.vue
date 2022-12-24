@@ -12,10 +12,6 @@ export default {
           font-awesome-icon(icon="home")
           |  Home
       li
-        router-link(to="/messages")
-          font-awesome-icon(icon="comment")
-          |  Messages
-      li
         router-link(to="/settings")
           font-awesome-icon(icon="cog")
           |  Settings
