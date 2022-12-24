@@ -21,7 +21,7 @@ export default {
     ...mapActions('room', ['setJoinedRoom']),
     ...mapActions('user', ['logout']),
     backToRoom () {
-      this.$router.push('/r/' + this.joinedRoom.id)
+      this.$router.push('/r/' + this.joinedRoom._id)
     },
     handleLogin () {
       window.open(`${process.env.VUE_APP_BACKEND_BASE_PATH}/oauth/google`, '_self')
