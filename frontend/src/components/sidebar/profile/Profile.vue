@@ -5,6 +5,11 @@ export default {
   name: 'Profile',
   computed: {
     ...mapState('user', ['me'])
+  },
+  methods: {
+    goToProfile () {
+      this.$router.push(`/@${this.me.username}`)
+    }
   }
 }
 </script>
@@ -12,7 +17,7 @@ export default {
 <template lang="pug">
   .profile
     .user-avatar-frame
-      img.user-avatar(:src="me.avatar" referrerpolicy="no-referrer")
+      img.user-avatar(:src="me.avatar" referrerpolicy="no-referrer" @click="goToProfile")
     span.user-display-name {{ me.name }}
     span.username @{{ me.username }}
     .user-stats
@@ -56,10 +61,7 @@ export default {
   -webkit-user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 
 .user-display-name {
