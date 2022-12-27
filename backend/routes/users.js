@@ -42,8 +42,8 @@ router.post(
 )
 
 router.patch(
-  '/:userId',
-  UsersController.updateUser
+  '/',
+  UsersController.updateProfile
 )
 
 router.post(

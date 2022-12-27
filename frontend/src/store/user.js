@@ -10,7 +10,8 @@ const actions = {
   FETCH_USER: 'fetchUser',
   FOLLOW_USER: 'followUser',
   UNFOLLOW_USER: 'unfollowUser',
-  FETCH_FRIENDS: 'fetchFriends'
+  FETCH_FRIENDS: 'fetchFriends',
+  UPDATE_PROFILE: 'updateProfile'
 }
 
 const user = {
@@ -52,6 +53,12 @@ const user = {
     async [actions.FETCH_FRIENDS] () {
       const { data: friends } = await axios.get('/users/friends')
       return friends
+    },
+    async [actions.UPDATE_PROFILE] ({ dispatch }, { name }) {
+      await axios.patch('/users', {
+        name
+      })
+      await dispatch(actions.FETCH_ME)
     }
   }
 }

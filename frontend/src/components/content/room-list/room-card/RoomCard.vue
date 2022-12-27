@@ -209,6 +209,7 @@ export default {
       -webkit-user-select: none;
       -moz-user-select: none;
       -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
 
       &::-webkit-scrollbar {
         display: none;
