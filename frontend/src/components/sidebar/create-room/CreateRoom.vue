@@ -157,6 +157,16 @@ form.create-room-form {
     margin: 4px 2px 4px 2px;
   }
 
+  .number-input {
+    &__input {
+      border-radius: 0.625rem;
+    }
+
+    &__button {
+      border-radius: 0.625rem;
+    }
+  }
+
   .row {
     display: flex;
     flex-direction: column;

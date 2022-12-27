@@ -55,8 +55,8 @@ const unbanUser = async (req, res) => {
   res.send("OK")
 }
 
-const updateUser = async (req, res) => {
-  const { userId } = req.params
+const updateProfile = async (req, res) => {
+  const { _id: userId } = req.user
   const { name, profilePhoto, userBio, socialLinks, interests, spokenLangs } = req.body
 
   const obj = {}
@@ -67,6 +67,8 @@ const updateUser = async (req, res) => {
   if (socialLinks) obj.socialLinks = socialLinks
   if (interests) obj.interests = interests
   if (spokenLangs) obj.spokenLangs = spokenLangs
+
+  console.log(obj)
 
   await usersService.update(userId, obj)
 
@@ -110,7 +112,7 @@ module.exports = {
   acceptUser,
   banUser,
   unbanUser,
-  updateUser,
+  updateProfile,
   followUser,
   unfollowUser,
   getFriends

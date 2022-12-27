@@ -44,6 +44,7 @@ export default {
   height: 100vh;
   border-right: 1px solid #2C353D;
   overflow-y: auto;
+  scrollbar-width: none;
   z-index: 1;
 
   &::-webkit-scrollbar {
