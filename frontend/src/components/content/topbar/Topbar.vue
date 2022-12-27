@@ -20,6 +20,13 @@ export default {
   methods: {
     ...mapActions('room', ['setJoinedRoom']),
     ...mapActions('user', ['logout']),
+    handleSearchBoxClick () {
+      if (this.$route.path === '/') {
+        return
+      }
+
+      this.$router.push('/')
+    },
     backToRoom () {
       this.$router.push('/r/' + this.joinedRoom._id)
     },
@@ -48,7 +55,7 @@ export default {
       Logo(v-if="!me")
       .topbar-search(v-if="!inRoom")
         font-awesome-icon(icon="search")
-        input.search-box(type="search" placeholder="Search for rooms")
+        input.search-box(type="search" placeholder="Search for rooms" @click="handleSearchBoxClick")
       .back-to-room(v-if="!inRoom && joinedRoom" @click="backToRoom")
         .back-to-room-wrapper
           .back-to-room-circle.pulse

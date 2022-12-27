@@ -1,5 +1,10 @@
 <script>
-import { selectCameraStreamByPeerID, selectIsPeerAudioEnabled, selectIsPeerVideoEnabled } from '@100mslive/hms-video-store'
+import {
+  selectCameraStreamByPeerID,
+  selectIsPeerAudioEnabled,
+  selectIsPeerVideoEnabled,
+  selectScreenShareByPeerID
+} from '@100mslive/hms-video-store'
 
 import { hmsActions, hmsStore } from '../../../lib/hms'
 import ROLES from '../../../support/constants/roles'
@@ -13,6 +18,7 @@ export default {
     return {
       videoRef: {},
       videoTrack: hmsStore.getState(selectCameraStreamByPeerID(this.peer.id)),
+      screenTrack: hmsStore.getState(selectScreenShareByPeerID(this.peer.id)),
       isMicOn: hmsStore.getState(selectIsPeerAudioEnabled(this.peer.id)),
       isCamOn: hmsStore.getState(selectIsPeerVideoEnabled(this.peer.id))
     }
@@ -26,11 +32,24 @@ export default {
           hmsActions.detachVideo(track.id, this.$refs.videoRef)
         }
       }
+    },
+    screenTrack: function (track) {
+      console.log('track', track)
+      if (this.$refs.videoRef && track) {
+        if (track.enabled) {
+          hmsActions.attachVideo(track.id, this.$refs.videoRef)
+        } else {
+          hmsActions.detachVideo(track.id, this.$refs.videoRef)
+        }
+      }
     }
   },
   methods: {
     updateVideoTrack (track) {
       this.videoTrack = track
+    },
+    updateScreenTrack (track) {
+      this.screenTrack = track
     },
     updateIsMicOn (state) {
       this.isMicOn = state
@@ -41,6 +60,7 @@ export default {
   },
   created () {
     hmsStore.subscribe(this.updateVideoTrack, selectCameraStreamByPeerID(this.peer.id))
+    hmsStore.subscribe(this.updateScreenTrack, selectScreenShareByPeerID(this.peer.id))
     hmsStore.subscribe(this.updateIsMicOn, selectIsPeerAudioEnabled(this.peer.id))
     hmsStore.subscribe(this.updateIsCamOn, selectIsPeerVideoEnabled(this.peer.id))
   },
@@ -53,14 +73,14 @@ export default {
 <template lang="pug">
   .participant
     video(
-      v-show="isCamOn"
+      v-show="isCamOn || screenTrack"
       autoplay
       muted
       playsinline
       ref="videoRef"
     )
     img(
-      v-if="!isCamOn"
+      v-if="!isCamOn && !screenTrack"
       :src="JSON.parse(peer.metadata).user.avatar"
       referrerpolicy="no-referrer"
     )

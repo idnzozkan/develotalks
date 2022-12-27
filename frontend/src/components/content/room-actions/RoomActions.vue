@@ -1,5 +1,10 @@
 <script>
-import { selectIsLocalAudioEnabled, selectIsLocalVideoEnabled } from '@100mslive/hms-video-store'
+import {
+  selectIsLocalAudioEnabled,
+  selectIsLocalVideoEnabled,
+  selectIsLocalScreenShared,
+  selectIsSomeoneScreenSharing
+} from '@100mslive/hms-video-store'
 import { mapActions } from 'vuex'
 
 import { hmsActions, hmsStore } from '../../../lib/hms'
@@ -22,6 +27,16 @@ export default {
     async toggleCam () {
       const isVideoEnabled = hmsStore.getState(selectIsLocalVideoEnabled)
       await hmsActions.setLocalVideoEnabled(!isVideoEnabled)
+    },
+    async toggleScreenShare () {
+      const isScreenShareEnabled = hmsStore.getState(selectIsLocalScreenShared)
+      const isSomeoneScreenSharing = hmsStore.getState(selectIsSomeoneScreenSharing)
+
+      if (isSomeoneScreenSharing && !isScreenShareEnabled) {
+        return alert('Someone is already sharing their screen')
+      }
+
+      await hmsActions.setScreenShareEnabled(!isScreenShareEnabled)
     }
   },
   created () {
@@ -38,7 +53,7 @@ export default {
           font-awesome-icon(icon="microphone")
         button.room-action-btn.camera(@click="toggleCam")
           font-awesome-icon(icon="video")
-        button.room-action-btn.screen-share
+        button.room-action-btn.screen-share(@click="toggleScreenShare")
           font-awesome-icon(icon="share-square")
 
       button.room-action-btn.leave(@click="handleLeaveBtn")

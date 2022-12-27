@@ -11,7 +11,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('user', ['fetchFriends'])
+    ...mapActions('user', ['fetchFriends']),
+    goToProfile (username) {
+      this.$router.push(`/@${username}`)
+    }
   },
   async mounted () {
     const data = await this.fetchFriends()
@@ -32,7 +35,7 @@ export default {
     span.section-title Friends
       span.total-friends  ({{ friends.length }})
     .friend-container(v-for="friend in friends")
-      img.friend-avatar(:src="friend.avatar + '=s96-c'" referrerpolicy="no-referrer")
+      img.friend-avatar(:src="friend.avatar + '=s96-c'" referrerpolicy="no-referrer" @click="goToProfile(friend.username)")
       span.friend-display-name {{ friend.name }}
       .online-sign(v-if="friend.activeRoom")
       .offline-sign(v-else)
@@ -61,6 +64,7 @@ export default {
     width: 28px;
     height: 28px;
     border-radius: 50%;
+    cursor: pointer;
   }
 
   span {
