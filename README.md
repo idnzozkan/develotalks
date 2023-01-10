@@ -11,7 +11,7 @@ Chatting with `voice`, `video`, or `text`! You can find developers to talk to fr
 
 Using DeveloTalks,
 
-- You can **expand your networks**,
+- You can **expand your network**,
 - You can **share your screen and solve your technical problems with people**,
 - You can **talk about a new technology**,
 - You can **talk in your native language** or **practice your English with others**,
